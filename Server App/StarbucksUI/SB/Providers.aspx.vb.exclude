@@ -1,0 +1,220 @@
+﻿Imports System.Data
+Imports System.IO
+Partial Class SB_Providers
+    Inherits System.Web.UI.Page
+    Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
+        lblStatus.Text = ""
+
+        If (Not IsPostBack) Then
+            hdnTotalRows.Value = 0
+            hdnPageIndex.Value = 0
+            PopulateAddProviders()
+            PopulateProviders()
+            PopulateGrid(0, 20)
+        End If
+
+    End Sub
+    Public Sub PopulateAddProviders()  ' Populate Providers in dropdownlist
+
+        Dim objService As Starbucks.StarbucksClient = New Starbucks.StarbucksClient()
+        Dim objProviders As Starbucks.ResponseProviderList
+        objProviders = objService.GetAllProviders()
+
+        dpdnAddProviders.DataSource = objProviders.providers
+        dpdnAddProviders.DataValueField = "ProviderID"
+        dpdnAddProviders.DataTextField = "ProviderName"
+        dpdnAddProviders.DataBind()
+
+
+    End Sub
+
+    Public Sub PopulateProviders() ' Populate Providers in dropdownlist
+
+        Dim objService As Starbucks.StarbucksClient = New Starbucks.StarbucksClient()
+        Dim objProviders As Starbucks.ResponseProviderList
+        objProviders = objService.GetAllProviders()
+
+        dpdnProviders.DataSource = objProviders.providers
+        dpdnProviders.DataValueField = "ProviderID"
+        dpdnProviders.DataTextField = "ProviderName"
+        dpdnProviders.DataBind()
+
+    End Sub
+
+
+    Public Sub PopulateGrid(ByVal startIndex As Int32, ByVal maxRows As Int32)
+        ' Populate Grid with CDCs
+        Dim objService As New Starbucks.StarbucksClient
+        Dim objProviderCDC As Starbucks.ResponseProviderWithCDCList
+        objProviderCDC = objService.GetCDCsForProvider(dpdnProviders.SelectedValue)
+
+        Dim CDCList As New Generic.List(Of Starbucks.CDC)
+
+        If Not objProviderCDC.providers Is Nothing Then
+            For i = 0 To objProviderCDC.providers.Count - 1
+                For j = 0 To objProviderCDC.providers.Item(i).cdcs.Count - 1
+                    CDCList.Add(objProviderCDC.providers.Item(i).cdcs.Item(j))
+                Next j
+            Next i
+        End If
+        gvCDC.DataSource = CDCList
+        gvCDC.DataBind()
+
+        hdnTotalRows.Value = CDCList.Count
+    End Sub
+
+    Protected Sub dpdnProviders_SelectedIndexChanged(ByVal sender As Object, ByVal e As System.EventArgs)
+        PopulateGrid(0, 20)
+    End Sub
+
+    Protected Sub OnRowDataBound(ByVal sender As Object, ByVal e As GridViewRowEventArgs)
+        If e.Row.RowType = DataControlRowType.DataRow Then
+            e.Row.Attributes("onclick") = Page.ClientScript.GetPostBackClientHyperlink(gvCDC, "Select$" & e.Row.RowIndex)
+            e.Row.ToolTip = "Click to select this row."
+            e.Row.Attributes.Add("onmouseover", "this.style.backgroundColor='lightgray'")
+            e.Row.Attributes.Add("onmouseout", "this.style.backgroundColor='white'")
+            e.Row.Attributes.Add("style", "cursor: default")
+        End If
+    End Sub
+
+    Protected Sub OnSelectedIndexChanged(ByVal sender As Object, ByVal e As EventArgs)
+
+        ' Display child reason details on row click of GridView
+        txtCDCDetails.Text = vbCrLf & vbCrLf & "Name: " & Server.HtmlDecode(gvCDC.SelectedRow.Cells(2).Text) _
+                                & vbCrLf & vbCrLf & "Email: " & Server.HtmlDecode(gvCDC.SelectedRow.Cells(3).Text) _
+                                & vbCrLf & vbCrLf & "Phone: " & Server.HtmlDecode(gvCDC.SelectedRow.Cells(4).Text) _
+                                & vbCrLf & vbCrLf & "Address: " & Server.HtmlDecode(gvCDC.SelectedRow.Cells(5).Text) _
+                                & vbCrLf & vbCrLf & "State: " & Server.HtmlDecode(gvCDC.SelectedRow.Cells(6).Text) _
+                                & vbCrLf & vbCrLf & "Zip: " & Server.HtmlDecode(gvCDC.SelectedRow.Cells(7).Text)
+
+    End Sub
+
+    Protected Sub btnRefresh_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles btnRefresh.Click
+        ' Page Load
+        lblStatus.Text = ""
+        hdnTotalRows.Value = 0
+        hdnPageIndex.Value = 0
+        txtCreateProvider.Text = String.Empty
+        txtCDCDetails.Text = String.Empty
+        PopulateAddProviders()
+        PopulateProviders()
+        PopulateGrid(0, 20)
+    End Sub
+
+    Protected Sub btnAdd_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles btnAdd.Click
+        ' Load Popup
+        lblPopupHeader.Text = "Create CDC"
+        btnCreateCDC.Text = "Create"
+        dpdnAddProviders.Enabled = True
+	dpdnAddProviders.SelectedValue = dpdnProviders.SelectedValue
+        Clear()
+        ModalPopupExtender1.Show()
+    End Sub
+
+    Protected Sub lnkEdit_Click(ByVal sender As Object, ByVal e As EventArgs)
+        '    'Edit Grid Row
+        lblPopupHeader.Text = "Update CDC"
+        btnCreateCDC.Text = "Update"
+        Dim btnsubmit As LinkButton = TryCast(sender, LinkButton)
+        Dim gRow As GridViewRow = DirectCast(btnsubmit.NamingContainer, GridViewRow)
+        dpdnAddProviders.Enabled = False
+
+        hdnCDCId.Value = gvCDC.DataKeys(gRow.RowIndex).Value.ToString()
+        dpdnAddProviders.SelectedValue = dpdnProviders.SelectedValue
+        txtCDCName.Text = Server.HtmlDecode(gRow.Cells(2).Text.Trim)
+        txtPhone.Text = Server.HtmlDecode(gRow.Cells(4).Text.Trim)
+        txtEmail.Text = Server.HtmlDecode(gRow.Cells(3).Text.Trim)
+        txtAddress.Text = Server.HtmlDecode(gRow.Cells(5).Text.Trim)
+        txtState.Text = Server.HtmlDecode(gRow.Cells(6).Text.Trim)
+        txtZipCode.Text = Server.HtmlDecode(gRow.Cells(7).Text.Trim)
+
+        Me.ModalPopupExtender1.Show()
+
+    End Sub
+
+    Protected Sub btnCreateProvider_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles btnCreateProvider.Click
+        ' Create Provider
+        Dim objSvc As New Starbucks.StarbucksClient
+        Dim objResp As New Starbucks.Response
+        Dim objProvider As New Starbucks.Provider
+
+        objProvider.providerName = txtCreateProvider.Text.Trim()
+        objResp = objSvc.CreateProvider(objProvider)
+        If (objResp.statusCode <> 0) Then
+            lblStatus.Text = objResp.statusDescription
+        Else
+            lblStatus.Text = "Provider Created Successfully"
+        End If
+        PopulateAddProviders()
+        PopulateProviders()
+        PopulateGrid(0, 20)
+    End Sub
+    Protected Sub btnCreateCDC_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles btnCreateCDC.Click
+        ' Create/Update CDC
+        Dim objSvc As New Starbucks.StarbucksClient
+        Dim objResp As New Starbucks.Response
+        Dim objCDC As New Starbucks.CDC
+        
+        objCDC.providerID = dpdnAddProviders.SelectedValue
+        objCDC.name = txtCDCName.Text.Trim
+        objCDC.phone = txtPhone.Text.Trim
+        objCDC.email = txtEmail.Text.Trim
+        objCDC.address = txtAddress.Text.Trim
+        objCDC.state = txtState.Text.Trim
+        objCDC.zip = txtZipCode.Text.Trim
+
+
+        If btnCreateCDC.Text = "Create" Then
+            ' Create new Child Reason
+            objResp = objSvc.CreateCDC(objCDC)
+        ElseIf btnCreateCDC.Text = "Update" Then
+            ' Update existing Child Reason
+            objCDC.id = hdnCDCId.Value
+            objResp = objSvc.UpdateCDC(objCDC)
+        End If
+
+        If (objResp.statusCode <> 0) Then
+            lblStatus.Text = objResp.statusDescription
+        Else
+            If btnCreateCDC.Text = "Create" Then
+                lblStatus.Text = "CDC Created Successfully"
+            Else
+                lblStatus.Text = "CDC Updated Successfully"
+            End If
+        End If
+
+        PopulateGrid(0, 20)
+    End Sub
+
+    Protected Sub Clear()
+        
+        txtCDCName.Text = String.Empty
+        txtPhone.Text = String.Empty
+        txtEmail.Text = String.Empty
+        txtAddress.Text = String.Empty
+        txtState.Text = String.Empty
+        txtZipCode.Text = String.Empty
+    End Sub
+
+    Protected Sub btnFirst_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles btnFirst.Click
+        hdnPageIndex.Value = 0
+        PopulateGrid(hdnPageIndex.Value, 20)
+    End Sub
+
+    Protected Sub btnLast_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles btnLast.Click
+        hdnPageIndex.Value = Math.Truncate(hdnTotalRows.Value / 20)
+        PopulateGrid(hdnPageIndex.Value * 20, hdnTotalRows.Value Mod 20)
+    End Sub
+
+    Protected Sub btnPrevious_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles btnPrevious.Click
+        hdnPageIndex.Value = hdnPageIndex.Value - 1
+        PopulateGrid(hdnPageIndex.Value * 20, 20)
+    End Sub
+
+    Protected Sub btnNext_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles btnNext.Click
+        hdnPageIndex.Value = hdnPageIndex.Value + 1
+        PopulateGrid(hdnPageIndex.Value * 20, 20)
+    End Sub
+
+
+End Class

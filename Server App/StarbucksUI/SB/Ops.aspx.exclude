@@ -1,0 +1,248 @@
+﻿<%@ Page Language="VB" MasterPageFile="~/SB/MasterPage.master" AutoEventWireup="false"
+    CodeFile="Ops.aspx.vb" Inherits="SB_Ops" Title="SB" EnableEventValidation="false" %>
+
+<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
+<asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
+</asp:Content>
+<asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder_Menu" runat="Server">
+    <span id="tabid" style="display: none">tabOps</span>
+</asp:Content>
+<asp:Content ID="Content3" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
+    <asp:UpdateProgress ID="UpdateProgress1" runat="server" AssociatedUpdatePanelID="updatePanel1">
+        <ProgressTemplate>
+            <div class="divWaiting">
+                <asp:Label ID="lblWait" runat="server" Text=" Please wait... " ForeColor="Blue" />
+                <asp:Image ID="imgWait" runat="server" ImageAlign="Middle" ImageUrl="~/Common/Images/loader.gif"
+                    Height="10%" /></div>
+        </ProgressTemplate>
+    </asp:UpdateProgress>
+    <asp:UpdatePanel ID="updatePanel1" runat="server">
+        <Triggers>
+            <asp:PostBackTrigger ControlID="btnUpload" />
+        </Triggers>
+        <ContentTemplate>
+            <div>
+                <div style="padding-bottom: 30px">
+                    <h1 style="font-size: 20px; line-height: 14px; font-family: Arial; margin-top: 7px;">
+                        Ops Hierarchy</h1>
+                    <span style="color: #CFCFCF;">This will show Ops Hierarchy category</span>
+                </div>
+                <asp:Label ID="lblStatus" runat="server" ForeColor="Green"></asp:Label>
+                <div style="text-align: right; padding-right: 8px">
+                    <asp:FileUpload ID="FileUpload1" runat="server" />
+                    <asp:Button ID="btnUpload" runat="server" Text="Upload" />
+                    <asp:Button ID="btnExport" runat="server" Text="Export" />
+                    <asp:Button ID="btnRefresh" runat="server" Text="Refresh" />
+                </div>
+            </div>
+            <div style="width: 58px; height: 30px; background-color: #007042; float: left">
+                <asp:Button ID="btnAdd" runat="server" Text="Add" BorderColor="Transparent" CssClass="GridTop" />
+            </div>
+            <asp:Panel ID="Panel3" runat="server" DefaultButton="btnFilter" Style="width: 644px;
+                height: 26px; background-color: #007042; float: left; color: White; padding-top: 4px">
+                Filter:<asp:TextBox ID="txtFilter" runat="server" /><asp:Button ID="btnClear" runat="server"
+                    Text="x" OnClick="btnClear_Click" /><asp:Button ID="btnFilter" runat="server" OnClick="btnFilter_Click"
+                        Style="display: none" />
+            </asp:Panel>
+            <asp:HiddenField ID="hdnFilterText" runat="server" Visible="false" />
+            <div style="width: 58px; height: 30px; background-color: #007042; float: left">
+            </div>
+            <asp:Button ID="modalPopup" runat="server" Style="display: none" />
+            <asp:ModalPopupExtender ID="ModalPopupExtender1" runat="server" TargetControlID="modalPopup"
+                PopupControlID="Panel2" CancelControlID="btnClose" BackgroundCssClass="modalBackground">
+            </asp:ModalPopupExtender>
+            <asp:Panel ID="Panel2" runat="server" CssClass="modalPopup" Style="display: none">
+                <div style="height: 30px; background-color: #007042; padding-left: 170px">
+                    <asp:Label ID="lblPopupHeader" runat="server" ForeColor="White"></asp:Label>
+                </div>
+                <div style="padding-left: 110px">
+                    <div style="padding-top: 4px">
+                        <asp:Label ID="Label2" runat="server" Style="padding-right: 44px" Text="Select Store:"></asp:Label>
+                        <asp:DropDownList ID="dpdnStores" runat="server" Width="160px">
+                        </asp:DropDownList>
+                    </div>
+                    <div style="padding-top: 4px">
+                        <asp:Label ID="Label6" runat="server" Text="Area:" Style="padding-right: 94px"></asp:Label>
+                        <asp:TextBox ID="txtArea" runat="server"></asp:TextBox>
+                        <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ControlToValidate="txtArea"
+                            ErrorMessage="*" Style="color: Red" ValidationGroup="vgCreateOps">                    
+                        </asp:RequiredFieldValidator>
+                    </div>
+                    <div style="padding-top: 4px">
+                        <asp:Label ID="Label7" runat="server" Text="Region:" Style="padding-right: 80px"></asp:Label>
+                        <asp:TextBox ID="txtRegion" runat="server"></asp:TextBox>
+                        <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ControlToValidate="txtRegion"
+                            ErrorMessage="*" Style="color: Red" ValidationGroup="vgCreateOps">                    
+                        </asp:RequiredFieldValidator>
+                    </div>
+                    <div style="padding-top: 4px">
+                        <asp:Label ID="Label3" runat="server" Text="District:" Style="padding-right: 78px"></asp:Label>
+                        <asp:TextBox ID="txtDistrict" runat="server"></asp:TextBox>
+                        <asp:RequiredFieldValidator ID="RequiredFieldValidator4" runat="server" ControlToValidate="txtDistrict"
+                            ErrorMessage="*" Style="color: Red" ValidationGroup="vgCreateOps">                    
+                        </asp:RequiredFieldValidator>
+                    </div>
+                    <div style="padding-top: 4px">
+                        <asp:Label ID="Label4" runat="server" Text="Division:" Style="padding-right: 72px"></asp:Label>
+                        <asp:TextBox ID="txtDivision" runat="server"></asp:TextBox>
+                        <asp:RequiredFieldValidator ID="RequiredFieldValidator5" runat="server" ControlToValidate="txtDivision"
+                            ErrorMessage="*" Style="color: Red" ValidationGroup="vgCreateOps">                    
+                        </asp:RequiredFieldValidator>
+                    </div>
+                    <div style="padding-top: 4px">
+                        <asp:Label ID="Label8" runat="server" Text="Division Name:" Style="padding-right: 28px"></asp:Label>
+                        <asp:TextBox ID="txtDivisionName" runat="server"></asp:TextBox>
+                        <asp:RequiredFieldValidator ID="RequiredFieldValidator6" runat="server" ControlToValidate="txtDivisionName"
+                            ErrorMessage="*" Style="color: Red" ValidationGroup="vgCreateOps">                    
+                        </asp:RequiredFieldValidator>
+                    </div>
+                    <div style="padding-top: 4px">
+                        <asp:Label ID="Label9" runat="server" Text="DVP Outlook Name:"></asp:Label>
+                        <asp:TextBox ID="txtDVPOutlookName" runat="server"></asp:TextBox>
+                        <asp:RequiredFieldValidator ID="RequiredFieldValidator7" runat="server" ControlToValidate="txtDVPOutlookName"
+                            ErrorMessage="*" Style="color: Red" ValidationGroup="vgCreateOps">                    
+                        </asp:RequiredFieldValidator>
+                    </div>
+                    <div style="padding-top: 4px">
+                        <asp:Label ID="Label10" runat="server" Text="DVP Email Address:"></asp:Label>
+                        <asp:TextBox ID="txtDVPEmailAddress" runat="server"></asp:TextBox>
+                    </div>
+                    <div style="padding-top: 4px">
+                        <asp:Label ID="Label12" runat="server" Text="Region Name:" Style="padding-right: 38px"></asp:Label>
+                        <asp:TextBox ID="txtRegionName" runat="server"></asp:TextBox>
+                        <asp:RequiredFieldValidator ID="RequiredFieldValidator8" runat="server" ControlToValidate="txtRegionName"
+                            ErrorMessage="*" Style="color: Red" ValidationGroup="vgCreateOps">  
+                        </asp:RequiredFieldValidator>
+                    </div>
+                    <div style="padding-top: 4px">
+                        <asp:Label ID="Label13" runat="server" Text="RVP Email Address:"></asp:Label>
+                        <asp:TextBox ID="txtRVPEmailAddress" runat="server"></asp:TextBox>
+                    </div>
+                    <div style="padding-top: 4px">
+                        <asp:Label ID="Label1" runat="server" Text="RVP Outlook Name:"></asp:Label>
+                        <asp:TextBox ID="txtRVPOutlookName" runat="server"></asp:TextBox>
+                        <asp:RequiredFieldValidator ID="RequiredFieldValidator9" runat="server" ControlToValidate="txtRVPOutlookName"
+                            ErrorMessage="*" Style="color: Red" ValidationGroup="vgCreateOps">                    
+                        </asp:RequiredFieldValidator>
+                    </div>
+                    <div style="padding-top: 4px">
+                        <asp:Label ID="Label5" runat="server" Text="Area Name:" Style="padding-right: 50px"></asp:Label>
+                        <asp:TextBox ID="txtAreaName" runat="server"></asp:TextBox>
+                    </div>
+                    <div style="padding-top: 4px">
+                        <asp:Label ID="Label14" runat="server" Text="RD Outlook Name:" Style="padding-right: 6px"></asp:Label>
+                        <asp:TextBox ID="txtRDOutlookName" runat="server"></asp:TextBox>
+                    </div>
+                    <div style="padding-top: 4px">
+                        <asp:Label ID="Label15" runat="server" Text="RD Email Address:" Style="padding-right: 6px"></asp:Label>
+                        <asp:TextBox ID="txtRDEmailAddress" runat="server"></asp:TextBox>
+                    </div>
+                    <div style="padding-top: 4px">
+                        <asp:Label ID="Label16" runat="server" Text="District Name:" Style="padding-right: 34px"></asp:Label>
+                        <asp:TextBox ID="txtDistrictName" runat="server"></asp:TextBox>
+                    </div>
+                    <div style="padding-top: 4px">
+                        <asp:Label ID="Label17" runat="server" Text="DM Outlook Name:" Style="padding-right: 6px"></asp:Label>
+                        <asp:TextBox ID="txtDMOutlookName" runat="server"></asp:TextBox>
+                    </div>
+                    <div style="padding-top: 4px; padding-bottom: 10px;">
+                        <asp:Label ID="Label18" runat="server" Text="DM Email Address:" Style="padding-right: 6px"></asp:Label>
+                        <asp:TextBox ID="txtDMEmailAddress" runat="server"></asp:TextBox>
+                    </div>
+                </div>
+                <div style="height: 30px; background-color: #007042; padding-top: 10px; padding-left: 170px">
+                    <asp:Button ID="btnCreate" runat="server" Text="Create" ValidationGroup="vgCreateOps" />
+                    <asp:Button ID="btnClose" runat="server" Text="Close" />
+                </div>
+            </asp:Panel>
+            <div style="width: 306px; height: 30px; background-color: #007042; float: left">
+                <asp:Label ID="Label11" runat="server" Text="Details" CssClass="GridTop"></asp:Label>
+            </div>
+            <div style="width: 758px; height: 600px; overflow: auto; float: left">
+                <asp:GridView ID="gvOps" runat="server" BorderColor="Gray" Font-Size="Small" AutoGenerateColumns="false"
+                    OnSelectedIndexChanged="OnSelectedIndexChanged" OnRowDataBound="OnRowDataBound"
+                    DataKeyNames="StoreId">
+                    <HeaderStyle BackColor="LightGray"></HeaderStyle>
+                    <Columns>
+                        <asp:TemplateField>
+                            <ItemTemplate>
+                                <asp:LinkButton ID="lnkEdit" Text="Edit" OnClick="lnkEdit_Click" runat="server"></asp:LinkButton>
+                            </ItemTemplate>
+                        </asp:TemplateField>
+                        <asp:BoundField DataField="StoreId" Visible="false" />
+                        <asp:BoundField DataField="StoreNumber" HeaderText="Store No" HeaderStyle-Font-Bold="false">
+                        </asp:BoundField>
+                        <asp:BoundField DataField="Area" HeaderText="Area" HeaderStyle-Font-Bold="false">
+                        </asp:BoundField>
+                        <asp:BoundField DataField="Region" HeaderText="Region" HeaderStyle-Font-Bold="false">
+                        </asp:BoundField>
+                        <asp:BoundField DataField="District" HeaderText="District" HeaderStyle-Font-Bold="false">
+                        </asp:BoundField>
+                        <asp:BoundField DataField="Division" HeaderText="Division" HeaderStyle-Font-Bold="false">
+                        </asp:BoundField>
+                        <asp:BoundField DataField="DivisionName" HeaderText="Division Name" HeaderStyle-Font-Bold="false">
+                        </asp:BoundField>
+                        <asp:BoundField DataField="DVPOutlookName" HeaderText="DVP Outlook Name" HeaderStyle-Font-Bold="false">
+                        </asp:BoundField>
+                        <asp:BoundField DataField="DVPEmailAddress" HeaderText="DVP Email" HeaderStyle-Font-Bold="false">
+                        </asp:BoundField>
+                        <asp:BoundField DataField="RegionName" HeaderText="Region Name" HeaderStyle-Font-Bold="false">
+                        </asp:BoundField>
+                        <asp:BoundField DataField="RVPOutlookName" HeaderText="RVP Outlook Name" HeaderStyle-Font-Bold="false">
+                        </asp:BoundField>
+                        <asp:BoundField DataField="RVPEmailAddress" HeaderText="RVP Email Address" HeaderStyle-Font-Bold="false">
+                        </asp:BoundField>
+                        <asp:BoundField DataField="AreaName" HeaderText="Area Name" HeaderStyle-Font-Bold="false">
+                        </asp:BoundField>
+                        <asp:BoundField DataField="RDOutlookName" HeaderText="RD Outlook Name" HeaderStyle-Font-Bold="false">
+                        </asp:BoundField>
+                        <asp:BoundField DataField="RDEmailAddress" HeaderText="RD Email Address" HeaderStyle-Font-Bold="false">
+                        </asp:BoundField>
+                        <asp:BoundField DataField="DistrictName" HeaderText="District Name" HeaderStyle-Font-Bold="false">
+                        </asp:BoundField>
+                        <asp:BoundField DataField="DMOutlookName" HeaderText="DM Outlook Name" HeaderStyle-Font-Bold="false">
+                        </asp:BoundField>
+                        <asp:BoundField DataField="DMEmailAddress" HeaderText="DM Email Address" HeaderStyle-Font-Bold="false">
+                        </asp:BoundField>
+                    </Columns>
+                </asp:GridView>
+            </div>
+            <div style="height: 598px; float: left; border: 1px solid Gray">
+                <asp:Panel ID="Panel1" runat="server">
+                    <asp:TextBox ID="txtOpsDetails" runat="server" Width="300px" Height="592px" BorderColor="Transparent"
+                        TextMode="MultiLine" ReadOnly="true"></asp:TextBox>
+                </asp:Panel>
+            </div>
+           <%-- <div id="dvButtons" runat="server" style="background-color: #007042; clear: both;
+                width: 1066px;">
+                <asp:Button ID="btnFirst" runat="server" Text="|<" />
+                <asp:Button ID="btnPrevious" runat="server" Text="<" />
+                <asp:Button ID="btnNext" runat="server" Text=">" />
+                <asp:Button ID="btnLast" runat="server" Text=">|" />
+            </div>--%>
+            <asp:Panel ID="Panel4" runat="server" DefaultButton="btnPageNumber" ForeColor="White"
+                Font-Size="11px">
+                <div id="dvButtons" runat="server" style="background-color: #007042; clear: both;
+                    width: 1066px;">
+                    <asp:Button ID="btnFirst" runat="server" Text="|<" />
+                    <asp:Button ID="btnPrevious" runat="server" Text="<" />
+                    <span style="padding-left: 10px">Page</span>
+                    <asp:TextBox ID="txtPageNumber" runat="server" Width="20px" Font-Size="11px"></asp:TextBox>
+                    <asp:Button ID="btnPageNumber" runat="server" OnClick="btnPageNumber_Click" Style="display: none" />
+                    of
+                    <asp:Label ID="lblPageNumber" runat="server"></asp:Label>
+                    <asp:Button ID="btnNext" runat="server" Text=">" />
+                    <asp:Button ID="btnLast" runat="server" Text=">|" />
+                    <span style="padding-left: 325px">Displaying</span>
+                    <asp:Label ID="lblFirstRecord" runat="server"></asp:Label>
+                    -
+                    <asp:Label ID="lblLastRecord" runat="server"></asp:Label>
+                    of
+                    <asp:Label ID="lblTotalRecords" runat="server"></asp:Label>
+                </div>
+            </asp:Panel>
+            <asp:HiddenField ID="hdnTotalRows" runat="server" Visible="false" />
+            <asp:HiddenField ID="hdnPageIndex" runat="server" Visible="false" />
+        </ContentTemplate>
+    </asp:UpdatePanel>
+</asp:Content>

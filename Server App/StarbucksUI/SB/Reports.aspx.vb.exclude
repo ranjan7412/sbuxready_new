@@ -1,0 +1,87 @@
+﻿
+Partial Class SB_Reports
+    Inherits System.Web.UI.Page
+    Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
+        If (Not IsPostBack) Then
+            PopulateHours()
+            'If UserType is CDC
+            If Session("UserType") = 2 Then
+                imgBtnSSC.Visible = False
+                imgBtnField.Visible = False
+            End If
+        End If
+    End Sub
+
+    Public Sub PopulateHours()
+        For index As Integer = 0 To 23
+            dpdnFromHours.Items.Add(index.ToString())
+            dpdnToHours.Items.Add(index.ToString())
+        Next
+        dpdnToHours.SelectedValue = 23
+    End Sub
+    Protected Sub imgBtnSSC_Click(ByVal sender As Object, ByVal e As System.Web.UI.ImageClickEventArgs) Handles imgBtnSSC.Click
+        lblStatus.Text = String.Empty
+        If txtToDate.Text.Trim = String.Empty Then
+            txtToDate.Text = DateTime.Now.ToShortDateString
+        End If
+        If txtFromDate.Text.Trim = String.Empty Then
+            txtFromDate.Text = txtToDate.Text
+        End If
+        
+        Dim objService As New Starbucks.StarbucksClient
+        Dim objResp As New Starbucks.Response
+        objResp = objService.ReportStoreReadinessForSSCWithIntervalHours(txtFromDate.Text, txtToDate.Text, dpdnFromHours.SelectedValue, dpdnToHours.SelectedValue)
+        If objResp.statusCode <> 0 Then
+            lblStatus.Text = objResp.statusDescription
+        Else
+            Dim filename As String = objResp.statusDescription
+            ScriptManager.RegisterClientScriptBlock(Me, Me.GetType(), "Download", "window.location='" + ConfigurationManager.AppSettings("baseWebURL") + "/downloads/" + filename + "';", True)
+            'ScriptManager.RegisterClientScriptBlock(Me, Me.GetType(), "Download", "setInterval(function(){ window.location='" + ConfigurationManager.AppSettings("baseWebURL") + "/downloads/" + filename + "';}, 300000);", True)
+            'objService.WriteToFile(filename)
+        End If
+    End Sub
+
+    Protected Sub imgBtnCDC_Click(ByVal sender As Object, ByVal e As System.Web.UI.ImageClickEventArgs) Handles imgBtnCDC.Click
+        lblStatus.Text = String.Empty
+        If txtToDate.Text.Trim = String.Empty Then
+            txtToDate.Text = DateTime.Now.ToShortDateString
+        End If
+        If txtFromDate.Text.Trim = String.Empty Then
+            txtFromDate.Text = txtToDate.Text
+        End If
+
+        Dim objService As New Starbucks.StarbucksClient
+        Dim objResp As New Starbucks.Response
+        If Session("UserType") = 1 Then 'SSC User
+            objResp = objService.ReportStoreReadinessForCDCWithIntervalHours(txtFromDate.Text, txtToDate.Text, dpdnFromHours.SelectedValue, dpdnToHours.SelectedValue)
+        ElseIf Session("UserType") = 2 Then 'CDC User
+            objResp = objService.ReportStoreReadinessForCDCForProviderWithIntervalHours(Session("ProviderID"), txtFromDate.Text, txtToDate.Text, dpdnFromHours.SelectedValue, dpdnToHours.SelectedValue)
+        End If
+        If objResp.statusCode <> 0 Then
+            lblStatus.Text = objResp.statusDescription
+        Else
+            Dim filename As String = objResp.statusDescription
+            ScriptManager.RegisterClientScriptBlock(Me, Me.GetType(), "Download", "window.location='" + ConfigurationManager.AppSettings("baseWebURL") + "/downloads/" + filename + "';", True)
+        End If
+    End Sub
+
+    Protected Sub imgBtnField_Click(ByVal sender As Object, ByVal e As System.Web.UI.ImageClickEventArgs) Handles imgBtnField.Click
+        lblStatus.Text = String.Empty
+        If txtToDate.Text.Trim = String.Empty Then
+            txtToDate.Text = DateTime.Now.ToShortDateString
+        End If
+        If txtFromDate.Text.Trim = String.Empty Then
+            txtFromDate.Text = txtToDate.Text
+        End If
+
+        Dim objService As New Starbucks.StarbucksClient
+        Dim objResp As New Starbucks.Response
+        objResp = objService.ReportFieldReadinessWithIntervalHours(txtFromDate.Text, txtToDate.Text, dpdnFromHours.SelectedValue, dpdnToHours.SelectedValue)
+        If objResp.statusCode <> 0 Then
+            lblStatus.Text = objResp.statusDescription
+        Else
+            Dim filename As String = objResp.statusDescription
+            ScriptManager.RegisterClientScriptBlock(Me, Me.GetType(), "Download", "window.location='" + ConfigurationManager.AppSettings("baseWebURL") + "/downloads/" + filename + "';", True)
+        End If
+    End Sub
+End Class

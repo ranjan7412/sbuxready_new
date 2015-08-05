@@ -1,0 +1,550 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/Starbucks" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/Starbucks" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="http://localhost:39739/StarbucksServices.svc?xsd=xsd4" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+  <xs:complexType name="ResponseRouteList">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:Response">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="numberOfRecords" type="xs:int" />
+          <xs:element minOccurs="0" name="routes" nillable="true" type="tns:ArrayOfRoute" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="ResponseRouteList" nillable="true" type="tns:ResponseRouteList" />
+  <xs:complexType name="Response">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="statusCode" type="xs:int" />
+      <xs:element minOccurs="0" name="statusDescription" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Response" nillable="true" type="tns:Response" />
+  <xs:complexType name="ArrayOfRoute">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Route" nillable="true" type="tns:Route" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfRoute" nillable="true" type="tns:ArrayOfRoute" />
+  <xs:complexType name="Route">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="cdc" nillable="true" type="tns:CDC" />
+      <xs:element minOccurs="0" name="cdcName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="routeID" type="xs:int" />
+      <xs:element minOccurs="0" name="routeName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="routeStatus" type="xs:int" />
+      <xs:element minOccurs="0" name="stores" nillable="true" type="tns:ArrayOfStore" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Route" nillable="true" type="tns:Route" />
+  <xs:complexType name="CDC">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="address" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="city" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="email" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="id" type="xs:int" />
+      <xs:element minOccurs="0" name="name" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="phone" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="providerID" type="xs:int" />
+      <xs:element minOccurs="0" name="state" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="zip" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="CDC" nillable="true" type="tns:CDC" />
+  <xs:complexType name="ArrayOfStore">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Store" nillable="true" type="tns:Store" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfStore" nillable="true" type="tns:ArrayOfStore" />
+  <xs:complexType name="Store">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="PODRequired" type="xs:boolean" />
+      <xs:element minOccurs="0" name="storeAddress" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="storeCity" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="storeEmailAddress" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="storeID" type="xs:int" />
+      <xs:element minOccurs="0" name="storeManagerName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="storeName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="storeNumber" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="storeOwnershipType" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="storePhone" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="storeState" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="storeZip" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Store" nillable="true" type="tns:Store" />
+  <xs:complexType name="LoginResponse">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:Response">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="sessionID" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="user" nillable="true" type="tns:StarbucksUser" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="LoginResponse" nillable="true" type="tns:LoginResponse" />
+  <xs:complexType name="StarbucksUser">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="associatedFieldName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="associatedFieldValue" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="associatedID" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="emailAddress" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="firstName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="lastName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="password" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="phoneNumber" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="state" type="xs:boolean" />
+      <xs:element minOccurs="0" name="userType" type="xs:int" />
+      <xs:element minOccurs="0" name="userTypeName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="username" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="StarbucksUser" nillable="true" type="tns:StarbucksUser" />
+  <xs:complexType name="ResponseUserList">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:Response">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="users" nillable="true" type="tns:ArrayOfStarbucksUser" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="ResponseUserList" nillable="true" type="tns:ResponseUserList" />
+  <xs:complexType name="ArrayOfStarbucksUser">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="StarbucksUser" nillable="true" type="tns:StarbucksUser" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfStarbucksUser" nillable="true" type="tns:ArrayOfStarbucksUser" />
+  <xs:complexType name="ResponseStoreList">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:Response">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="numberOfRecords" type="xs:int" />
+          <xs:element minOccurs="0" name="stores" nillable="true" type="tns:ArrayOfStore" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="ResponseStoreList" nillable="true" type="tns:ResponseStoreList" />
+  <xs:complexType name="ResponseReasonList">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:Response">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="reasons" nillable="true" type="tns:ArrayOfReason" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="ResponseReasonList" nillable="true" type="tns:ResponseReasonList" />
+  <xs:complexType name="ArrayOfReason">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Reason" nillable="true" type="tns:Reason" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfReason" nillable="true" type="tns:ArrayOfReason" />
+  <xs:complexType name="Reason">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="reasonCode" type="xs:int" />
+      <xs:element minOccurs="0" name="reasonName" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Reason" nillable="true" type="tns:Reason" />
+  <xs:complexType name="ResponseReasonWithChildrenList">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:Response">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="reasons" nillable="true" type="tns:ArrayOfReasonWithChildren" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="ResponseReasonWithChildrenList" nillable="true" type="tns:ResponseReasonWithChildrenList" />
+  <xs:complexType name="ArrayOfReasonWithChildren">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="ReasonWithChildren" nillable="true" type="tns:ReasonWithChildren" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfReasonWithChildren" nillable="true" type="tns:ArrayOfReasonWithChildren" />
+  <xs:complexType name="ReasonWithChildren">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:Reason">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="children" nillable="true" type="tns:ArrayOfReasonChild" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="ReasonWithChildren" nillable="true" type="tns:ReasonWithChildren" />
+  <xs:complexType name="ArrayOfReasonChild">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="ReasonChild" nillable="true" type="tns:ReasonChild" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfReasonChild" nillable="true" type="tns:ArrayOfReasonChild" />
+  <xs:complexType name="ReasonChild">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="PODRequired" type="xs:boolean" />
+      <xs:element minOccurs="0" name="childReasonCode" type="xs:int" />
+      <xs:element minOccurs="0" name="childReasonExplanation" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="childReasonName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="escalation" type="xs:boolean" />
+      <xs:element minOccurs="0" name="photoRequired" type="xs:boolean" />
+      <xs:element minOccurs="0" name="reasonCode" type="xs:int" />
+      <xs:element minOccurs="0" name="valueRequired" type="xs:boolean" />
+      <xs:element minOccurs="0" name="valueUnit" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="valueUnitPrice" type="xs:float" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ReasonChild" nillable="true" type="tns:ReasonChild" />
+  <xs:complexType name="ReasonChildWithParent">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:ReasonChild">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="parentReason" nillable="true" type="tns:Reason" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="ReasonChildWithParent" nillable="true" type="tns:ReasonChildWithParent" />
+  <xs:complexType name="ResponseCDCList">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:Response">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="cdcs" nillable="true" type="tns:ArrayOfCDC" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="ResponseCDCList" nillable="true" type="tns:ResponseCDCList" />
+  <xs:complexType name="ArrayOfCDC">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="CDC" nillable="true" type="tns:CDC" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfCDC" nillable="true" type="tns:ArrayOfCDC" />
+  <xs:complexType name="ResponseTripList">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:Response">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="trips" nillable="true" type="tns:ArrayOfTrip" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="ResponseTripList" nillable="true" type="tns:ResponseTripList" />
+  <xs:complexType name="ArrayOfTrip">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Trip" nillable="true" type="tns:Trip" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfTrip" nillable="true" type="tns:ArrayOfTrip" />
+  <xs:complexType name="Trip">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="GMTOffset" type="xs:float" />
+      <xs:element minOccurs="0" name="closed" type="xs:boolean" />
+      <xs:element minOccurs="0" name="dateClosedEpoch" type="xs:int" />
+      <xs:element minOccurs="0" name="dateStartedEpoch" type="xs:int" />
+      <xs:element minOccurs="0" name="dateStartedString" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="id" type="xs:int" />
+      <xs:element minOccurs="0" name="latitude" type="xs:float" />
+      <xs:element minOccurs="0" name="longitude" type="xs:float" />
+      <xs:element minOccurs="0" name="routeName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="tripDetails" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="username" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Trip" nillable="true" type="tns:Trip" />
+  <xs:complexType name="ResponseTrip">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:Response">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="trip" nillable="true" type="tns:TripWithStops" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="ResponseTrip" nillable="true" type="tns:ResponseTrip" />
+  <xs:complexType name="TripWithStops">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:Trip">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="stops" nillable="true" type="tns:ArrayOfStopWithStore" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="TripWithStops" nillable="true" type="tns:TripWithStops" />
+  <xs:complexType name="ArrayOfStopWithStore">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="StopWithStore" nillable="true" type="tns:StopWithStore" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfStopWithStore" nillable="true" type="tns:ArrayOfStopWithStore" />
+  <xs:complexType name="StopWithStore">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:Stop">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="store" nillable="true" type="tns:Store" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="StopWithStore" nillable="true" type="tns:StopWithStore" />
+  <xs:complexType name="Stop">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="committed" type="xs:boolean" />
+      <xs:element minOccurs="0" name="completed" type="xs:boolean" />
+      <xs:element minOccurs="0" name="completedDate" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="dateAddedEpoch" type="xs:int" />
+      <xs:element minOccurs="0" name="dateUpdatedEpoch" type="xs:int" />
+      <xs:element minOccurs="0" name="failure" nillable="true" type="tns:ArrayOfFailureWithReason" />
+      <xs:element minOccurs="0" name="id" type="xs:int" />
+      <xs:element minOccurs="0" name="mappingID" type="xs:int" />
+      <xs:element minOccurs="0" name="tripID" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Stop" nillable="true" type="tns:Stop" />
+  <xs:complexType name="ArrayOfFailureWithReason">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="FailureWithReason" nillable="true" type="tns:FailureWithReason" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfFailureWithReason" nillable="true" type="tns:ArrayOfFailureWithReason" />
+  <xs:complexType name="FailureWithReason">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:Failure">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="reason" nillable="true" type="tns:ReasonChildWithParent" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="FailureWithReason" nillable="true" type="tns:FailureWithReason" />
+  <xs:complexType name="Failure">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="childReasonCode" type="xs:int" />
+      <xs:element minOccurs="0" name="comment" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="committed" type="xs:boolean" />
+      <xs:element minOccurs="0" name="deliveryCodes" nillable="true" type="tns:ArrayOfDelivery" />
+      <xs:element minOccurs="0" name="emailSent" type="xs:boolean" />
+      <xs:element minOccurs="0" name="failureID" type="xs:int" />
+      <xs:element minOccurs="0" name="parentReasonCode" type="xs:int" />
+      <xs:element minOccurs="0" name="photos" nillable="true" type="tns:ArrayOfPhoto" />
+      <xs:element minOccurs="0" name="stopID" type="xs:int" />
+      <xs:element minOccurs="0" name="uniqueID" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="valueEntered" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Failure" nillable="true" type="tns:Failure" />
+  <xs:complexType name="ArrayOfDelivery">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Delivery" nillable="true" type="tns:Delivery" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfDelivery" nillable="true" type="tns:ArrayOfDelivery" />
+  <xs:complexType name="Delivery">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="deliveryCode" type="xs:long" />
+      <xs:element minOccurs="0" name="deliveryID" type="xs:int" />
+      <xs:element minOccurs="0" name="failureID" type="xs:int" />
+      <xs:element minOccurs="0" name="stopID" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Delivery" nillable="true" type="tns:Delivery" />
+  <xs:complexType name="ArrayOfPhoto">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Photo" nillable="true" type="tns:Photo" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfPhoto" nillable="true" type="tns:ArrayOfPhoto" />
+  <xs:complexType name="Photo">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="failureID" type="xs:int" />
+      <xs:element minOccurs="0" name="imageData" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="photoID" type="xs:int" />
+      <xs:element minOccurs="0" name="stopID" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Photo" nillable="true" type="tns:Photo" />
+  <xs:complexType name="Comment">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="comment" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="stopID" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Comment" nillable="true" type="tns:Comment" />
+  <xs:complexType name="ResponsePhoto">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:Response">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="photos" nillable="true" type="tns:ArrayOfPhoto" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="ResponsePhoto" nillable="true" type="tns:ResponsePhoto" />
+  <xs:complexType name="ResponseFailure">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:Response">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="failure" nillable="true" type="tns:Failure" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="ResponseFailure" nillable="true" type="tns:ResponseFailure" />
+  <xs:complexType name="GeoPosition">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="latitude" type="xs:float" />
+      <xs:element minOccurs="0" name="longitude" type="xs:float" />
+      <xs:element minOccurs="0" name="tripID" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="GeoPosition" nillable="true" type="tns:GeoPosition" />
+  <xs:complexType name="StopWithStoreAndFailure">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:StopWithStore">
+        <xs:sequence>
+          <xs:element xmlns:q1="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="images" nillable="true" type="q1:ArrayOfstring" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="StopWithStoreAndFailure" nillable="true" type="tns:StopWithStoreAndFailure" />
+  <xs:complexType name="TripForSync">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:Trip">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="stops" nillable="true" type="tns:ArrayOfStopWithStoreAndFailure" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="TripForSync" nillable="true" type="tns:TripForSync" />
+  <xs:complexType name="ArrayOfStopWithStoreAndFailure">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="StopWithStoreAndFailure" nillable="true" type="tns:StopWithStoreAndFailure" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfStopWithStoreAndFailure" nillable="true" type="tns:ArrayOfStopWithStoreAndFailure" />
+  <xs:complexType name="Op">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="area" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="areaName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="district" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="districtName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="division" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="divisionName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="dmEmailAddress" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="dmOutlookName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="dvpEmailAddress" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="dvpOutlookname" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="rdEmailAddress" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="rdOutlookName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="region" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="regionName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="rvpEmailAddress" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="rvpOutlookName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="storeID" type="xs:int" />
+      <xs:element minOccurs="0" name="storeNumber" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Op" nillable="true" type="tns:Op" />
+  <xs:complexType name="ResponseOpList">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:Response">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="numberOfRecords" type="xs:int" />
+          <xs:element minOccurs="0" name="ops" nillable="true" type="tns:ArrayOfOp" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="ResponseOpList" nillable="true" type="tns:ResponseOpList" />
+  <xs:complexType name="ArrayOfOp">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Op" nillable="true" type="tns:Op" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfOp" nillable="true" type="tns:ArrayOfOp" />
+  <xs:complexType name="ResponseProviderList">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:Response">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="providers" nillable="true" type="tns:ArrayOfProvider" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="ResponseProviderList" nillable="true" type="tns:ResponseProviderList" />
+  <xs:complexType name="ArrayOfProvider">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Provider" nillable="true" type="tns:Provider" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfProvider" nillable="true" type="tns:ArrayOfProvider" />
+  <xs:complexType name="Provider">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="providerID" type="xs:int" />
+      <xs:element minOccurs="0" name="providerName" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Provider" nillable="true" type="tns:Provider" />
+  <xs:complexType name="ResponseProviderWithCDCList">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:Response">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="providers" nillable="true" type="tns:ArrayOfProviderWithCDC" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="ResponseProviderWithCDCList" nillable="true" type="tns:ResponseProviderWithCDCList" />
+  <xs:complexType name="ArrayOfProviderWithCDC">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="ProviderWithCDC" nillable="true" type="tns:ProviderWithCDC" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfProviderWithCDC" nillable="true" type="tns:ArrayOfProviderWithCDC" />
+  <xs:complexType name="ProviderWithCDC">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:Provider">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="cdcs" nillable="true" type="tns:ArrayOfCDC" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="ProviderWithCDC" nillable="true" type="tns:ProviderWithCDC" />
+  <xs:complexType name="ResponsePhotoList">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:Response">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="photos" nillable="true" type="tns:ArrayOfPhotoWithStore" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="ResponsePhotoList" nillable="true" type="tns:ResponsePhotoList" />
+  <xs:complexType name="ArrayOfPhotoWithStore">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="PhotoWithStore" nillable="true" type="tns:PhotoWithStore" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfPhotoWithStore" nillable="true" type="tns:ArrayOfPhotoWithStore" />
+  <xs:complexType name="PhotoWithStore">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:Photo">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="dateUpdated" type="xs:dateTime" />
+          <xs:element minOccurs="0" name="dateUpdatedEpoch" type="xs:int" />
+          <xs:element minOccurs="0" name="dateUpdatedString" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="storeID" type="xs:int" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="PhotoWithStore" nillable="true" type="tns:PhotoWithStore" />
+</xs:schema>

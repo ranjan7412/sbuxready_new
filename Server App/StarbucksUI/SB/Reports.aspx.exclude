@@ -1,0 +1,59 @@
+﻿<%@ Page Language="VB" MasterPageFile="~/SB/MasterPage.master" AutoEventWireup="false"
+    CodeFile="Reports.aspx.vb" Inherits="SB_Reports" Title="SB" %>
+
+<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
+<asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
+</asp:Content>
+<asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder_Menu" runat="Server">
+    <span id="tabid" style="display: none">tabReports</span>
+</asp:Content>
+<asp:Content ID="Content3" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
+    <asp:UpdateProgress ID="UpdateProgress1" runat="server" AssociatedUpdatePanelID="updatePanel1">
+        <ProgressTemplate>
+            <div class="divWaiting">
+                <asp:Label ID="lblWait" runat="server" Text=" Please wait... " ForeColor="Blue" />
+                <asp:Image ID="imgWait" runat="server" ImageAlign="Middle" ImageUrl="~/Common/Images/loader.gif"
+                    Height="10%" /></div>
+        </ProgressTemplate>
+    </asp:UpdateProgress>
+    <asp:UpdatePanel ID="updatePanel1" runat="server">
+        <ContentTemplate>
+            <div>
+                <div>
+                    <h1 style="font-size: 20px; line-height: 14px; font-family: Arial; margin-top: 7px;">
+                        Reports</h1>
+                    <span style="color: #CFCFCF;">This will show reports category</span>
+                </div>
+                <asp:Label ID="lblStatus" runat="server" ForeColor="Green"></asp:Label>
+                <div style="padding-top: 10px">
+                    <asp:Label ID="Label1" runat="server" Text="From:"></asp:Label>
+                    <asp:TextBox ID="txtFromDate" runat="server"></asp:TextBox>
+                    <asp:CalendarExtender ID="CalendarExtender1" TargetControlID="txtFromDate" runat="server">
+                    </asp:CalendarExtender>
+                    <asp:Label ID="Label2" runat="server" Text="Select Hours:"></asp:Label>
+                    <asp:DropDownList ID="dpdnFromHours" runat="server">
+                    </asp:DropDownList>
+                </div>
+                <div style="padding-top: 10px">
+                    <asp:Label ID="Label3" runat="server" Text="To:"></asp:Label>
+                    <span style="padding-left: 16px">
+                        <asp:TextBox ID="txtToDate" runat="server"></asp:TextBox></span>
+                    <asp:CalendarExtender ID="CalendarExtender2" TargetControlID="txtToDate" runat="server">
+                    </asp:CalendarExtender>
+                    <asp:Label ID="Label4" runat="server" Text="Select Hours:"></asp:Label>
+                    <asp:DropDownList ID="dpdnToHours" runat="server">
+                    </asp:DropDownList>
+                </div>
+                <div style="padding-top: 10px; padding-left: 44px">
+                    <asp:ImageButton ID="imgBtnSSC" runat="server" ImageUrl="~/Common/Images/StoreReadinessReportSSC.png" />
+                </div>
+                <div style="padding-top: 10px; padding-left: 44px">
+                    <asp:ImageButton ID="imgBtnCDC" runat="server" ImageUrl="~/Common/Images/StoreReadinessReportCDC.png" />
+                </div>
+                <div style="padding-top: 10px; padding-left: 44px">
+                    <asp:ImageButton ID="imgBtnField" runat="server" ImageUrl="~/Common/Images/FieldManagementReport.png" />
+                </div>
+            </div>
+        </ContentTemplate>
+    </asp:UpdatePanel>
+</asp:Content>

@@ -1,0 +1,1300 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://tempuri.org/" elementFormDefault="qualified" targetNamespace="http://tempuri.org/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="http://localhost:39739/StarbucksServices.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/Starbucks" />
+  <xs:import schemaLocation="http://localhost:39739/StarbucksServices.svc?xsd=xsd5" namespace="http://schemas.microsoft.com/Message" />
+  <xs:element name="DotNetGetAllRouteMappings">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="startIndex" type="xs:int" />
+        <xs:element minOccurs="0" name="maxRows" type="xs:int" />
+        <xs:element minOccurs="0" name="providerId" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DotNetGetAllRouteMappingsResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/Starbucks" minOccurs="0" name="DotNetGetAllRouteMappingsResult" nillable="true" type="q1:ResponseRouteList" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DotNetGetAllFilteredRouteMappings">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="filterText" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="startIndex" type="xs:int" />
+        <xs:element minOccurs="0" name="maxRows" type="xs:int" />
+        <xs:element minOccurs="0" name="providerId" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DotNetGetAllFilteredRouteMappingsResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/Starbucks" minOccurs="0" name="DotNetGetAllFilteredRouteMappingsResult" nillable="true" type="q2:ResponseRouteList" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ExportRoutes">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="dtRoutes" nillable="true">
+          <xs:complexType>
+            <xs:annotation>
+              <xs:appinfo>
+                <ActualType Name="DataTable" Namespace="http://schemas.datacontract.org/2004/07/System.Data" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+              </xs:appinfo>
+            </xs:annotation>
+            <xs:sequence>
+              <xs:any minOccurs="0" maxOccurs="unbounded" namespace="http://www.w3.org/2001/XMLSchema" processContents="lax" />
+              <xs:any minOccurs="1" namespace="urn:schemas-microsoft-com:xml-diffgram-v1" processContents="lax" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ExportRoutesResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="ExportRoutesResult" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UploadRoutesDotNet">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="fileName" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="username" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UploadRoutesDotNetResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/Starbucks" minOccurs="0" name="UploadRoutesDotNetResult" nillable="true" type="q3:Response" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="LoginForAdminPanel">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="aUsername" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="aPassword" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="LoginForAdminPanelResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q4="http://schemas.datacontract.org/2004/07/Starbucks" minOccurs="0" name="LoginForAdminPanelResult" nillable="true" type="q4:LoginResponse" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="LoginForDevice">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="aUsername" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="aPassword" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="aRouteNumber" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="LoginForDeviceResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q5="http://schemas.datacontract.org/2004/07/Starbucks" minOccurs="0" name="LoginForDeviceResult" nillable="true" type="q5:LoginResponse" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Logout">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="aUsername" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="aSessionID" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="LogoutResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q6="http://schemas.datacontract.org/2004/07/Starbucks" minOccurs="0" name="LogoutResult" nillable="true" type="q6:Response" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetUserDetail">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="aUsername" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetUserDetailResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q7="http://schemas.datacontract.org/2004/07/Starbucks" minOccurs="0" name="GetUserDetailResult" nillable="true" type="q7:ResponseUserList" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetAllUsers">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetAllUsersResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q8="http://schemas.datacontract.org/2004/07/Starbucks" minOccurs="0" name="GetAllUsersResult" nillable="true" type="q8:ResponseUserList" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetAllUsersByType">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="userType" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetAllUsersByTypeResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q9="http://schemas.datacontract.org/2004/07/Starbucks" minOccurs="0" name="GetAllUsersByTypeResult" nillable="true" type="q9:ResponseUserList" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetAllUsersByTypeAndProvider">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="userType" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="providerId" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetAllUsersByTypeAndProviderResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q10="http://schemas.datacontract.org/2004/07/Starbucks" minOccurs="0" name="GetAllUsersByTypeAndProviderResult" nillable="true" type="q10:ResponseUserList" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="CreateUser">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q11="http://schemas.datacontract.org/2004/07/Starbucks" minOccurs="0" name="aUserModel" nillable="true" type="q11:StarbucksUser" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="CreateUserResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q12="http://schemas.datacontract.org/2004/07/Starbucks" minOccurs="0" name="CreateUserResult" nillable="true" type="q12:Response" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UpdateUser">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q13="http://schemas.datacontract.org/2004/07/Starbucks" minOccurs="0" name="aUserModel" nillable="true" type="q13:StarbucksUser" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UpdateUserResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q14="http://schemas.datacontract.org/2004/07/Starbucks" minOccurs="0" name="UpdateUserResult" nillable="true" type="q14:Response" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UpdateUserPassword">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q15="http://schemas.datacontract.org/2004/07/Starbucks" minOccurs="0" name="aUserModel" nillable="true" type="q15:StarbucksUser" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UpdateUserPasswordResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q16="http://schemas.datacontract.org/2004/07/Starbucks" minOccurs="0" name="UpdateUserPasswordResult" nillable="true" type="q16:Response" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ActivateUser">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="aUsername" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ActivateUserResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q17="http://schemas.datacontract.org/2004/07/Starbucks" minOccurs="0" name="ActivateUserResult" nillable="true" type="q17:Response" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DeactivateUser">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="aUsername" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DeactivateUserResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q18="http://schemas.datacontract.org/2004/07/Starbucks" minOccurs="0" name="DeactivateUserResult" nillable="true" type="q18:Response" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DeleteUser">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="aUsername" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DeleteUserResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q19="http://schemas.datacontract.org/2004/07/Starbucks" minOccurs="0" name="DeleteUserResult" nillable="true" type="q19:Response" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetStoresForCDC">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="aCDCID" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetStoresForCDCResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q20="http://schemas.datacontract.org/2004/07/Starbucks" minOccurs="0" name="GetStoresForCDCResult" nillable="true" type="q20:ResponseStoreList" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetStoreDetail">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="aStoreID" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetStoreDetailResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q21="http://schemas.datacontract.org/2004/07/Starbucks" minOccurs="0" name="GetStoreDetailResult" nillable="true" type="q21:ResponseStoreList" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetAllStores">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetAllStoresResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q22="http://schemas.datacontract.org/2004/07/Starbucks" minOccurs="0" name="GetAllStoresResult" nillable="true" type="q22:ResponseStoreList" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetAllStoresWithRange">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="startingIndex" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="endingIndex" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetAllStoresWithRangeResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q23="http://schemas.datacontract.org/2004/07/Starbucks" minOccurs="0" name="GetAllStoresWithRangeResult" nillable="true" type="q23:ResponseStoreList" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="CreateStore">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q24="http://schemas.datacontract.org/2004/07/Starbucks" minOccurs="0" name="aStoreModel" nillable="true" type="q24:Store" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="CreateStoreResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q25="http://schemas.datacontract.org/2004/07/Starbucks" minOccurs="0" name="CreateStoreResult" nillable="true" type="q25:Response" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UpdateStore">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q26="http://schemas.datacontract.org/2004/07/Starbucks" minOccurs="0" name="aStoreModel" nillable="true" type="q26:Store" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UpdateStoreResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q27="http://schemas.datacontract.org/2004/07/Starbucks" minOccurs="0" name="UpdateStoreResult" nillable="true" type="q27:Response" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetAllRouteMappings">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetAllRouteMappingsResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q28="http://schemas.datacontract.org/2004/07/Starbucks" minOccurs="0" name="GetAllRouteMappingsResult" nillable="true" type="q28:ResponseRouteList" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetAllRouteMappingsWithRange">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="startingIndex" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="endingIndex" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetAllRouteMappingsWithRangeResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q29="http://schemas.datacontract.org/2004/07/Starbucks" minOccurs="0" name="GetAllRouteMappingsWithRangeResult" nillable="true" type="q29:ResponseRouteList" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetAllRouteMappingsForProvider">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="providerID" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetAllRouteMappingsForProviderResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q30="http://schemas.datacontract.org/2004/07/Starbucks" minOccurs="0" name="GetAllRouteMappingsForProviderResult" nillable="true" type="q30:ResponseRouteList" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetAllRouteMappingsForProviderWithRange">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="providerID" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="startingIndex" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="endingIndex" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetAllRouteMappingsForProviderWithRangeResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q31="http://schemas.datacontract.org/2004/07/Starbucks" minOccurs="0" name="GetAllRouteMappingsForProviderWithRangeResult" nillable="true" type="q31:ResponseRouteList" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetRouteDetail">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="routeName" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetRouteDetailResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q32="http://schemas.datacontract.org/2004/07/Starbucks" minOccurs="0" name="GetRouteDetailResult" nillable="true" type="q32:ResponseRouteList" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="CreateRoute">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q33="http://schemas.datacontract.org/2004/07/Starbucks" minOccurs="0" name="routeModel" nillable="true" type="q33:Route" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="CreateRouteResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q34="http://schemas.datacontract.org/2004/07/Starbucks" minOccurs="0" name="CreateRouteResult" nillable="true" type="q34:Response" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="AddStoreToRoute">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="routeName" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="storeID" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="AddStoreToRouteResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q35="http://schemas.datacontract.org/2004/07/Starbucks" minOccurs="0" name="AddStoreToRouteResult" nillable="true" type="q35:Response" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UpdateRouteStatusToActive">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="routeId" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UpdateRouteStatusToActiveResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q36="http://schemas.datacontract.org/2004/07/Starbucks" minOccurs="0" name="UpdateRouteStatusToActiveResult" nillable="true" type="q36:Response" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UpdateRouteStatusToDeactive">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="routeId" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UpdateRouteStatusToDeactiveResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q37="http://schemas.datacontract.org/2004/07/Starbucks" minOccurs="0" name="UpdateRouteStatusToDeactiveResult" nillable="true" type="q37:Response" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetAllParentReasons">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetAllParentReasonsResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q38="http://schemas.datacontract.org/2004/07/Starbucks" minOccurs="0" name="GetAllParentReasonsResult" nillable="true" type="q38:ResponseReasonList" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetAllParentReasonsWithChildren">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetAllParentReasonsWithChildrenResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q39="http://schemas.datacontract.org/2004/07/Starbucks" minOccurs="0" name="GetAllParentReasonsWithChildrenResult" nillable="true" type="q39:ResponseReasonWithChildrenList" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetChildrenOfParentReason">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="reasonCode" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetChildrenOfParentReasonResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q40="http://schemas.datacontract.org/2004/07/Starbucks" minOccurs="0" name="GetChildrenOfParentReasonResult" nillable="true" type="q40:ResponseReasonWithChildrenList" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="CreateReason">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q41="http://schemas.datacontract.org/2004/07/Starbucks" minOccurs="0" name="aReasonModel" nillable="true" type="q41:Reason" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="CreateReasonResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q42="http://schemas.datacontract.org/2004/07/Starbucks" minOccurs="0" name="CreateReasonResult" nillable="true" type="q42:Response" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UpdateReason">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q43="http://schemas.datacontract.org/2004/07/Starbucks" minOccurs="0" name="aReasonModel" nillable="true" type="q43:Reason" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UpdateReasonResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q44="http://schemas.datacontract.org/2004/07/Starbucks" minOccurs="0" name="UpdateReasonResult" nillable="true" type="q44:Response" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="CreateReasonChild">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q45="http://schemas.datacontract.org/2004/07/Starbucks" minOccurs="0" name="aChildReasonModel" nillable="true" type="q45:ReasonChildWithParent" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="CreateReasonChildResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q46="http://schemas.datacontract.org/2004/07/Starbucks" minOccurs="0" name="CreateReasonChildResult" nillable="true" type="q46:Response" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UpdateReasonChild">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q47="http://schemas.datacontract.org/2004/07/Starbucks" minOccurs="0" name="aChildReasonModel" nillable="true" type="q47:ReasonChildWithParent" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UpdateReasonChildResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q48="http://schemas.datacontract.org/2004/07/Starbucks" minOccurs="0" name="UpdateReasonChildResult" nillable="true" type="q48:Response" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetAllCDCs">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetAllCDCsResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q49="http://schemas.datacontract.org/2004/07/Starbucks" minOccurs="0" name="GetAllCDCsResult" nillable="true" type="q49:ResponseCDCList" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetAllCDCsForProvider">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="providerID" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetAllCDCsForProviderResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q50="http://schemas.datacontract.org/2004/07/Starbucks" minOccurs="0" name="GetAllCDCsForProviderResult" nillable="true" type="q50:ResponseCDCList" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="CreateCDC">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q51="http://schemas.datacontract.org/2004/07/Starbucks" minOccurs="0" name="aCDCModel" nillable="true" type="q51:CDC" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="CreateCDCResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q52="http://schemas.datacontract.org/2004/07/Starbucks" minOccurs="0" name="CreateCDCResult" nillable="true" type="q52:Response" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UpdateCDC">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q53="http://schemas.datacontract.org/2004/07/Starbucks" minOccurs="0" name="aCDCModel" nillable="true" type="q53:CDC" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UpdateCDCResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q54="http://schemas.datacontract.org/2004/07/Starbucks" minOccurs="0" name="UpdateCDCResult" nillable="true" type="q54:Response" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetAllOpenTrips">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetAllOpenTripsResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q55="http://schemas.datacontract.org/2004/07/Starbucks" minOccurs="0" name="GetAllOpenTripsResult" nillable="true" type="q55:ResponseTripList" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetAllOpenTripsForProvider">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="aProviderID" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetAllOpenTripsForProviderResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q56="http://schemas.datacontract.org/2004/07/Starbucks" minOccurs="0" name="GetAllOpenTripsForProviderResult" nillable="true" type="q56:ResponseTripList" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetAllOpenTripsForCDC">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="aCDCID" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetAllOpenTripsForCDCResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q57="http://schemas.datacontract.org/2004/07/Starbucks" minOccurs="0" name="GetAllOpenTripsForCDCResult" nillable="true" type="q57:ResponseTripList" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="CloseTrip">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="aTripID" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="CloseTripResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q58="http://schemas.datacontract.org/2004/07/Starbucks" minOccurs="0" name="CloseTripResult" nillable="true" type="q58:Response" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetOpenTripForRouteNameAndUser">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="aRouteName" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="aUsername" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetOpenTripForRouteNameAndUserResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q59="http://schemas.datacontract.org/2004/07/Starbucks" minOccurs="0" name="GetOpenTripForRouteNameAndUserResult" nillable="true" type="q59:ResponseTrip" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetOpenTripForRouteNameAndUserV7">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="aRouteName" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="aUsername" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="aGMTOffset" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetOpenTripForRouteNameAndUserV7Response">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q60="http://schemas.datacontract.org/2004/07/Starbucks" minOccurs="0" name="GetOpenTripForRouteNameAndUserV7Result" nillable="true" type="q60:ResponseTrip" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="AddCommentToStop">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q61="http://schemas.datacontract.org/2004/07/Starbucks" minOccurs="0" name="aComment" nillable="true" type="q61:Comment" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="AddCommentToStopResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q62="http://schemas.datacontract.org/2004/07/Starbucks" minOccurs="0" name="AddCommentToStopResult" nillable="true" type="q62:Response" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetPhotosForStop">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="aStopID" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetPhotosForStopResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q63="http://schemas.datacontract.org/2004/07/Starbucks" minOccurs="0" name="GetPhotosForStopResult" nillable="true" type="q63:ResponsePhoto" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="AddPhotoToStop">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q64="http://schemas.datacontract.org/2004/07/Starbucks" minOccurs="0" name="aPhoto" nillable="true" type="q64:Photo" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="AddPhotoToStopResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q65="http://schemas.datacontract.org/2004/07/Starbucks" minOccurs="0" name="AddPhotoToStopResult" nillable="true" type="q65:Response" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="AddDeliveryTransaction">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q66="http://schemas.datacontract.org/2004/07/Starbucks" minOccurs="0" name="aDelivery" nillable="true" type="q66:Delivery" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="AddDeliveryTransactionResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q67="http://schemas.datacontract.org/2004/07/Starbucks" minOccurs="0" name="AddDeliveryTransactionResult" nillable="true" type="q67:Response" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="AddFailure">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q68="http://schemas.datacontract.org/2004/07/Starbucks" minOccurs="0" name="aFailure" nillable="true" type="q68:Failure" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="AddFailureResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q69="http://schemas.datacontract.org/2004/07/Starbucks" minOccurs="0" name="AddFailureResult" nillable="true" type="q69:ResponseFailure" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="CompleteStop">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="aStopID" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="CompleteStopResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q70="http://schemas.datacontract.org/2004/07/Starbucks" minOccurs="0" name="CompleteStopResult" nillable="true" type="q70:Response" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="CompleteStopV7">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="aStopID" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="aStopCompletedDate" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="CompleteStopV7Response">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q71="http://schemas.datacontract.org/2004/07/Starbucks" minOccurs="0" name="CompleteStopV7Result" nillable="true" type="q71:Response" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DeleteAllIssues">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="aStopID" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DeleteAllIssuesResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q72="http://schemas.datacontract.org/2004/07/Starbucks" minOccurs="0" name="DeleteAllIssuesResult" nillable="true" type="q72:Response" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SetGeoPosition">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q73="http://schemas.datacontract.org/2004/07/Starbucks" minOccurs="0" name="aPosition" nillable="true" type="q73:GeoPosition" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SetGeoPositionResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q74="http://schemas.datacontract.org/2004/07/Starbucks" minOccurs="0" name="SetGeoPositionResult" nillable="true" type="q74:Response" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="CommitIssues">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q75="http://schemas.datacontract.org/2004/07/Starbucks" minOccurs="0" name="aStop" nillable="true" type="q75:StopWithStoreAndFailure" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="CommitIssuesResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q76="http://schemas.datacontract.org/2004/07/Starbucks" minOccurs="0" name="CommitIssuesResult" nillable="true" type="q76:Response" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="CommitIssuesV7">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q77="http://schemas.datacontract.org/2004/07/Starbucks" minOccurs="0" name="aStop" nillable="true" type="q77:StopWithStoreAndFailure" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="CommitIssuesV7Response">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q78="http://schemas.datacontract.org/2004/07/Starbucks" minOccurs="0" name="CommitIssuesV7Result" nillable="true" type="q78:Response" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="CommitCachedDataV6">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q79="http://schemas.datacontract.org/2004/07/Starbucks" minOccurs="0" name="aTripModel" nillable="true" type="q79:TripForSync" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="CommitCachedDataV6Response">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q80="http://schemas.datacontract.org/2004/07/Starbucks" minOccurs="0" name="CommitCachedDataV6Result" nillable="true" type="q80:Response" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="CommitCachedDataV7">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q81="http://schemas.datacontract.org/2004/07/Starbucks" minOccurs="0" name="aTripModel" nillable="true" type="q81:TripForSync" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="CommitCachedDataV7Response">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q82="http://schemas.datacontract.org/2004/07/Starbucks" minOccurs="0" name="CommitCachedDataV7Result" nillable="true" type="q82:Response" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="AddOp">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q83="http://schemas.datacontract.org/2004/07/Starbucks" minOccurs="0" name="anOp" nillable="true" type="q83:Op" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="AddOpResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q84="http://schemas.datacontract.org/2004/07/Starbucks" minOccurs="0" name="AddOpResult" nillable="true" type="q84:Response" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UpdateOp">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q85="http://schemas.datacontract.org/2004/07/Starbucks" minOccurs="0" name="anOp" nillable="true" type="q85:Op" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UpdateOpResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q86="http://schemas.datacontract.org/2004/07/Starbucks" minOccurs="0" name="UpdateOpResult" nillable="true" type="q86:Response" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetAllOps">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetAllOpsResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q87="http://schemas.datacontract.org/2004/07/Starbucks" minOccurs="0" name="GetAllOpsResult" nillable="true" type="q87:ResponseOpList" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetAllOpsWithRange">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="startingIndex" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="endingIndex" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetAllOpsWithRangeResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q88="http://schemas.datacontract.org/2004/07/Starbucks" minOccurs="0" name="GetAllOpsWithRangeResult" nillable="true" type="q88:ResponseOpList" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetAllProviders">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetAllProvidersResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q89="http://schemas.datacontract.org/2004/07/Starbucks" minOccurs="0" name="GetAllProvidersResult" nillable="true" type="q89:ResponseProviderList" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetAllProvidersWithCDCs">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetAllProvidersWithCDCsResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q90="http://schemas.datacontract.org/2004/07/Starbucks" minOccurs="0" name="GetAllProvidersWithCDCsResult" nillable="true" type="q90:ResponseProviderWithCDCList" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetCDCsForProvider">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="providerID" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetCDCsForProviderResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q91="http://schemas.datacontract.org/2004/07/Starbucks" minOccurs="0" name="GetCDCsForProviderResult" nillable="true" type="q91:ResponseProviderWithCDCList" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="CreateProvider">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q92="http://schemas.datacontract.org/2004/07/Starbucks" minOccurs="0" name="aProviderModel" nillable="true" type="q92:Provider" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="CreateProviderResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q93="http://schemas.datacontract.org/2004/07/Starbucks" minOccurs="0" name="CreateProviderResult" nillable="true" type="q93:Response" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UpdateProvider">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q94="http://schemas.datacontract.org/2004/07/Starbucks" minOccurs="0" name="aProviderModel" nillable="true" type="q94:Provider" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UpdateProviderResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q95="http://schemas.datacontract.org/2004/07/Starbucks" minOccurs="0" name="UpdateProviderResult" nillable="true" type="q95:Response" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetPhotosForStore">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="aStoreID" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetPhotosForStoreResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q96="http://schemas.datacontract.org/2004/07/Starbucks" minOccurs="0" name="GetPhotosForStoreResult" nillable="true" type="q96:ResponsePhotoList" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ViewPhotos">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="photoIDs" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ViewPhotosResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q97="http://schemas.microsoft.com/Message" name="ViewPhotosResult" type="q97:StreamBody" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ReportStoreReadinessForSSC">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ReportStoreReadinessForSSCResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q98="http://schemas.datacontract.org/2004/07/Starbucks" minOccurs="0" name="ReportStoreReadinessForSSCResult" nillable="true" type="q98:Response" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ReportStoreReadinessForSSCWithInterval">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="startDate" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="endDate" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ReportStoreReadinessForSSCWithIntervalResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q99="http://schemas.datacontract.org/2004/07/Starbucks" minOccurs="0" name="ReportStoreReadinessForSSCWithIntervalResult" nillable="true" type="q99:Response" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ReportStoreReadinessForSSCWithIntervalHours">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="startDate" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="endDate" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="startHour" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="endHour" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ReportStoreReadinessForSSCWithIntervalHoursResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q100="http://schemas.datacontract.org/2004/07/Starbucks" minOccurs="0" name="ReportStoreReadinessForSSCWithIntervalHoursResult" nillable="true" type="q100:Response" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ReportStoreReadinessForCDC">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ReportStoreReadinessForCDCResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q101="http://schemas.datacontract.org/2004/07/Starbucks" minOccurs="0" name="ReportStoreReadinessForCDCResult" nillable="true" type="q101:Response" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ReportStoreReadinessForCDCWithInterval">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="startDate" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="endDate" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ReportStoreReadinessForCDCWithIntervalResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q102="http://schemas.datacontract.org/2004/07/Starbucks" minOccurs="0" name="ReportStoreReadinessForCDCWithIntervalResult" nillable="true" type="q102:Response" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ReportStoreReadinessForCDCWithIntervalHours">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="startDate" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="endDate" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="startHour" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="endHour" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ReportStoreReadinessForCDCWithIntervalHoursResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q103="http://schemas.datacontract.org/2004/07/Starbucks" minOccurs="0" name="ReportStoreReadinessForCDCWithIntervalHoursResult" nillable="true" type="q103:Response" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ReportStoreReadinessForCDCForProvider">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="providerID" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ReportStoreReadinessForCDCForProviderResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q104="http://schemas.datacontract.org/2004/07/Starbucks" minOccurs="0" name="ReportStoreReadinessForCDCForProviderResult" nillable="true" type="q104:Response" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ReportStoreReadinessForCDCForProviderWithInterval">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="providerID" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="startDate" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="endDate" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ReportStoreReadinessForCDCForProviderWithIntervalResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q105="http://schemas.datacontract.org/2004/07/Starbucks" minOccurs="0" name="ReportStoreReadinessForCDCForProviderWithIntervalResult" nillable="true" type="q105:Response" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ReportStoreReadinessForCDCForProviderWithIntervalHours">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="providerID" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="startDate" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="endDate" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="startHour" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="endHour" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ReportStoreReadinessForCDCForProviderWithIntervalHoursResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q106="http://schemas.datacontract.org/2004/07/Starbucks" minOccurs="0" name="ReportStoreReadinessForCDCForProviderWithIntervalHoursResult" nillable="true" type="q106:Response" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ReportFieldReadiness">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ReportFieldReadinessResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q107="http://schemas.datacontract.org/2004/07/Starbucks" minOccurs="0" name="ReportFieldReadinessResult" nillable="true" type="q107:Response" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ReportFieldReadinessWithInterval">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="startDate" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="endDate" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ReportFieldReadinessWithIntervalResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q108="http://schemas.datacontract.org/2004/07/Starbucks" minOccurs="0" name="ReportFieldReadinessWithIntervalResult" nillable="true" type="q108:Response" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ReportFieldReadinessWithIntervalHours">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="startDate" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="endDate" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="startHour" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="endHour" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ReportFieldReadinessWithIntervalHoursResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q109="http://schemas.datacontract.org/2004/07/Starbucks" minOccurs="0" name="ReportFieldReadinessWithIntervalHoursResult" nillable="true" type="q109:Response" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ConsolidateEmails">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="stopID" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ConsolidateEmailsResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q110="http://schemas.datacontract.org/2004/07/Starbucks" minOccurs="0" name="ConsolidateEmailsResult" nillable="true" type="q110:Response" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SendTestEmail">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SendTestEmailResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q111="http://schemas.datacontract.org/2004/07/Starbucks" minOccurs="0" name="SendTestEmailResult" nillable="true" type="q111:Response" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetPhotos">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="condition" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="startIndex" type="xs:int" />
+        <xs:element minOccurs="0" name="maxRows" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetPhotosResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="GetPhotosResult" nillable="true">
+          <xs:complexType>
+            <xs:annotation>
+              <xs:appinfo>
+                <ActualType Name="DataTable" Namespace="http://schemas.datacontract.org/2004/07/System.Data" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+              </xs:appinfo>
+            </xs:annotation>
+            <xs:sequence>
+              <xs:any minOccurs="0" maxOccurs="unbounded" namespace="http://www.w3.org/2001/XMLSchema" processContents="lax" />
+              <xs:any minOccurs="1" namespace="urn:schemas-microsoft-com:xml-diffgram-v1" processContents="lax" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ExportPhotoSearch">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="dtPhotoSearch" nillable="true">
+          <xs:complexType>
+            <xs:annotation>
+              <xs:appinfo>
+                <ActualType Name="DataTable" Namespace="http://schemas.datacontract.org/2004/07/System.Data" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+              </xs:appinfo>
+            </xs:annotation>
+            <xs:sequence>
+              <xs:any minOccurs="0" maxOccurs="unbounded" namespace="http://www.w3.org/2001/XMLSchema" processContents="lax" />
+              <xs:any minOccurs="1" namespace="urn:schemas-microsoft-com:xml-diffgram-v1" processContents="lax" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ExportPhotoSearchResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="ExportPhotoSearchResult" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

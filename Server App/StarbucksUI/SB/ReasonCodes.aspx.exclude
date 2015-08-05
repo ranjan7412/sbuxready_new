@@ -1,0 +1,173 @@
+﻿<%@ Page Language="VB" MasterPageFile="~/SB/MasterPage.master" AutoEventWireup="false"
+    CodeFile="ReasonCodes.aspx.vb" Inherits="SB_ReasonCodes" Title="SB" EnableEventValidation="false" %>
+
+<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
+<asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
+</asp:Content>
+<asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder_Menu" runat="server">
+    <span id="tabid" style="display: none">tabReasonCodes</span>
+</asp:Content>
+<asp:Content ID="Content3" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
+    <asp:UpdateProgress ID="UpdateProgress1" runat="server" AssociatedUpdatePanelID="updatePanel1">
+        <ProgressTemplate>
+            <div class="divWaiting">
+                <asp:Label ID="lblWait" runat="server" Text=" Please wait... " ForeColor="Blue" />
+                <asp:Image ID="imgWait" runat="server" ImageAlign="Middle" ImageUrl="~/Common/Images/loader.gif"
+                    Height="10%" /></div>
+        </ProgressTemplate>
+    </asp:UpdateProgress>
+    <asp:UpdatePanel ID="updatePanel1" runat="server">
+        <ContentTemplate>
+            <div>
+                <div style="padding-bottom: 30px">
+                    <h1 style="font-size: 20px; line-height: 14px; font-family: Arial; margin-top: 7px;">
+                        Settings</h1>
+                    <span style="color: #CFCFCF;">This will show settings category</span>
+                </div>
+                <asp:Label ID="lblStatus" runat="server" ForeColor="Green"></asp:Label><br />
+                Select Parent Reason :
+                <asp:DropDownList ID="dpdnReasonCodes" runat="server" AutoPostBack="true" OnSelectedIndexChanged="dpdnReasonCodes_SelectedIndexChanged">
+                </asp:DropDownList>
+                <div style="text-align: right; padding-right: 8px">
+                    <asp:Label ID="lblCreateParent" runat="server" Text="Create Parent Reason :"></asp:Label>
+                    <asp:TextBox ID="txtCreateParent" runat="server"></asp:TextBox>
+                    <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ControlToValidate="txtCreateParent"
+                        ErrorMessage="*" Style="color: Red" ValidationGroup="vgCreateParentReason">                    
+                    </asp:RequiredFieldValidator>
+                    <asp:Button ID="btnCreateParent" runat="server" Text="Create" ValidationGroup="vgCreateParentReason" />
+                    <asp:Button ID="btnRefresh" runat="server" Text="Refresh" />
+                </div>
+            </div>
+            <div style="width: 760px; height: 30px; background-color: #007042; float: left">
+                <asp:Button ID="btnAdd" runat="server" Text="Add" BorderColor="Transparent" CssClass="GridTop" />
+            </div>
+            <asp:Button ID="modalPopup" runat="server" Style="display: none" />
+            <asp:ModalPopupExtender ID="ModalPopupExtender1" runat="server" TargetControlID="modalPopup"
+                CancelControlID="btnClose" PopupControlID="Panel2" BackgroundCssClass="modalBackground">
+            </asp:ModalPopupExtender>
+            <asp:Panel ID="Panel2" runat="server" CssClass="modalPopup" Style="display: none">
+                <div style="height: 30px; background-color: #007042; padding-left: 180px;">
+                    <asp:Label ID="lblPopupHeader" runat="server" ForeColor="White"></asp:Label>
+                </div>
+                <div style="padding-top: 10px">
+                    <asp:Label ID="Label2" runat="server" Text="Select Parent Reason:  " Style="padding-left: 100px"></asp:Label>
+                    <asp:DropDownList ID="dpdnAddReasonCodes" runat="server" Width="200px">
+                    </asp:DropDownList>
+                </div>
+                <div style="padding-top: 10px">
+                    <asp:Label ID="Label3" runat="server" Text="Child Reason Name:  " Style="padding-left: 100px;
+                        padding-right: 10px;"></asp:Label>
+                    <asp:TextBox ID="txtChildReason" runat="server" Width="200px"></asp:TextBox>
+                    <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate="txtChildReason"
+                        ErrorMessage="*" Style="color: Red" ValidationGroup="vgCreateChildReason">                    
+                    </asp:RequiredFieldValidator>
+                </div>
+                <div style="padding-top: 10px;">
+                    <asp:Label ID="Label4" runat="server" Text="Explanation: " Style="padding-left: 100px;
+                        padding-right: 64px;"></asp:Label>
+                    <asp:TextBox ID="txtExplanation" runat="server" TextMode="MultiLine" Height="80px"
+                        Width="200px"></asp:TextBox>
+                    <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ControlToValidate="txtExplanation"
+                        ErrorMessage="*" Style="color: Red" ValidationGroup="vgCreateChildReason">                    
+                    </asp:RequiredFieldValidator>
+                </div>
+                <div style="padding-top: 10px">
+                    <asp:Label ID="Label5" runat="server" Text="Escalation:  " Style="padding-left: 100px;
+                        padding-right: 74px;"></asp:Label>
+                    <asp:DropDownList ID="dpdnEscalation" runat="server">
+                        <asp:ListItem Text="False" Value="0"></asp:ListItem>
+                        <asp:ListItem Text="True" Value="1"></asp:ListItem>
+                    </asp:DropDownList>
+                </div>
+                <div style="padding-top: 10px">
+                    <asp:Label ID="Label6" runat="server" Text="Photo Required:  " Style="padding-left: 100px;
+                        padding-right: 40px;"></asp:Label>
+                    <asp:DropDownList ID="dpdnPhotoRequired" runat="server">
+                        <asp:ListItem Text="False" Value="0"></asp:ListItem>
+                        <asp:ListItem Text="True" Value="1"></asp:ListItem>
+                    </asp:DropDownList>
+                </div>
+                <div style="padding-top: 10px">
+                    <asp:Label ID="Label7" runat="server" Text="Value Required:  " Style="padding-left: 100px;
+                        padding-right: 40px;"></asp:Label>
+                    <asp:DropDownList ID="dpdnValueRequired" runat="server">
+                        <asp:ListItem Text="False" Value="0"></asp:ListItem>
+                        <asp:ListItem Text="True" Value="1"></asp:ListItem>
+                    </asp:DropDownList>
+                </div>
+                <div style="padding-top: 10px">
+                    <asp:Label ID="Label1" runat="server" Text="POD Required:  " Style="padding-left: 100px;
+                        padding-right: 50px;"></asp:Label>
+                    <asp:DropDownList ID="dpdnPODRequired" runat="server">
+                        <asp:ListItem Text="False" Value="0"></asp:ListItem>
+                        <asp:ListItem Text="True" Value="1"></asp:ListItem>
+                    </asp:DropDownList>
+                </div>
+                <div style="padding-top: 10px; padding-bottom: 10px;">
+                    <asp:Label ID="Label8" runat="server" Text="Value Unit Price:  " Style="padding-left: 100px;
+                        padding-right: 34px;"></asp:Label>
+                    <asp:TextBox ID="txtValueUnitPrice" runat="server" Width="56px"></asp:TextBox>
+                    <asp:RequiredFieldValidator ID="RequiredFieldValidator4" runat="server" ControlToValidate="txtValueUnitPrice"
+                        ErrorMessage="*" Style="color: Red" ValidationGroup="vgCreateChildReason">                    
+                    </asp:RequiredFieldValidator>
+                    <asp:RegularExpressionValidator ID="RegularExpressionValidator1" ControlToValidate="txtValueUnitPrice"
+                        runat="server" ErrorMessage="Only Numbers allowed" Style="color: Red" ValidationExpression="^\d+.?\d{0,3}$"
+                        ValidationGroup="vgCreateChildReason"></asp:RegularExpressionValidator>
+                </div>
+                <div style="height: 30px; background-color: #007042; padding-top: 10px; text-align: center">
+                    <asp:Button ID="btnCreateChild" runat="server" Text="Create" ValidationGroup="vgCreateChildReason" />
+                    <asp:Button ID="btnClose" runat="server" Text="Close" />
+                </div>
+            </asp:Panel>
+            <div style="width: 306px; height: 30px; background-color: #007042; float: left">
+                <asp:Label ID="Label11" runat="server" Text="Details" CssClass="GridTop"></asp:Label>
+            </div>
+            <div style="width: 758px; height: 600px; overflow: auto; float: left">
+                <asp:GridView ID="gvChildReasons" runat="server" BorderColor="Gray" Font-Size="Small"
+                    AutoGenerateColumns="false" OnSelectedIndexChanged="OnSelectedIndexChanged" OnRowDataBound="OnRowDataBound"
+                    OnRowCreated="OnRowCreated" DataKeyNames="childReasonCode">
+                    <HeaderStyle BackColor="LightGray"></HeaderStyle>
+                    <Columns>
+                        <asp:TemplateField>
+                            <ItemTemplate>
+                                <asp:LinkButton ID="lnkEdit" Text="Edit" OnClick="lnkEdit_Click" runat="server"></asp:LinkButton>
+                            </ItemTemplate>
+                        </asp:TemplateField>
+                        <asp:BoundField DataField="childReasonCode" Visible="false" />
+                        <asp:BoundField DataField="childReasonName" HeaderText="Child Reason Name" HeaderStyle-Font-Bold="false">
+                        </asp:BoundField>
+                        <asp:BoundField DataField="childReasonExplanation" HeaderText="Explanation" HeaderStyle-Font-Bold="false">
+                        </asp:BoundField>
+                        <asp:BoundField DataField="escalation" HeaderText="Escalation" HeaderStyle-Font-Bold="false">
+                        </asp:BoundField>
+                        <asp:BoundField DataField="photoRequired" HeaderText="Photo Required" HeaderStyle-Font-Bold="false">
+                        </asp:BoundField>
+                        <asp:BoundField DataField="valueRequired" HeaderText="Value Required" HeaderStyle-Font-Bold="false">
+                        </asp:BoundField>
+                        <asp:BoundField DataField="valueUnitPrice" HeaderText="Value Unit Price" HeaderStyle-Font-Bold="false">
+                        </asp:BoundField>
+                        <asp:BoundField DataField="PODRequired" HeaderText="POD Required" HeaderStyle-Font-Bold="false">
+                        </asp:BoundField>
+                    </Columns>
+                </asp:GridView>
+            </div>
+            <div style="height: 598px; float: left; border: 1px solid Gray">
+                <asp:Panel ID="Panel1" runat="server">
+                    <div>
+                        <asp:TextBox ID="txtChildReasonDetails" runat="server" Width="300px" Height="592px"
+                            BorderColor="Transparent" TextMode="MultiLine" ReadOnly="true"></asp:TextBox></div>
+                </asp:Panel>
+            </div>
+            <div id="dvButtons" runat="server" style="background-color: #007042; clear: both;
+                width: 1066px;">
+                <asp:Button ID="btnFirst" runat="server" Text="|<" />
+                <asp:Button ID="btnPrevious" runat="server" Text="<" />
+                <asp:Button ID="btnNext" runat="server" Text=">" />
+                <asp:Button ID="btnLast" runat="server" Text=">|" />
+            </div>
+            <asp:HiddenField ID="hdnChildReasonId" runat="server" Visible="false" />
+            <asp:HiddenField ID="hdnTotalRows" runat="server" Visible="false" />
+            <asp:HiddenField ID="hdnPageIndex" runat="server" Visible="false" />
+        </ContentTemplate>
+    </asp:UpdatePanel>
+</asp:Content>

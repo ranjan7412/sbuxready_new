@@ -1,0 +1,104 @@
+﻿<%@ Master Language="VB" CodeFile="MasterPage.master.vb" Inherits="SB_MasterPage" %>
+
+<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title>SB</title>
+    <link rel="stylesheet" href="../Common/Styles/aspnet.css" />
+
+    <script type="text/javascript">
+        function setActiveMenu() {
+            var control = document.getElementById('tabid');
+            var menuid = control.innerText;
+
+            var menu = document.getElementById(menuid);
+            menu.className = 'tab_active';
+        }
+
+        window.onload = setActiveMenu; 
+    </script>
+
+    <style type="text/css">
+        .left_content
+        {
+            width: 18%;
+            float: left;
+        }
+        .right_content
+        {
+            width: 82%;
+            float: left;
+        }
+        .tab_inner
+        {
+            background-color: White;
+            font-family: verdana, tahoma, helvetica;
+            font-size: 10pt;
+            padding: 10px;
+        }
+        .tab_active
+        {
+            color: black;
+            text-decoration: none;
+            background-image: url(../Common/Images/WhiteTab.png) !important;
+            padding: 5px;
+            font-family: verdana,tahoma,helvetica;
+            font-size: 11px;
+        }
+        .tab_inactive
+        {
+            color: #ffffff;
+            text-decoration: none;
+            background-image: url(../Common/Images/Tab.png) !important;
+            padding: 5px;
+            font-family: verdana,tahoma,helvetica;
+            font-size: 11px;
+        }
+    </style>
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+</head>
+<body style="background-color: #EEEEEE">
+    <form id="form1" runat="server">
+    <asp:ToolkitScriptManager ID="ToolkitScriptManager1" runat="server" AsyncPostBackTimeout="0">
+    </asp:ToolkitScriptManager>
+    <div>
+        <div class="left_content">
+            <div style="background-color: #EEEEEE; height: 1000px; float: left;">
+                <asp:Image ID="Image1" ImageUrl="../Common/Images/starbucks-logo.jpg" runat="server" />
+            </div>
+        </div>
+        <div class="right_content">
+            <div style="color: #007042; font-weight: bold; float: left; width: 1000px">
+                Welcome :
+                <%=Session("Username")%>
+            </div>
+            <div>
+                <asp:Button ID="btnLogout" runat="server" Text="Logout" />
+            </div>
+            <br />
+            <asp:ContentPlaceHolder ID="ContentPlaceHolder_Menu" runat="server">
+            </asp:ContentPlaceHolder>
+            <div style="padding-top: 25px">
+                <a id="tabPhotoSearch" class="tab_inactive" href="PhotoSearch.aspx">Photo Search</a>
+                <a id="tabRoutes" class="tab_inactive" href="Routes.aspx">Routes</a>
+                <% If Session("UserType") = 1 Then%>
+                <a id="tabStores" class="tab_inactive" href="Stores.aspx">Stores</a>
+		<a id="tabOps" class="tab_inactive" href="Ops.aspx">Ops</a>
+		<a id="tabProviders" class="tab_inactive" href="Providers.aspx">Providers</a>
+                <% End If%>
+		<a id="tabUsers" class="tab_inactive" href="Users.aspx">Users</a>
+		<a id="tabReasonCodes" class="tab_inactive" href="ReasonCodes.aspx">Reason Codes</a>
+		<a id="tabTracking" class="tab_inactive" href="Tracking.aspx">Tracking</a>
+		<a id="tabReports" class="tab_inactive" href="Reports.aspx">Reports</a>
+            </div>
+            <div class="tab_inner">
+                <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+                </asp:ContentPlaceHolder>
+            </div>
+        </div>
+    </div>
+    </form>
+</body>
+</html>

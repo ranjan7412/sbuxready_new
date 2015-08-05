@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="e3993887-bb50-4f18-a810-e39e90e7a9ec" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings />
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="http://localhost:39739/StarbucksServices.svc" Protocol="http" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="StarbucksServices.xsd" MetadataType="Schema" ID="e988dd62-5843-45f0-8497-9e37c66b3859" SourceId="1" SourceUrl="http://localhost:39739/StarbucksServices.svc?xsd=xsd0" />
+    <MetadataFile FileName="StarbucksServices.disco" MetadataType="Disco" ID="409a1fcb-afc1-475b-a76a-d3a6a8e851fa" SourceId="1" SourceUrl="http://localhost:39739/StarbucksServices.svc?disco" />
+    <MetadataFile FileName="StarbucksServices1.xsd" MetadataType="Schema" ID="3292cf74-8998-447b-82f6-0e9a3c2fc01e" SourceId="1" SourceUrl="http://localhost:39739/StarbucksServices.svc?xsd=xsd2" />
+    <MetadataFile FileName="StarbucksServices2.xsd" MetadataType="Schema" ID="bd355fe2-337b-4bcf-a7f8-3096889877d3" SourceId="1" SourceUrl="http://localhost:39739/StarbucksServices.svc?xsd=xsd3" />
+    <MetadataFile FileName="StarbucksServices.wsdl" MetadataType="Wsdl" ID="813cec59-166a-436b-96de-fb9dc5680d66" SourceId="1" SourceUrl="http://localhost:39739/StarbucksServices.svc?wsdl" />
+    <MetadataFile FileName="StarbucksServices3.xsd" MetadataType="Schema" ID="571ec84d-f4d7-4de9-a5cb-2c1d2e2080ba" SourceId="1" SourceUrl="http://localhost:39739/StarbucksServices.svc?xsd=xsd1" />
+    <MetadataFile FileName="StarbucksServices4.xsd" MetadataType="Schema" ID="f5189957-ade1-4f6c-976f-cb2c6db840e5" SourceId="1" SourceUrl="http://localhost:39739/StarbucksServices.svc?xsd=xsd5" />
+    <MetadataFile FileName="StarbucksServices5.xsd" MetadataType="Schema" ID="24080926-4025-4ec7-9530-f9f486040db0" SourceId="1" SourceUrl="http://localhost:39739/StarbucksServices.svc?xsd=xsd4" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>

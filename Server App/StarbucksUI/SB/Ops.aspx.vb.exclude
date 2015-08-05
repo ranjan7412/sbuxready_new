@@ -1,0 +1,358 @@
+﻿Imports System.Data
+Imports System.IO
+
+Partial Class SB_Ops
+    Inherits System.Web.UI.Page
+    Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
+        lblStatus.Text = ""
+        If (Not IsPostBack) Then
+
+            hdnTotalRows.Value = 0
+            hdnPageIndex.Value = 0
+
+            PopulateStores()
+            PopulateGrid(0, 50)
+
+        End If
+
+    End Sub
+
+    Public Sub PopulateStores() ' Populate Stores in dropdownlist
+
+        Dim objService As Starbucks.StarbucksClient = New Starbucks.StarbucksClient()
+        Dim objResp As Starbucks.ResponseStoreList
+        objResp = objService.GetAllStores()
+
+        dpdnStores.DataSource = objResp.stores
+        dpdnStores.DataValueField = "storeID"
+        dpdnStores.DataTextField = "storeNumber"
+        dpdnStores.DataBind()
+
+    End Sub
+
+    Public Sub PopulateGrid(ByVal startIndex As Int32, ByVal maxRows As Int32)
+        ' Populate Gridview with Ops list
+        Dim objService As New Starbucks.StarbucksClient
+        Dim dtOps As New DataTable
+
+        ' Check if filter is applied or not
+        If String.IsNullOrEmpty(hdnFilterText.Value.Trim) Then
+            dtOps = objService.GetOps(startIndex, maxRows)
+        Else
+            dtOps = objService.GetOpsFilter(hdnFilterText.Value.Trim, startIndex, maxRows)
+        End If
+
+        If Not dtOps Is Nothing Then
+            If (dtOps.Rows.Count > 0) Then
+                hdnTotalRows.Value = Convert.ToInt32(dtOps.Rows(0)("Cnt").ToString())
+            End If
+            gvOps.DataSource = dtOps
+            gvOps.DataBind()
+        End If
+
+        ' Enable/Disable navigation buttons
+        If hdnPageIndex.Value = 0 Then
+            btnPrevious.Enabled = False
+            btnFirst.Enabled = False
+        Else
+            btnPrevious.Enabled = True
+            btnFirst.Enabled = True
+        End If
+        If (hdnPageIndex.Value = Math.Truncate(hdnTotalRows.Value / 50) Or (hdnPageIndex.Value + 1 = Math.Truncate(hdnTotalRows.Value / 50) And hdnTotalRows.Value Mod 50 = 0)) Then
+            btnNext.Enabled = False
+            btnLast.Enabled = False
+        Else
+            btnNext.Enabled = True
+            btnLast.Enabled = True
+        End If
+
+        ' Display Page Count and Row Count
+        If (hdnTotalRows.Value Mod 50 = 0) Then
+            lblPageNumber.Text = Math.Truncate(hdnTotalRows.Value / 50)
+        Else
+            lblPageNumber.Text = Math.Truncate(hdnTotalRows.Value / 50) + 1
+        End If
+
+        txtPageNumber.Text = hdnPageIndex.Value + 1
+        lblFirstRecord.Text = startIndex + 1
+        If startIndex + maxRows > hdnTotalRows.Value Then
+            lblLastRecord.Text = hdnTotalRows.Value
+        Else
+            lblLastRecord.Text = startIndex + maxRows
+        End If
+
+        lblTotalRecords.Text = hdnTotalRows.Value
+
+        ' If no rows to be displayed
+        If dtOps.Rows.Count = 0 Then
+            btnPrevious.Enabled = False
+            btnFirst.Enabled = False
+            btnNext.Enabled = False
+            btnLast.Enabled = False
+            txtPageNumber.Text = 0
+            lblPageNumber.Text = 0
+            lblFirstRecord.Text = 0
+            lblLastRecord.Text = 0
+            lblTotalRecords.Text = 0
+        End If
+    End Sub
+
+    Protected Sub OnRowDataBound(ByVal sender As Object, ByVal e As GridViewRowEventArgs)
+        If e.Row.RowType = DataControlRowType.DataRow Then
+            e.Row.Attributes("onclick") = Page.ClientScript.GetPostBackClientHyperlink(gvOps, "Select$" & e.Row.RowIndex)
+            e.Row.ToolTip = "Click to select this row."
+            e.Row.Attributes.Add("onmouseover", "this.style.backgroundColor='lightgray'")
+            e.Row.Attributes.Add("onmouseout", "this.style.backgroundColor='white'")
+            e.Row.Attributes.Add("style", "cursor: default")
+        End If
+    End Sub
+
+    Protected Sub OnSelectedIndexChanged(ByVal sender As Object, ByVal e As EventArgs)
+
+        ' Display Ops details on row click of GridView
+        txtOpsDetails.Text = vbCrLf & vbCrLf & "Area: " & Server.HtmlDecode(gvOps.SelectedRow.Cells(3).Text) _
+                                & vbCrLf & vbCrLf & "Area Name: " & Server.HtmlDecode(gvOps.SelectedRow.Cells(13).Text) _
+                                & vbCrLf & vbCrLf & "District: " & Server.HtmlDecode(gvOps.SelectedRow.Cells(5).Text) _
+                                & vbCrLf & vbCrLf & "District Name: " & Server.HtmlDecode(gvOps.SelectedRow.Cells(16).Text) _
+                                & vbCrLf & vbCrLf & "Division: " & Server.HtmlDecode(gvOps.SelectedRow.Cells(6).Text) _
+                                & vbCrLf & vbCrLf & "DM Email: " & Server.HtmlDecode(gvOps.SelectedRow.Cells(18).Text) _
+                                & vbCrLf & vbCrLf & "DM Outlook Name: " & Server.HtmlDecode(gvOps.SelectedRow.Cells(17).Text) _
+                                & vbCrLf & vbCrLf & "DVP Email: " & Server.HtmlDecode(gvOps.SelectedRow.Cells(9).Text) _
+                                & vbCrLf & vbCrLf & "RD Email: " & Server.HtmlDecode(gvOps.SelectedRow.Cells(15).Text) _
+                                & vbCrLf & vbCrLf & "RD Outlook Name: " & Server.HtmlDecode(gvOps.SelectedRow.Cells(14).Text) _
+                                & vbCrLf & vbCrLf & "Region: " & Server.HtmlDecode(gvOps.SelectedRow.Cells(4).Text) _
+                                & vbCrLf & vbCrLf & "Region Name: " & Server.HtmlDecode(gvOps.SelectedRow.Cells(10).Text) _
+                                & vbCrLf & vbCrLf & "RVP Email: " & Server.HtmlDecode(gvOps.SelectedRow.Cells(12).Text) _
+                                & vbCrLf & vbCrLf & "RVP Outlook Name: " & Server.HtmlDecode(gvOps.SelectedRow.Cells(11).Text)
+
+
+    End Sub
+
+
+
+    Protected Sub btnFilter_Click(ByVal sender As Object, ByVal e As System.EventArgs)
+        ' filter Ops
+        hdnPageIndex.Value = 0
+        hdnFilterText.Value = "%" + txtFilter.Text.Trim + "%"
+        PopulateGrid(0, 50)
+
+    End Sub
+    Protected Sub btnClear_Click(ByVal sender As Object, ByVal e As System.EventArgs)
+
+        txtFilter.Text = ""
+        hdnFilterText.Value = String.Empty
+        hdnPageIndex.Value = 0
+        PopulateGrid(0, 50)
+
+    End Sub
+
+    Protected Sub btnExport_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles btnExport.Click
+
+        Dim objService As New Starbucks.StarbucksClient
+        Dim dtExport As New DataTable
+
+        ' Check if filtered data needs to be exported
+        If String.IsNullOrEmpty(hdnFilterText.Value.Trim) Then
+            dtExport = objService.GetOps(0, hdnTotalRows.Value)
+        Else
+            dtExport = objService.GetOpsFilter(hdnFilterText.Value.Trim, 0, hdnTotalRows.Value)
+        End If
+
+        Dim filename As String = objService.ExportOps(dtExport)
+
+        If Not String.IsNullOrEmpty(filename) Then
+            ScriptManager.RegisterClientScriptBlock(Me, Me.GetType(), "Download", "window.location='" + ConfigurationManager.AppSettings("baseWebURL") + "/downloads/" + filename + "';", True)
+        End If
+
+    End Sub
+
+    Protected Sub btnUpload_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles btnUpload.Click
+        ' Bulk upload Ops data
+        lblStatus.Text = ""
+        If (FileUpload1.HasFile) Then
+
+            Dim currentPath As String = HttpContext.Current.Server.MapPath("~")
+            Dim currentTime As Long = DateTime.Now.ToFileTimeUtc()
+            Dim fileName As String = Path.GetFileName(FileUpload1.FileName)
+            fileName = "ops_" & currentTime & "_" & fileName
+            Dim finalPath As String = currentPath & "\\uploads\\" & fileName
+            FileUpload1.SaveAs(finalPath)
+
+            Dim objService As Starbucks.StarbucksClient = New Starbucks.StarbucksClient()
+            Dim objResp As Starbucks.Response = New Starbucks.Response()
+            objResp = objService.UploadOpsDotNet(fileName, "")
+            lblStatus.Text = objResp.statusDescription
+
+            PopulateGrid(0, 50)
+
+        End If
+
+    End Sub
+
+    Protected Sub btnRefresh_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles btnRefresh.Click
+
+        ' Page Load
+        lblStatus.Text = ""
+        hdnTotalRows.Value = 0
+        hdnPageIndex.Value = 0
+        hdnFilterText.Value = String.Empty
+        txtFilter.Text = ""
+        txtOpsDetails.Text = ""
+
+        PopulateGrid(0, 50)
+    End Sub
+
+    Protected Sub btnAdd_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles btnAdd.Click
+        ' Load Popup
+        lblPopupHeader.Text = "Create Ops Hierarchy"
+        btnCreate.Text = "Create"
+        dpdnStores.Enabled = True
+        dpdnStores.SelectedValue = 1
+        txtArea.Enabled = True
+        txtRegion.Enabled = True
+        txtDistrict.Enabled = True
+        txtDivision.Enabled = True
+
+        Clear()
+        ModalPopupExtender1.Show()
+    End Sub
+
+    Protected Sub lnkEdit_Click(ByVal sender As Object, ByVal e As EventArgs)
+        'Edit Grid Row
+        lblPopupHeader.Text = "Update Ops"
+        btnCreate.Text = "Update"
+        Dim btnsubmit As LinkButton = TryCast(sender, LinkButton)
+        Dim gRow As GridViewRow = DirectCast(btnsubmit.NamingContainer, GridViewRow)
+        dpdnStores.Enabled = False
+        txtArea.Enabled = False
+        txtRegion.Enabled = False
+        txtDistrict.Enabled = False
+        txtDivision.Enabled = False
+
+        dpdnStores.SelectedValue = gvOps.DataKeys(gRow.RowIndex).Value.ToString()
+        txtArea.Text = Server.HtmlDecode(gRow.Cells(3).Text.Trim)
+        txtRegion.Text = Server.HtmlDecode(gRow.Cells(4).Text.Trim)
+        txtDistrict.Text = Server.HtmlDecode(gRow.Cells(5).Text.Trim)
+        txtDivision.Text = Server.HtmlDecode(gRow.Cells(6).Text.Trim)
+        txtDivisionName.Text = Server.HtmlDecode(gRow.Cells(7).Text.Trim)
+        txtDVPOutlookName.Text = Server.HtmlDecode(gRow.Cells(8).Text.Trim)
+        txtDVPEmailAddress.Text = Server.HtmlDecode(gRow.Cells(9).Text.Trim)
+        txtRegionName.Text = Server.HtmlDecode(gRow.Cells(10).Text.Trim)
+        txtRVPEmailAddress.Text = Server.HtmlDecode(gRow.Cells(12).Text.Trim)
+        txtRVPOutlookName.Text = Server.HtmlDecode(gRow.Cells(11).Text.Trim)
+        txtAreaName.Text = Server.HtmlDecode(gRow.Cells(13).Text.Trim)
+        txtRDOutlookName.Text = Server.HtmlDecode(gRow.Cells(14).Text.Trim)
+        txtRDEmailAddress.Text = Server.HtmlDecode(gRow.Cells(15).Text.Trim)
+        txtDistrictName.Text = Server.HtmlDecode(gRow.Cells(16).Text.Trim)
+        txtDMOutlookName.Text = Server.HtmlDecode(gRow.Cells(17).Text.Trim)
+        txtDMEmailAddress.Text = Server.HtmlDecode(gRow.Cells(18).Text.Trim)
+
+        Me.ModalPopupExtender1.Show()
+
+    End Sub
+    Protected Sub btnCreate_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles btnCreate.Click
+        ' Create/Update Ops
+        Dim objSvc As New Starbucks.StarbucksClient
+        Dim objResp As New Starbucks.Response
+        Dim objOps As New Starbucks.Op
+
+        objOps.storeID = dpdnStores.SelectedValue
+        objOps.area = txtArea.Text.Trim
+        objOps.region = txtRegion.Text.Trim
+        objOps.district = txtDistrict.Text.Trim
+        objOps.division = txtDivision.Text.Trim
+        objOps.divisionName = txtDivisionName.Text.Trim
+        objOps.dvpOutlookname = txtDVPOutlookName.Text.Trim
+        objOps.dvpEmailAddress = txtDVPEmailAddress.Text.Trim
+        objOps.areaName = txtAreaName.Text.Trim
+        objOps.rvpEmailAddress = txtRVPEmailAddress.Text.Trim
+        objOps.rvpOutlookName = txtRVPOutlookName.Text.Trim
+        objOps.regionName = txtRegionName.Text.Trim
+        objOps.rdOutlookName = txtRDOutlookName.Text.Trim
+        objOps.rdEmailAddress = txtRDEmailAddress.Text.Trim
+        objOps.districtName = txtDistrictName.Text.Trim
+        objOps.dmOutlookName = txtDMOutlookName.Text.Trim
+        objOps.dmEmailAddress = txtDMEmailAddress.Text.Trim
+
+        If btnCreate.Text = "Create" Then
+            ' Create new Ops
+            objResp = objSvc.AddOp(objOps)
+        ElseIf btnCreate.Text = "Update" Then
+            ' Update existing Ops
+            objResp = objSvc.UpdateOp(objOps)
+        End If
+
+        If (objResp.statusCode <> 0) Then
+            lblStatus.Text = objResp.statusDescription
+        Else
+            If btnCreate.Text = "Create" Then
+                lblStatus.Text = "Ops Created Successfully"
+            Else
+                lblStatus.Text = "Ops Updated Successfully"
+            End If
+        End If
+
+        PopulateGrid(hdnPageIndex.Value * 50, 50)
+    End Sub
+
+    Protected Sub Clear()
+        dpdnStores.SelectedValue = 1
+        txtArea.Text = String.Empty
+        txtRegion.Text = String.Empty
+        txtDistrict.Text = String.Empty
+        txtDivision.Text = String.Empty
+        txtDivisionName.Text = String.Empty
+        txtDVPOutlookName.Text = String.Empty
+        txtDVPEmailAddress.Text = String.Empty
+        txtAreaName.Text = String.Empty
+        txtRVPEmailAddress.Text = String.Empty
+        txtRVPOutlookName.Text = String.Empty
+        txtRegionName.Text = String.Empty
+        txtRDOutlookName.Text = String.Empty
+        txtRDEmailAddress.Text = String.Empty
+        txtDistrictName.Text = String.Empty
+        txtDMOutlookName.Text = String.Empty
+        txtDMEmailAddress.Text = String.Empty
+    End Sub
+
+    Protected Sub btnPageNumber_Click(ByVal sender As Object, ByVal e As System.EventArgs)
+        If (IsNumeric(txtPageNumber.Text.Trim) And Not txtPageNumber.Text.Trim.Contains(".") And Convert.ToDouble(txtPageNumber.Text.Trim) > 0) Then
+            If Convert.ToInt32(txtPageNumber.Text.Trim) > Math.Truncate(hdnTotalRows.Value / 50) And hdnTotalRows.Value Mod 50 = 0 Then
+                txtPageNumber.Text = Math.Truncate(hdnTotalRows.Value / 50)
+                hdnPageIndex.Value = Math.Truncate(hdnTotalRows.Value / 50) - 1
+            ElseIf Convert.ToInt32(txtPageNumber.Text.Trim) > Math.Truncate(hdnTotalRows.Value / 50) And hdnTotalRows.Value Mod 50 > 0 Then
+                txtPageNumber.Text = Math.Truncate(hdnTotalRows.Value / 50) + 1
+                hdnPageIndex.Value = Math.Truncate(hdnTotalRows.Value / 50)
+            Else
+                hdnPageIndex.Value = Convert.ToInt32(txtPageNumber.Text.Trim) - 1
+            End If
+            PopulateGrid(hdnPageIndex.Value * 50, 50)
+        End If
+    End Sub
+
+    Protected Sub btnFirst_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles btnFirst.Click
+        hdnPageIndex.Value = 0
+        PopulateGrid(hdnPageIndex.Value, 50)
+    End Sub
+
+    Protected Sub btnLast_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles btnLast.Click
+        'hdnPageIndex.Value = Math.Truncate(hdnTotalRows.Value / 50)
+        'PopulateGrid(hdnPageIndex.Value * 50, hdnTotalRows.Value Mod 50)
+        If (hdnTotalRows.Value Mod 50 = 0) Then
+            hdnPageIndex.Value = Math.Truncate(hdnTotalRows.Value / 50) - 1
+        Else
+            hdnPageIndex.Value = Math.Truncate(hdnTotalRows.Value / 50)
+        End If
+        PopulateGrid(hdnPageIndex.Value * 50, hdnTotalRows.Value Mod 50)
+    End Sub
+
+    Protected Sub btnPrevious_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles btnPrevious.Click
+        hdnPageIndex.Value = hdnPageIndex.Value - 1
+        PopulateGrid(hdnPageIndex.Value * 50, 50)
+    End Sub
+
+    Protected Sub btnNext_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles btnNext.Click
+        hdnPageIndex.Value = hdnPageIndex.Value + 1
+        PopulateGrid(hdnPageIndex.Value * 50, 50)
+    End Sub
+End Class

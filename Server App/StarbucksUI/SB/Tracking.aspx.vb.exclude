@@ -1,0 +1,99 @@
+﻿Imports System.Collections.Generic
+Imports System.Data
+Imports System.Data.SqlClient
+Partial Class SB_Tracking
+    Inherits System.Web.UI.Page
+
+    Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
+        If (Not IsPostBack) Then
+            PopulateCDC()
+            PopulateTrip()
+        End If
+    End Sub
+   
+    Public Function GetAllOpenTrips() As String
+        Dim objService As Starbucks.StarbucksClient = New Starbucks.StarbucksClient()
+        Dim objTrip As New Starbucks.ResponseTripList
+        Dim serializer As New System.Web.Script.Serialization.JavaScriptSerializer()
+
+        If Session("UserType") = 1 Then ' Logged in as SSC User
+            If hdnTripId.Value = String.Empty Then
+                objTrip = objService.GetAllOpenTrips()
+            Else
+                objTrip = objService.GetAllOpenTripsByTripId(hdnTripId.Value)
+            End If
+        ElseIf Session("UserType") = 2 Then ' Logged in as CDC User
+            If hdnTripId.Value = String.Empty Then
+                objTrip = objService.GetAllOpenTripsForProvider(Session("ProviderID"))
+            Else
+                objTrip = objService.GetAllOpenTripsByTripId(hdnTripId.Value)
+            End If
+        End If
+        Return serializer.Serialize(objTrip.trips)
+
+
+    End Function
+
+    Public Sub PopulateCDC()
+
+        Dim objService As Starbucks.StarbucksClient = New Starbucks.StarbucksClient()
+        Dim objCDC As New Starbucks.ResponseCDCList
+        If Session("UserType") = 1 Then ' Logged in as SSC User
+            objCDC = objService.GetAllCDCs()
+        ElseIf Session("UserType") = 2 Then ' Logged in as CDC User
+            objCDC = objService.GetAllCDCsForProvider(Session("ProviderID"))
+        End If
+
+        lstCDC.DataSource = objCDC.cdcs
+        lstCDC.DataValueField = "id"
+        lstCDC.DataTextField = "name"
+        lstCDC.DataBind()
+
+    End Sub
+
+    Public Sub PopulateTrip()
+
+        Dim objService As Starbucks.StarbucksClient = New Starbucks.StarbucksClient()
+        Dim objTrip As New Starbucks.ResponseTripList
+
+        If Session("UserType") = 1 Then ' Logged in as SSC User
+            If hdnCDCId.Value = String.Empty Then
+                objTrip = objService.GetAllOpenTrips()
+            Else
+                objTrip = objService.GetAllOpenTripsForCDC(hdnCDCId.Value)
+            End If
+        ElseIf Session("UserType") = 2 Then ' Logged in as CDC User
+            If hdnCDCId.Value = String.Empty Then
+                objTrip = objService.GetAllOpenTripsForProvider(Session("ProviderID"))
+            Else
+                objTrip = objService.GetAllOpenTripsForCDC(hdnCDCId.Value)
+            End If
+        End If
+        If objTrip.trips Is Nothing Then
+            lstTrips.Visible = False
+        Else
+            lstTrips.Visible = True
+            lstTrips.DataSource = objTrip.trips
+            lstTrips.DataValueField = "id"
+            lstTrips.DataTextField = "tripDetails"
+            lstTrips.DataBind()
+        End If
+
+
+    End Sub
+
+    Private Sub lstCDC_SelectedIndexChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles lstCDC.SelectedIndexChanged
+        hdnCDCId.Value = lstCDC.SelectedValue
+        PopulateTrip()
+    End Sub
+
+    Private Sub lstTrips_SelectedIndexChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles lstTrips.SelectedIndexChanged
+        hdnTripId.Value = lstTrips.SelectedValue
+    End Sub
+    Protected Sub btnRefresh_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles btnRefresh.Click
+        hdnCDCId.Value = String.Empty
+        hdnTripId.Value = String.Empty
+        PopulateCDC()
+        PopulateTrip()
+    End Sub
+End Class

@@ -1,0 +1,27 @@
+﻿Imports PdfSharp.Pdf
+Imports PdfSharp.Drawing
+
+Partial Class SB_Redirect
+    Inherits System.Web.UI.Page
+
+    Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
+        ImgPhoto.Src = "../photos/" + Request.QueryString("id") + ".jpg"
+    End Sub
+
+    Protected Sub btnExportPDF_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles btnExportPDF.Click
+        Dim source As String = HttpContext.Current.Server.MapPath("~") + "\\photos\\" + Request.QueryString("id") + ".jpg"
+        Dim destinaton As String = HttpContext.Current.Server.MapPath("~") + "\\downloads\\" + Request.QueryString("id") + ".pdf"
+        Dim doc As PdfDocument = New PdfDocument()
+        doc.Pages.Add(New PdfPage())
+        Dim xgr As XGraphics = XGraphics.FromPdfPage(doc.Pages(0))
+        Dim img As XImage = XImage.FromFile(source)
+
+        xgr.DrawImage(img, 0, 0)
+        doc.Save(destinaton)
+        doc.Close()
+        'ScriptManager.RegisterClientScriptBlock(Me, Me.GetType(), "Download", "window.location='" + Request.Url.GetLeftPart(UriPartial.Authority) + "/downloads/" + Request.QueryString("id") + ".pdf';", True)
+        ScriptManager.RegisterClientScriptBlock(Me, Me.GetType(), "Download", "window.location='" + ConfigurationManager.AppSettings("baseWebURL") + "/downloads/" + Request.QueryString("id") + ".pdf';", True)
+
+
+    End Sub
+End Class

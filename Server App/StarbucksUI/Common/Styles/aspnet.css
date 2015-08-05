@@ -1,0 +1,39 @@
+﻿.divWaiting
+{
+	position: absolute;
+	background-color: #FAFAFA; /*background: url('/Common/Images/loader.gif') no-repeat 5px 3px;*/
+	z-index: 2147483647 !important;
+	opacity: 0.7;
+	filter: alpha(opacity=70);
+	overflow: hidden;
+	text-align: center;
+	top: 0;
+	left: 0;
+	height: 100%;
+	width: 100%;
+	padding-top: 20%;
+}
+
+.GridTop
+{
+	color: White;
+	padding-top: 4px;
+	background-color: transparent;
+}
+
+.modalBackground
+{
+	background-color:  White;
+	filter: alpha(opacity=50);
+	opacity: 0.5;
+	-moz-opacity:0.5;
+    -khtml-opacity: 0.5;
+}
+.modalPopup
+{
+	background-color: #FFFFFF;
+	border-width: 3px;
+	border-style: solid;
+	border-color:#007042;
+	width: 500px;	
+}

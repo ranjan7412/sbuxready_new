@@ -1,0 +1,240 @@
+﻿Imports System.Data
+Imports System.IO
+Partial Class SB_ReasonCodes
+    Inherits System.Web.UI.Page
+    Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
+        lblStatus.Text = ""
+
+        If Session("UserType") = 2 Then ' Logged in as CDC User
+            btnAdd.Visible = False
+            txtCreateParent.Visible = False
+            btnCreateParent.Visible = False
+            lblCreateParent.Visible = False
+        End If
+
+        If (Not IsPostBack) Then
+            hdnTotalRows.Value = 0
+            hdnPageIndex.Value = 0
+            PopulateAddReasonCodes()
+            PopulateReasonCodes()
+            PopulateGrid(0, 20)
+        End If
+
+    End Sub
+    Public Sub PopulateAddReasonCodes()
+        ' Populate ReasonCodes in dropdownlist
+        Dim objService As Starbucks.StarbucksClient = New Starbucks.StarbucksClient()
+        Dim objReasons As Starbucks.ResponseReasonList
+        objReasons = objService.GetAllParentReasons()
+
+        dpdnAddReasonCodes.DataSource = objReasons.reasons
+        dpdnAddReasonCodes.DataValueField = "reasonCode"
+        dpdnAddReasonCodes.DataTextField = "reasonName"
+        dpdnAddReasonCodes.DataBind()
+
+    End Sub
+
+    Public Sub PopulateReasonCodes()
+        ' Populate ReasonCodes in dropdownlist
+        Dim objService As Starbucks.StarbucksClient = New Starbucks.StarbucksClient()
+        Dim objReasons As Starbucks.ResponseReasonList
+        objReasons = objService.GetAllParentReasons()
+
+        dpdnReasonCodes.DataSource = objReasons.reasons
+        dpdnReasonCodes.DataValueField = "reasonCode"
+        dpdnReasonCodes.DataTextField = "reasonName"
+        dpdnReasonCodes.DataBind()
+
+    End Sub
+
+
+    Public Sub PopulateGrid(ByVal startIndex As Int32, ByVal maxRows As Int32)
+        ' populate grid with child reason codes
+        Dim objService As New Starbucks.StarbucksClient
+        Dim objReasons As Starbucks.ResponseReasonWithChildrenList
+        objReasons = objService.GetChildrenOfParentReason(dpdnReasonCodes.SelectedValue)
+
+        Dim ChildReasonList As New Generic.List(Of Starbucks.ReasonChild)
+
+        If Not objReasons.reasons Is Nothing Then
+            For i = 0 To objReasons.reasons.Count - 1
+                For j = 0 To objReasons.reasons.Item(i).children.Count - 1
+                    ChildReasonList.Add(objReasons.reasons.Item(i).children.Item(j))
+                Next j
+            Next i
+        End If
+        gvChildReasons.DataSource = ChildReasonList
+        gvChildReasons.DataBind()
+
+        hdnTotalRows.Value = ChildReasonList.Count
+    End Sub
+
+    Protected Sub dpdnReasonCodes_SelectedIndexChanged(ByVal sender As Object, ByVal e As System.EventArgs)
+        PopulateGrid(0, 20)
+    End Sub
+
+    Protected Sub OnRowDataBound(ByVal sender As Object, ByVal e As GridViewRowEventArgs)
+        If e.Row.RowType = DataControlRowType.DataRow Then
+            e.Row.Attributes("onclick") = Page.ClientScript.GetPostBackClientHyperlink(gvChildReasons, "Select$" & e.Row.RowIndex)
+            e.Row.ToolTip = "Click to select this row."
+            e.Row.Attributes.Add("onmouseover", "this.style.backgroundColor='lightgray'")
+            e.Row.Attributes.Add("onmouseout", "this.style.backgroundColor='white'")
+            e.Row.Attributes.Add("style", "cursor: default")
+        End If
+    End Sub
+
+    Protected Sub OnRowCreated(ByVal sender As Object, ByVal e As GridViewRowEventArgs)
+        If Session("UserType") = 2 Then
+            e.Row.Cells(0).Visible = False
+        End If
+    End Sub
+
+    Protected Sub OnSelectedIndexChanged(ByVal sender As Object, ByVal e As EventArgs)
+
+        ' Display child reason details on row click of GridView
+        txtChildReasonDetails.Text = vbCrLf & vbCrLf & "Child Reason Name: " & Server.HtmlDecode(gvChildReasons.SelectedRow.Cells(2).Text) _
+                                & vbCrLf & vbCrLf & "Explanation: " & Server.HtmlDecode(gvChildReasons.SelectedRow.Cells(3).Text) _
+                                & vbCrLf & vbCrLf & "Escalation: " & Server.HtmlDecode(gvChildReasons.SelectedRow.Cells(4).Text) _
+                                & vbCrLf & vbCrLf & "Photo Required: " & Server.HtmlDecode(gvChildReasons.SelectedRow.Cells(5).Text) _
+                                & vbCrLf & vbCrLf & "Value Required: " & Server.HtmlDecode(gvChildReasons.SelectedRow.Cells(6).Text) _
+                                & vbCrLf & vbCrLf & "Value Unit Price: " & Server.HtmlDecode(gvChildReasons.SelectedRow.Cells(7).Text) _
+                                & vbCrLf & vbCrLf & "POD Required: " & Server.HtmlDecode(gvChildReasons.SelectedRow.Cells(8).Text)
+
+
+
+    End Sub
+
+    Protected Sub btnRefresh_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles btnRefresh.Click
+        ' Page Load
+        lblStatus.Text = ""
+        hdnTotalRows.Value = 0
+        hdnPageIndex.Value = 0
+        txtCreateParent.Text = String.Empty
+        txtChildReasonDetails.Text = String.Empty
+        PopulateAddReasonCodes()
+        PopulateReasonCodes()
+        PopulateGrid(0, 20)
+    End Sub
+
+    Protected Sub btnAdd_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles btnAdd.Click
+        ' Load Popup
+        lblPopupHeader.Text = "Create Child Reason"
+        btnCreateChild.Text = "Create"
+        dpdnAddReasonCodes.Enabled = True
+        dpdnAddReasonCodes.SelectedValue = dpdnReasonCodes.SelectedValue
+        txtValueUnitPrice.Text = "0"
+        Clear()
+        ModalPopupExtender1.Show()
+    End Sub
+
+    Protected Sub lnkEdit_Click(ByVal sender As Object, ByVal e As EventArgs)
+        'Edit Grid Row
+        lblPopupHeader.Text = "Update Child Reason"
+        btnCreateChild.Text = "Update"
+        Dim btnsubmit As LinkButton = TryCast(sender, LinkButton)
+        Dim gRow As GridViewRow = DirectCast(btnsubmit.NamingContainer, GridViewRow)
+        dpdnAddReasonCodes.Enabled = False
+
+        hdnChildReasonId.Value = gvChildReasons.DataKeys(gRow.RowIndex).Value.ToString()
+        dpdnAddReasonCodes.SelectedValue = dpdnReasonCodes.SelectedValue
+        txtChildReason.Text = Server.HtmlDecode(gRow.Cells(2).Text.Trim)
+        txtExplanation.Text = Server.HtmlDecode(gRow.Cells(3).Text.Trim)
+        dpdnEscalation.SelectedValue = IIf(Server.HtmlDecode(gRow.Cells(4).Text.Trim) = "True", 1, 0)
+        dpdnPhotoRequired.SelectedValue = IIf(Server.HtmlDecode(gRow.Cells(5).Text.Trim) = "True", 1, 0)
+        dpdnValueRequired.SelectedValue = IIf(Server.HtmlDecode(gRow.Cells(6).Text.Trim) = "True", 1, 0)
+        txtValueUnitPrice.Text = Server.HtmlDecode(gRow.Cells(7).Text.Trim)
+        dpdnPODRequired.SelectedValue = IIf(Server.HtmlDecode(gRow.Cells(8).Text.Trim) = "True", 1, 0)
+
+        Me.ModalPopupExtender1.Show()
+
+    End Sub
+
+    Protected Sub btnCreateParent_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles btnCreateParent.Click
+        Dim objSvc As New Starbucks.StarbucksClient
+        Dim objResp As New Starbucks.Response
+        Dim objReason As New Starbucks.Reason
+
+        objReason.reasonName = txtCreateParent.Text.Trim()
+        objResp = objSvc.CreateReason(objReason)
+        If (objResp.statusCode <> 0) Then
+            lblStatus.Text = objResp.statusDescription
+        Else
+            lblStatus.Text = "Parent Reason Created Successfully"
+        End If
+        PopulateAddReasonCodes()
+        PopulateReasonCodes()
+        PopulateGrid(0, 20)
+    End Sub
+    Protected Sub btnCreateChild_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles btnCreateChild.Click
+
+        Dim objSvc As New Starbucks.StarbucksClient
+        Dim objResp As New Starbucks.Response
+        Dim objReasonChildWithParent As New Starbucks.ReasonChildWithParent
+        Dim objReason As New Starbucks.Reason
+
+        objReason.reasonCode = dpdnAddReasonCodes.SelectedValue
+        objReasonChildWithParent.parentReason = objReason
+        objReasonChildWithParent.parentReason.reasonCode = dpdnAddReasonCodes.SelectedValue
+        objReasonChildWithParent.childReasonName = txtChildReason.Text.Trim
+        objReasonChildWithParent.childReasonExplanation = txtExplanation.Text.Trim
+        objReasonChildWithParent.escalation = dpdnEscalation.SelectedValue
+        objReasonChildWithParent.photoRequired = dpdnPhotoRequired.SelectedValue
+        objReasonChildWithParent.valueRequired = dpdnValueRequired.SelectedValue
+        objReasonChildWithParent.valueUnitPrice = txtValueUnitPrice.Text.Trim
+        objReasonChildWithParent.PODRequired = dpdnPODRequired.SelectedValue
+
+        If btnCreateChild.Text = "Create" Then
+            ' Create new Child Reason
+            objResp = objSvc.CreateReasonChild(objReasonChildWithParent)
+        ElseIf btnCreateChild.Text = "Update" Then
+            ' Update existing Child Reason
+            objReasonChildWithParent.childReasonCode = hdnChildReasonId.Value
+            objResp = objSvc.UpdateReasonChild(objReasonChildWithParent)
+        End If
+
+        If (objResp.statusCode <> 0) Then
+            lblStatus.Text = objResp.statusDescription
+        Else
+            If btnCreateChild.Text = "Create" Then
+                lblStatus.Text = "Child Reason Created Successfully"
+            Else
+                lblStatus.Text = "Child Reason Updated Successfully"
+            End If
+        End If
+
+        PopulateGrid(0, 20)
+    End Sub
+
+    Protected Sub Clear()
+        
+        dpdnEscalation.SelectedIndex = 0
+        dpdnPhotoRequired.SelectedIndex = 0
+        dpdnValueRequired.SelectedIndex = 0
+        dpdnPODRequired.SelectedIndex = 0
+        txtChildReason.Text = String.Empty
+        txtExplanation.Text = String.Empty
+
+    End Sub
+
+    Protected Sub btnFirst_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles btnFirst.Click
+        hdnPageIndex.Value = 0
+        PopulateGrid(hdnPageIndex.Value, 20)
+    End Sub
+
+    Protected Sub btnLast_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles btnLast.Click
+        hdnPageIndex.Value = Math.Truncate(hdnTotalRows.Value / 20)
+        PopulateGrid(hdnPageIndex.Value * 20, hdnTotalRows.Value Mod 20)
+    End Sub
+
+    Protected Sub btnPrevious_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles btnPrevious.Click
+        hdnPageIndex.Value = hdnPageIndex.Value - 1
+        PopulateGrid(hdnPageIndex.Value * 20, 20)
+    End Sub
+
+    Protected Sub btnNext_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles btnNext.Click
+        hdnPageIndex.Value = hdnPageIndex.Value + 1
+        PopulateGrid(hdnPageIndex.Value * 20, 20)
+    End Sub
+
+
+End Class

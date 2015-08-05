@@ -1,0 +1,1714 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:tns="http://tempuri.org/" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="StarbucksServices" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://tempuri.org/Imports">
+      <xsd:import schemaLocation="http://localhost:39739/StarbucksServices.svc?xsd=xsd0" namespace="http://tempuri.org/" />
+      <xsd:import schemaLocation="http://localhost:39739/StarbucksServices.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+      <xsd:import schemaLocation="http://localhost:39739/StarbucksServices.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/Starbucks" />
+      <xsd:import schemaLocation="http://localhost:39739/StarbucksServices.svc?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/System.Data" />
+      <xsd:import schemaLocation="http://localhost:39739/StarbucksServices.svc?xsd=xsd4" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+      <xsd:import schemaLocation="http://localhost:39739/StarbucksServices.svc?xsd=xsd5" namespace="http://schemas.microsoft.com/Message" />
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="IStarbucks_DotNetGetAllRouteMappings_InputMessage">
+    <wsdl:part name="parameters" element="tns:DotNetGetAllRouteMappings" />
+  </wsdl:message>
+  <wsdl:message name="IStarbucks_DotNetGetAllRouteMappings_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DotNetGetAllRouteMappingsResponse" />
+  </wsdl:message>
+  <wsdl:message name="IStarbucks_DotNetGetAllFilteredRouteMappings_InputMessage">
+    <wsdl:part name="parameters" element="tns:DotNetGetAllFilteredRouteMappings" />
+  </wsdl:message>
+  <wsdl:message name="IStarbucks_DotNetGetAllFilteredRouteMappings_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DotNetGetAllFilteredRouteMappingsResponse" />
+  </wsdl:message>
+  <wsdl:message name="IStarbucks_ExportRoutes_InputMessage">
+    <wsdl:part name="parameters" element="tns:ExportRoutes" />
+  </wsdl:message>
+  <wsdl:message name="IStarbucks_ExportRoutes_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ExportRoutesResponse" />
+  </wsdl:message>
+  <wsdl:message name="IStarbucks_UploadRoutesDotNet_InputMessage">
+    <wsdl:part name="parameters" element="tns:UploadRoutesDotNet" />
+  </wsdl:message>
+  <wsdl:message name="IStarbucks_UploadRoutesDotNet_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UploadRoutesDotNetResponse" />
+  </wsdl:message>
+  <wsdl:message name="IStarbucks_LoginForAdminPanel_InputMessage">
+    <wsdl:part name="parameters" element="tns:LoginForAdminPanel" />
+  </wsdl:message>
+  <wsdl:message name="IStarbucks_LoginForAdminPanel_OutputMessage">
+    <wsdl:part name="parameters" element="tns:LoginForAdminPanelResponse" />
+  </wsdl:message>
+  <wsdl:message name="IStarbucks_LoginForDevice_InputMessage">
+    <wsdl:part name="parameters" element="tns:LoginForDevice" />
+  </wsdl:message>
+  <wsdl:message name="IStarbucks_LoginForDevice_OutputMessage">
+    <wsdl:part name="parameters" element="tns:LoginForDeviceResponse" />
+  </wsdl:message>
+  <wsdl:message name="IStarbucks_Logout_InputMessage">
+    <wsdl:part name="parameters" element="tns:Logout" />
+  </wsdl:message>
+  <wsdl:message name="IStarbucks_Logout_OutputMessage">
+    <wsdl:part name="parameters" element="tns:LogoutResponse" />
+  </wsdl:message>
+  <wsdl:message name="IStarbucks_GetUserDetail_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetUserDetail" />
+  </wsdl:message>
+  <wsdl:message name="IStarbucks_GetUserDetail_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetUserDetailResponse" />
+  </wsdl:message>
+  <wsdl:message name="IStarbucks_GetAllUsers_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllUsers" />
+  </wsdl:message>
+  <wsdl:message name="IStarbucks_GetAllUsers_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllUsersResponse" />
+  </wsdl:message>
+  <wsdl:message name="IStarbucks_GetAllUsersByType_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllUsersByType" />
+  </wsdl:message>
+  <wsdl:message name="IStarbucks_GetAllUsersByType_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllUsersByTypeResponse" />
+  </wsdl:message>
+  <wsdl:message name="IStarbucks_GetAllUsersByTypeAndProvider_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllUsersByTypeAndProvider" />
+  </wsdl:message>
+  <wsdl:message name="IStarbucks_GetAllUsersByTypeAndProvider_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllUsersByTypeAndProviderResponse" />
+  </wsdl:message>
+  <wsdl:message name="IStarbucks_CreateUser_InputMessage">
+    <wsdl:part name="parameters" element="tns:CreateUser" />
+  </wsdl:message>
+  <wsdl:message name="IStarbucks_CreateUser_OutputMessage">
+    <wsdl:part name="parameters" element="tns:CreateUserResponse" />
+  </wsdl:message>
+  <wsdl:message name="IStarbucks_UpdateUser_InputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateUser" />
+  </wsdl:message>
+  <wsdl:message name="IStarbucks_UpdateUser_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateUserResponse" />
+  </wsdl:message>
+  <wsdl:message name="IStarbucks_UpdateUserPassword_InputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateUserPassword" />
+  </wsdl:message>
+  <wsdl:message name="IStarbucks_UpdateUserPassword_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateUserPasswordResponse" />
+  </wsdl:message>
+  <wsdl:message name="IStarbucks_ActivateUser_InputMessage">
+    <wsdl:part name="parameters" element="tns:ActivateUser" />
+  </wsdl:message>
+  <wsdl:message name="IStarbucks_ActivateUser_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ActivateUserResponse" />
+  </wsdl:message>
+  <wsdl:message name="IStarbucks_DeactivateUser_InputMessage">
+    <wsdl:part name="parameters" element="tns:DeactivateUser" />
+  </wsdl:message>
+  <wsdl:message name="IStarbucks_DeactivateUser_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DeactivateUserResponse" />
+  </wsdl:message>
+  <wsdl:message name="IStarbucks_DeleteUser_InputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteUser" />
+  </wsdl:message>
+  <wsdl:message name="IStarbucks_DeleteUser_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteUserResponse" />
+  </wsdl:message>
+  <wsdl:message name="IStarbucks_GetStoresForCDC_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetStoresForCDC" />
+  </wsdl:message>
+  <wsdl:message name="IStarbucks_GetStoresForCDC_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetStoresForCDCResponse" />
+  </wsdl:message>
+  <wsdl:message name="IStarbucks_GetStoreDetail_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetStoreDetail" />
+  </wsdl:message>
+  <wsdl:message name="IStarbucks_GetStoreDetail_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetStoreDetailResponse" />
+  </wsdl:message>
+  <wsdl:message name="IStarbucks_GetAllStores_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllStores" />
+  </wsdl:message>
+  <wsdl:message name="IStarbucks_GetAllStores_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllStoresResponse" />
+  </wsdl:message>
+  <wsdl:message name="IStarbucks_GetAllStoresWithRange_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllStoresWithRange" />
+  </wsdl:message>
+  <wsdl:message name="IStarbucks_GetAllStoresWithRange_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllStoresWithRangeResponse" />
+  </wsdl:message>
+  <wsdl:message name="IStarbucks_CreateStore_InputMessage">
+    <wsdl:part name="parameters" element="tns:CreateStore" />
+  </wsdl:message>
+  <wsdl:message name="IStarbucks_CreateStore_OutputMessage">
+    <wsdl:part name="parameters" element="tns:CreateStoreResponse" />
+  </wsdl:message>
+  <wsdl:message name="IStarbucks_UpdateStore_InputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateStore" />
+  </wsdl:message>
+  <wsdl:message name="IStarbucks_UpdateStore_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateStoreResponse" />
+  </wsdl:message>
+  <wsdl:message name="IStarbucks_GetAllRouteMappings_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllRouteMappings" />
+  </wsdl:message>
+  <wsdl:message name="IStarbucks_GetAllRouteMappings_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllRouteMappingsResponse" />
+  </wsdl:message>
+  <wsdl:message name="IStarbucks_GetAllRouteMappingsWithRange_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllRouteMappingsWithRange" />
+  </wsdl:message>
+  <wsdl:message name="IStarbucks_GetAllRouteMappingsWithRange_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllRouteMappingsWithRangeResponse" />
+  </wsdl:message>
+  <wsdl:message name="IStarbucks_GetAllRouteMappingsForProvider_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllRouteMappingsForProvider" />
+  </wsdl:message>
+  <wsdl:message name="IStarbucks_GetAllRouteMappingsForProvider_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllRouteMappingsForProviderResponse" />
+  </wsdl:message>
+  <wsdl:message name="IStarbucks_GetAllRouteMappingsForProviderWithRange_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllRouteMappingsForProviderWithRange" />
+  </wsdl:message>
+  <wsdl:message name="IStarbucks_GetAllRouteMappingsForProviderWithRange_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllRouteMappingsForProviderWithRangeResponse" />
+  </wsdl:message>
+  <wsdl:message name="IStarbucks_GetRouteDetail_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetRouteDetail" />
+  </wsdl:message>
+  <wsdl:message name="IStarbucks_GetRouteDetail_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetRouteDetailResponse" />
+  </wsdl:message>
+  <wsdl:message name="IStarbucks_CreateRoute_InputMessage">
+    <wsdl:part name="parameters" element="tns:CreateRoute" />
+  </wsdl:message>
+  <wsdl:message name="IStarbucks_CreateRoute_OutputMessage">
+    <wsdl:part name="parameters" element="tns:CreateRouteResponse" />
+  </wsdl:message>
+  <wsdl:message name="IStarbucks_AddStoreToRoute_InputMessage">
+    <wsdl:part name="parameters" element="tns:AddStoreToRoute" />
+  </wsdl:message>
+  <wsdl:message name="IStarbucks_AddStoreToRoute_OutputMessage">
+    <wsdl:part name="parameters" element="tns:AddStoreToRouteResponse" />
+  </wsdl:message>
+  <wsdl:message name="IStarbucks_UpdateRouteStatusToActive_InputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateRouteStatusToActive" />
+  </wsdl:message>
+  <wsdl:message name="IStarbucks_UpdateRouteStatusToActive_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateRouteStatusToActiveResponse" />
+  </wsdl:message>
+  <wsdl:message name="IStarbucks_UpdateRouteStatusToDeactive_InputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateRouteStatusToDeactive" />
+  </wsdl:message>
+  <wsdl:message name="IStarbucks_UpdateRouteStatusToDeactive_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateRouteStatusToDeactiveResponse" />
+  </wsdl:message>
+  <wsdl:message name="IStarbucks_GetAllParentReasons_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllParentReasons" />
+  </wsdl:message>
+  <wsdl:message name="IStarbucks_GetAllParentReasons_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllParentReasonsResponse" />
+  </wsdl:message>
+  <wsdl:message name="IStarbucks_GetAllParentReasonsWithChildren_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllParentReasonsWithChildren" />
+  </wsdl:message>
+  <wsdl:message name="IStarbucks_GetAllParentReasonsWithChildren_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllParentReasonsWithChildrenResponse" />
+  </wsdl:message>
+  <wsdl:message name="IStarbucks_GetChildrenOfParentReason_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetChildrenOfParentReason" />
+  </wsdl:message>
+  <wsdl:message name="IStarbucks_GetChildrenOfParentReason_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetChildrenOfParentReasonResponse" />
+  </wsdl:message>
+  <wsdl:message name="IStarbucks_CreateReason_InputMessage">
+    <wsdl:part name="parameters" element="tns:CreateReason" />
+  </wsdl:message>
+  <wsdl:message name="IStarbucks_CreateReason_OutputMessage">
+    <wsdl:part name="parameters" element="tns:CreateReasonResponse" />
+  </wsdl:message>
+  <wsdl:message name="IStarbucks_UpdateReason_InputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateReason" />
+  </wsdl:message>
+  <wsdl:message name="IStarbucks_UpdateReason_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateReasonResponse" />
+  </wsdl:message>
+  <wsdl:message name="IStarbucks_CreateReasonChild_InputMessage">
+    <wsdl:part name="parameters" element="tns:CreateReasonChild" />
+  </wsdl:message>
+  <wsdl:message name="IStarbucks_CreateReasonChild_OutputMessage">
+    <wsdl:part name="parameters" element="tns:CreateReasonChildResponse" />
+  </wsdl:message>
+  <wsdl:message name="IStarbucks_UpdateReasonChild_InputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateReasonChild" />
+  </wsdl:message>
+  <wsdl:message name="IStarbucks_UpdateReasonChild_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateReasonChildResponse" />
+  </wsdl:message>
+  <wsdl:message name="IStarbucks_GetAllCDCs_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllCDCs" />
+  </wsdl:message>
+  <wsdl:message name="IStarbucks_GetAllCDCs_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllCDCsResponse" />
+  </wsdl:message>
+  <wsdl:message name="IStarbucks_GetAllCDCsForProvider_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllCDCsForProvider" />
+  </wsdl:message>
+  <wsdl:message name="IStarbucks_GetAllCDCsForProvider_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllCDCsForProviderResponse" />
+  </wsdl:message>
+  <wsdl:message name="IStarbucks_CreateCDC_InputMessage">
+    <wsdl:part name="parameters" element="tns:CreateCDC" />
+  </wsdl:message>
+  <wsdl:message name="IStarbucks_CreateCDC_OutputMessage">
+    <wsdl:part name="parameters" element="tns:CreateCDCResponse" />
+  </wsdl:message>
+  <wsdl:message name="IStarbucks_UpdateCDC_InputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateCDC" />
+  </wsdl:message>
+  <wsdl:message name="IStarbucks_UpdateCDC_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateCDCResponse" />
+  </wsdl:message>
+  <wsdl:message name="IStarbucks_GetAllOpenTrips_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllOpenTrips" />
+  </wsdl:message>
+  <wsdl:message name="IStarbucks_GetAllOpenTrips_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllOpenTripsResponse" />
+  </wsdl:message>
+  <wsdl:message name="IStarbucks_GetAllOpenTripsForProvider_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllOpenTripsForProvider" />
+  </wsdl:message>
+  <wsdl:message name="IStarbucks_GetAllOpenTripsForProvider_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllOpenTripsForProviderResponse" />
+  </wsdl:message>
+  <wsdl:message name="IStarbucks_GetAllOpenTripsForCDC_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllOpenTripsForCDC" />
+  </wsdl:message>
+  <wsdl:message name="IStarbucks_GetAllOpenTripsForCDC_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllOpenTripsForCDCResponse" />
+  </wsdl:message>
+  <wsdl:message name="IStarbucks_CloseTrip_InputMessage">
+    <wsdl:part name="parameters" element="tns:CloseTrip" />
+  </wsdl:message>
+  <wsdl:message name="IStarbucks_CloseTrip_OutputMessage">
+    <wsdl:part name="parameters" element="tns:CloseTripResponse" />
+  </wsdl:message>
+  <wsdl:message name="IStarbucks_GetOpenTripForRouteNameAndUser_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetOpenTripForRouteNameAndUser" />
+  </wsdl:message>
+  <wsdl:message name="IStarbucks_GetOpenTripForRouteNameAndUser_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetOpenTripForRouteNameAndUserResponse" />
+  </wsdl:message>
+  <wsdl:message name="IStarbucks_GetOpenTripForRouteNameAndUserV7_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetOpenTripForRouteNameAndUserV7" />
+  </wsdl:message>
+  <wsdl:message name="IStarbucks_GetOpenTripForRouteNameAndUserV7_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetOpenTripForRouteNameAndUserV7Response" />
+  </wsdl:message>
+  <wsdl:message name="IStarbucks_AddCommentToStop_InputMessage">
+    <wsdl:part name="parameters" element="tns:AddCommentToStop" />
+  </wsdl:message>
+  <wsdl:message name="IStarbucks_AddCommentToStop_OutputMessage">
+    <wsdl:part name="parameters" element="tns:AddCommentToStopResponse" />
+  </wsdl:message>
+  <wsdl:message name="IStarbucks_GetPhotosForStop_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetPhotosForStop" />
+  </wsdl:message>
+  <wsdl:message name="IStarbucks_GetPhotosForStop_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetPhotosForStopResponse" />
+  </wsdl:message>
+  <wsdl:message name="IStarbucks_AddPhotoToStop_InputMessage">
+    <wsdl:part name="parameters" element="tns:AddPhotoToStop" />
+  </wsdl:message>
+  <wsdl:message name="IStarbucks_AddPhotoToStop_OutputMessage">
+    <wsdl:part name="parameters" element="tns:AddPhotoToStopResponse" />
+  </wsdl:message>
+  <wsdl:message name="IStarbucks_AddDeliveryTransaction_InputMessage">
+    <wsdl:part name="parameters" element="tns:AddDeliveryTransaction" />
+  </wsdl:message>
+  <wsdl:message name="IStarbucks_AddDeliveryTransaction_OutputMessage">
+    <wsdl:part name="parameters" element="tns:AddDeliveryTransactionResponse" />
+  </wsdl:message>
+  <wsdl:message name="IStarbucks_AddFailure_InputMessage">
+    <wsdl:part name="parameters" element="tns:AddFailure" />
+  </wsdl:message>
+  <wsdl:message name="IStarbucks_AddFailure_OutputMessage">
+    <wsdl:part name="parameters" element="tns:AddFailureResponse" />
+  </wsdl:message>
+  <wsdl:message name="IStarbucks_CompleteStop_InputMessage">
+    <wsdl:part name="parameters" element="tns:CompleteStop" />
+  </wsdl:message>
+  <wsdl:message name="IStarbucks_CompleteStop_OutputMessage">
+    <wsdl:part name="parameters" element="tns:CompleteStopResponse" />
+  </wsdl:message>
+  <wsdl:message name="IStarbucks_CompleteStopV7_InputMessage">
+    <wsdl:part name="parameters" element="tns:CompleteStopV7" />
+  </wsdl:message>
+  <wsdl:message name="IStarbucks_CompleteStopV7_OutputMessage">
+    <wsdl:part name="parameters" element="tns:CompleteStopV7Response" />
+  </wsdl:message>
+  <wsdl:message name="IStarbucks_DeleteAllIssues_InputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteAllIssues" />
+  </wsdl:message>
+  <wsdl:message name="IStarbucks_DeleteAllIssues_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteAllIssuesResponse" />
+  </wsdl:message>
+  <wsdl:message name="IStarbucks_SetGeoPosition_InputMessage">
+    <wsdl:part name="parameters" element="tns:SetGeoPosition" />
+  </wsdl:message>
+  <wsdl:message name="IStarbucks_SetGeoPosition_OutputMessage">
+    <wsdl:part name="parameters" element="tns:SetGeoPositionResponse" />
+  </wsdl:message>
+  <wsdl:message name="IStarbucks_CommitIssues_InputMessage">
+    <wsdl:part name="parameters" element="tns:CommitIssues" />
+  </wsdl:message>
+  <wsdl:message name="IStarbucks_CommitIssues_OutputMessage">
+    <wsdl:part name="parameters" element="tns:CommitIssuesResponse" />
+  </wsdl:message>
+  <wsdl:message name="IStarbucks_CommitIssuesV7_InputMessage">
+    <wsdl:part name="parameters" element="tns:CommitIssuesV7" />
+  </wsdl:message>
+  <wsdl:message name="IStarbucks_CommitIssuesV7_OutputMessage">
+    <wsdl:part name="parameters" element="tns:CommitIssuesV7Response" />
+  </wsdl:message>
+  <wsdl:message name="IStarbucks_CommitCachedDataV6_InputMessage">
+    <wsdl:part name="parameters" element="tns:CommitCachedDataV6" />
+  </wsdl:message>
+  <wsdl:message name="IStarbucks_CommitCachedDataV6_OutputMessage">
+    <wsdl:part name="parameters" element="tns:CommitCachedDataV6Response" />
+  </wsdl:message>
+  <wsdl:message name="IStarbucks_CommitCachedDataV7_InputMessage">
+    <wsdl:part name="parameters" element="tns:CommitCachedDataV7" />
+  </wsdl:message>
+  <wsdl:message name="IStarbucks_CommitCachedDataV7_OutputMessage">
+    <wsdl:part name="parameters" element="tns:CommitCachedDataV7Response" />
+  </wsdl:message>
+  <wsdl:message name="IStarbucks_AddOp_InputMessage">
+    <wsdl:part name="parameters" element="tns:AddOp" />
+  </wsdl:message>
+  <wsdl:message name="IStarbucks_AddOp_OutputMessage">
+    <wsdl:part name="parameters" element="tns:AddOpResponse" />
+  </wsdl:message>
+  <wsdl:message name="IStarbucks_UpdateOp_InputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateOp" />
+  </wsdl:message>
+  <wsdl:message name="IStarbucks_UpdateOp_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateOpResponse" />
+  </wsdl:message>
+  <wsdl:message name="IStarbucks_GetAllOps_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllOps" />
+  </wsdl:message>
+  <wsdl:message name="IStarbucks_GetAllOps_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllOpsResponse" />
+  </wsdl:message>
+  <wsdl:message name="IStarbucks_GetAllOpsWithRange_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllOpsWithRange" />
+  </wsdl:message>
+  <wsdl:message name="IStarbucks_GetAllOpsWithRange_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllOpsWithRangeResponse" />
+  </wsdl:message>
+  <wsdl:message name="IStarbucks_GetAllProviders_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllProviders" />
+  </wsdl:message>
+  <wsdl:message name="IStarbucks_GetAllProviders_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllProvidersResponse" />
+  </wsdl:message>
+  <wsdl:message name="IStarbucks_GetAllProvidersWithCDCs_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllProvidersWithCDCs" />
+  </wsdl:message>
+  <wsdl:message name="IStarbucks_GetAllProvidersWithCDCs_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllProvidersWithCDCsResponse" />
+  </wsdl:message>
+  <wsdl:message name="IStarbucks_GetCDCsForProvider_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetCDCsForProvider" />
+  </wsdl:message>
+  <wsdl:message name="IStarbucks_GetCDCsForProvider_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetCDCsForProviderResponse" />
+  </wsdl:message>
+  <wsdl:message name="IStarbucks_CreateProvider_InputMessage">
+    <wsdl:part name="parameters" element="tns:CreateProvider" />
+  </wsdl:message>
+  <wsdl:message name="IStarbucks_CreateProvider_OutputMessage">
+    <wsdl:part name="parameters" element="tns:CreateProviderResponse" />
+  </wsdl:message>
+  <wsdl:message name="IStarbucks_UpdateProvider_InputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateProvider" />
+  </wsdl:message>
+  <wsdl:message name="IStarbucks_UpdateProvider_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateProviderResponse" />
+  </wsdl:message>
+  <wsdl:message name="IStarbucks_GetPhotosForStore_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetPhotosForStore" />
+  </wsdl:message>
+  <wsdl:message name="IStarbucks_GetPhotosForStore_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetPhotosForStoreResponse" />
+  </wsdl:message>
+  <wsdl:message name="IStarbucks_ViewPhotos_InputMessage">
+    <wsdl:part name="parameters" element="tns:ViewPhotos" />
+  </wsdl:message>
+  <wsdl:message name="IStarbucks_ViewPhotos_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ViewPhotosResponse" />
+  </wsdl:message>
+  <wsdl:message name="IStarbucks_ReportStoreReadinessForSSC_InputMessage">
+    <wsdl:part name="parameters" element="tns:ReportStoreReadinessForSSC" />
+  </wsdl:message>
+  <wsdl:message name="IStarbucks_ReportStoreReadinessForSSC_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ReportStoreReadinessForSSCResponse" />
+  </wsdl:message>
+  <wsdl:message name="IStarbucks_ReportStoreReadinessForSSCWithInterval_InputMessage">
+    <wsdl:part name="parameters" element="tns:ReportStoreReadinessForSSCWithInterval" />
+  </wsdl:message>
+  <wsdl:message name="IStarbucks_ReportStoreReadinessForSSCWithInterval_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ReportStoreReadinessForSSCWithIntervalResponse" />
+  </wsdl:message>
+  <wsdl:message name="IStarbucks_ReportStoreReadinessForSSCWithIntervalHours_InputMessage">
+    <wsdl:part name="parameters" element="tns:ReportStoreReadinessForSSCWithIntervalHours" />
+  </wsdl:message>
+  <wsdl:message name="IStarbucks_ReportStoreReadinessForSSCWithIntervalHours_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ReportStoreReadinessForSSCWithIntervalHoursResponse" />
+  </wsdl:message>
+  <wsdl:message name="IStarbucks_ReportStoreReadinessForCDC_InputMessage">
+    <wsdl:part name="parameters" element="tns:ReportStoreReadinessForCDC" />
+  </wsdl:message>
+  <wsdl:message name="IStarbucks_ReportStoreReadinessForCDC_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ReportStoreReadinessForCDCResponse" />
+  </wsdl:message>
+  <wsdl:message name="IStarbucks_ReportStoreReadinessForCDCWithInterval_InputMessage">
+    <wsdl:part name="parameters" element="tns:ReportStoreReadinessForCDCWithInterval" />
+  </wsdl:message>
+  <wsdl:message name="IStarbucks_ReportStoreReadinessForCDCWithInterval_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ReportStoreReadinessForCDCWithIntervalResponse" />
+  </wsdl:message>
+  <wsdl:message name="IStarbucks_ReportStoreReadinessForCDCWithIntervalHours_InputMessage">
+    <wsdl:part name="parameters" element="tns:ReportStoreReadinessForCDCWithIntervalHours" />
+  </wsdl:message>
+  <wsdl:message name="IStarbucks_ReportStoreReadinessForCDCWithIntervalHours_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ReportStoreReadinessForCDCWithIntervalHoursResponse" />
+  </wsdl:message>
+  <wsdl:message name="IStarbucks_ReportStoreReadinessForCDCForProvider_InputMessage">
+    <wsdl:part name="parameters" element="tns:ReportStoreReadinessForCDCForProvider" />
+  </wsdl:message>
+  <wsdl:message name="IStarbucks_ReportStoreReadinessForCDCForProvider_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ReportStoreReadinessForCDCForProviderResponse" />
+  </wsdl:message>
+  <wsdl:message name="IStarbucks_ReportStoreReadinessForCDCForProviderWithInterval_InputMessage">
+    <wsdl:part name="parameters" element="tns:ReportStoreReadinessForCDCForProviderWithInterval" />
+  </wsdl:message>
+  <wsdl:message name="IStarbucks_ReportStoreReadinessForCDCForProviderWithInterval_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ReportStoreReadinessForCDCForProviderWithIntervalResponse" />
+  </wsdl:message>
+  <wsdl:message name="IStarbucks_ReportStoreReadinessForCDCForProviderWithIntervalHours_InputMessage">
+    <wsdl:part name="parameters" element="tns:ReportStoreReadinessForCDCForProviderWithIntervalHours" />
+  </wsdl:message>
+  <wsdl:message name="IStarbucks_ReportStoreReadinessForCDCForProviderWithIntervalHours_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ReportStoreReadinessForCDCForProviderWithIntervalHoursResponse" />
+  </wsdl:message>
+  <wsdl:message name="IStarbucks_ReportFieldReadiness_InputMessage">
+    <wsdl:part name="parameters" element="tns:ReportFieldReadiness" />
+  </wsdl:message>
+  <wsdl:message name="IStarbucks_ReportFieldReadiness_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ReportFieldReadinessResponse" />
+  </wsdl:message>
+  <wsdl:message name="IStarbucks_ReportFieldReadinessWithInterval_InputMessage">
+    <wsdl:part name="parameters" element="tns:ReportFieldReadinessWithInterval" />
+  </wsdl:message>
+  <wsdl:message name="IStarbucks_ReportFieldReadinessWithInterval_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ReportFieldReadinessWithIntervalResponse" />
+  </wsdl:message>
+  <wsdl:message name="IStarbucks_ReportFieldReadinessWithIntervalHours_InputMessage">
+    <wsdl:part name="parameters" element="tns:ReportFieldReadinessWithIntervalHours" />
+  </wsdl:message>
+  <wsdl:message name="IStarbucks_ReportFieldReadinessWithIntervalHours_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ReportFieldReadinessWithIntervalHoursResponse" />
+  </wsdl:message>
+  <wsdl:message name="IStarbucks_ConsolidateEmails_InputMessage">
+    <wsdl:part name="parameters" element="tns:ConsolidateEmails" />
+  </wsdl:message>
+  <wsdl:message name="IStarbucks_ConsolidateEmails_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ConsolidateEmailsResponse" />
+  </wsdl:message>
+  <wsdl:message name="IStarbucks_SendTestEmail_InputMessage">
+    <wsdl:part name="parameters" element="tns:SendTestEmail" />
+  </wsdl:message>
+  <wsdl:message name="IStarbucks_SendTestEmail_OutputMessage">
+    <wsdl:part name="parameters" element="tns:SendTestEmailResponse" />
+  </wsdl:message>
+  <wsdl:message name="IStarbucks_GetPhotos_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetPhotos" />
+  </wsdl:message>
+  <wsdl:message name="IStarbucks_GetPhotos_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetPhotosResponse" />
+  </wsdl:message>
+  <wsdl:message name="IStarbucks_ExportPhotoSearch_InputMessage">
+    <wsdl:part name="parameters" element="tns:ExportPhotoSearch" />
+  </wsdl:message>
+  <wsdl:message name="IStarbucks_ExportPhotoSearch_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ExportPhotoSearchResponse" />
+  </wsdl:message>
+  <wsdl:portType name="IStarbucks">
+    <wsdl:operation name="DotNetGetAllRouteMappings">
+      <wsdl:input wsaw:Action="http://tempuri.org/IStarbucks/DotNetGetAllRouteMappings" message="tns:IStarbucks_DotNetGetAllRouteMappings_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IStarbucks/DotNetGetAllRouteMappingsResponse" message="tns:IStarbucks_DotNetGetAllRouteMappings_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="DotNetGetAllFilteredRouteMappings">
+      <wsdl:input wsaw:Action="http://tempuri.org/IStarbucks/DotNetGetAllFilteredRouteMappings" message="tns:IStarbucks_DotNetGetAllFilteredRouteMappings_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IStarbucks/DotNetGetAllFilteredRouteMappingsResponse" message="tns:IStarbucks_DotNetGetAllFilteredRouteMappings_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ExportRoutes">
+      <wsdl:input wsaw:Action="http://tempuri.org/IStarbucks/ExportRoutes" message="tns:IStarbucks_ExportRoutes_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IStarbucks/ExportRoutesResponse" message="tns:IStarbucks_ExportRoutes_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UploadRoutesDotNet">
+      <wsdl:input wsaw:Action="http://tempuri.org/IStarbucks/UploadRoutesDotNet" message="tns:IStarbucks_UploadRoutesDotNet_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IStarbucks/UploadRoutesDotNetResponse" message="tns:IStarbucks_UploadRoutesDotNet_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="LoginForAdminPanel">
+      <wsdl:input wsaw:Action="http://tempuri.org/IStarbucks/LoginForAdminPanel" message="tns:IStarbucks_LoginForAdminPanel_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IStarbucks/LoginForAdminPanelResponse" message="tns:IStarbucks_LoginForAdminPanel_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="LoginForDevice">
+      <wsdl:input wsaw:Action="http://tempuri.org/IStarbucks/LoginForDevice" message="tns:IStarbucks_LoginForDevice_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IStarbucks/LoginForDeviceResponse" message="tns:IStarbucks_LoginForDevice_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="Logout">
+      <wsdl:input wsaw:Action="http://tempuri.org/IStarbucks/Logout" message="tns:IStarbucks_Logout_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IStarbucks/LogoutResponse" message="tns:IStarbucks_Logout_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetUserDetail">
+      <wsdl:input wsaw:Action="http://tempuri.org/IStarbucks/GetUserDetail" message="tns:IStarbucks_GetUserDetail_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IStarbucks/GetUserDetailResponse" message="tns:IStarbucks_GetUserDetail_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAllUsers">
+      <wsdl:input wsaw:Action="http://tempuri.org/IStarbucks/GetAllUsers" message="tns:IStarbucks_GetAllUsers_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IStarbucks/GetAllUsersResponse" message="tns:IStarbucks_GetAllUsers_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAllUsersByType">
+      <wsdl:input wsaw:Action="http://tempuri.org/IStarbucks/GetAllUsersByType" message="tns:IStarbucks_GetAllUsersByType_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IStarbucks/GetAllUsersByTypeResponse" message="tns:IStarbucks_GetAllUsersByType_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAllUsersByTypeAndProvider">
+      <wsdl:input wsaw:Action="http://tempuri.org/IStarbucks/GetAllUsersByTypeAndProvider" message="tns:IStarbucks_GetAllUsersByTypeAndProvider_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IStarbucks/GetAllUsersByTypeAndProviderResponse" message="tns:IStarbucks_GetAllUsersByTypeAndProvider_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="CreateUser">
+      <wsdl:input wsaw:Action="http://tempuri.org/IStarbucks/CreateUser" message="tns:IStarbucks_CreateUser_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IStarbucks/CreateUserResponse" message="tns:IStarbucks_CreateUser_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateUser">
+      <wsdl:input wsaw:Action="http://tempuri.org/IStarbucks/UpdateUser" message="tns:IStarbucks_UpdateUser_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IStarbucks/UpdateUserResponse" message="tns:IStarbucks_UpdateUser_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateUserPassword">
+      <wsdl:input wsaw:Action="http://tempuri.org/IStarbucks/UpdateUserPassword" message="tns:IStarbucks_UpdateUserPassword_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IStarbucks/UpdateUserPasswordResponse" message="tns:IStarbucks_UpdateUserPassword_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ActivateUser">
+      <wsdl:input wsaw:Action="http://tempuri.org/IStarbucks/ActivateUser" message="tns:IStarbucks_ActivateUser_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IStarbucks/ActivateUserResponse" message="tns:IStarbucks_ActivateUser_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="DeactivateUser">
+      <wsdl:input wsaw:Action="http://tempuri.org/IStarbucks/DeactivateUser" message="tns:IStarbucks_DeactivateUser_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IStarbucks/DeactivateUserResponse" message="tns:IStarbucks_DeactivateUser_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="DeleteUser">
+      <wsdl:input wsaw:Action="http://tempuri.org/IStarbucks/DeleteUser" message="tns:IStarbucks_DeleteUser_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IStarbucks/DeleteUserResponse" message="tns:IStarbucks_DeleteUser_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetStoresForCDC">
+      <wsdl:input wsaw:Action="http://tempuri.org/IStarbucks/GetStoresForCDC" message="tns:IStarbucks_GetStoresForCDC_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IStarbucks/GetStoresForCDCResponse" message="tns:IStarbucks_GetStoresForCDC_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetStoreDetail">
+      <wsdl:input wsaw:Action="http://tempuri.org/IStarbucks/GetStoreDetail" message="tns:IStarbucks_GetStoreDetail_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IStarbucks/GetStoreDetailResponse" message="tns:IStarbucks_GetStoreDetail_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAllStores">
+      <wsdl:input wsaw:Action="http://tempuri.org/IStarbucks/GetAllStores" message="tns:IStarbucks_GetAllStores_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IStarbucks/GetAllStoresResponse" message="tns:IStarbucks_GetAllStores_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAllStoresWithRange">
+      <wsdl:input wsaw:Action="http://tempuri.org/IStarbucks/GetAllStoresWithRange" message="tns:IStarbucks_GetAllStoresWithRange_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IStarbucks/GetAllStoresWithRangeResponse" message="tns:IStarbucks_GetAllStoresWithRange_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="CreateStore">
+      <wsdl:input wsaw:Action="http://tempuri.org/IStarbucks/CreateStore" message="tns:IStarbucks_CreateStore_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IStarbucks/CreateStoreResponse" message="tns:IStarbucks_CreateStore_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateStore">
+      <wsdl:input wsaw:Action="http://tempuri.org/IStarbucks/UpdateStore" message="tns:IStarbucks_UpdateStore_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IStarbucks/UpdateStoreResponse" message="tns:IStarbucks_UpdateStore_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAllRouteMappings">
+      <wsdl:input wsaw:Action="http://tempuri.org/IStarbucks/GetAllRouteMappings" message="tns:IStarbucks_GetAllRouteMappings_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IStarbucks/GetAllRouteMappingsResponse" message="tns:IStarbucks_GetAllRouteMappings_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAllRouteMappingsWithRange">
+      <wsdl:input wsaw:Action="http://tempuri.org/IStarbucks/GetAllRouteMappingsWithRange" message="tns:IStarbucks_GetAllRouteMappingsWithRange_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IStarbucks/GetAllRouteMappingsWithRangeResponse" message="tns:IStarbucks_GetAllRouteMappingsWithRange_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAllRouteMappingsForProvider">
+      <wsdl:input wsaw:Action="http://tempuri.org/IStarbucks/GetAllRouteMappingsForProvider" message="tns:IStarbucks_GetAllRouteMappingsForProvider_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IStarbucks/GetAllRouteMappingsForProviderResponse" message="tns:IStarbucks_GetAllRouteMappingsForProvider_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAllRouteMappingsForProviderWithRange">
+      <wsdl:input wsaw:Action="http://tempuri.org/IStarbucks/GetAllRouteMappingsForProviderWithRange" message="tns:IStarbucks_GetAllRouteMappingsForProviderWithRange_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IStarbucks/GetAllRouteMappingsForProviderWithRangeResponse" message="tns:IStarbucks_GetAllRouteMappingsForProviderWithRange_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetRouteDetail">
+      <wsdl:input wsaw:Action="http://tempuri.org/IStarbucks/GetRouteDetail" message="tns:IStarbucks_GetRouteDetail_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IStarbucks/GetRouteDetailResponse" message="tns:IStarbucks_GetRouteDetail_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="CreateRoute">
+      <wsdl:input wsaw:Action="http://tempuri.org/IStarbucks/CreateRoute" message="tns:IStarbucks_CreateRoute_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IStarbucks/CreateRouteResponse" message="tns:IStarbucks_CreateRoute_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="AddStoreToRoute">
+      <wsdl:input wsaw:Action="http://tempuri.org/IStarbucks/AddStoreToRoute" message="tns:IStarbucks_AddStoreToRoute_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IStarbucks/AddStoreToRouteResponse" message="tns:IStarbucks_AddStoreToRoute_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateRouteStatusToActive">
+      <wsdl:input wsaw:Action="http://tempuri.org/IStarbucks/UpdateRouteStatusToActive" message="tns:IStarbucks_UpdateRouteStatusToActive_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IStarbucks/UpdateRouteStatusToActiveResponse" message="tns:IStarbucks_UpdateRouteStatusToActive_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateRouteStatusToDeactive">
+      <wsdl:input wsaw:Action="http://tempuri.org/IStarbucks/UpdateRouteStatusToDeactive" message="tns:IStarbucks_UpdateRouteStatusToDeactive_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IStarbucks/UpdateRouteStatusToDeactiveResponse" message="tns:IStarbucks_UpdateRouteStatusToDeactive_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAllParentReasons">
+      <wsdl:input wsaw:Action="http://tempuri.org/IStarbucks/GetAllParentReasons" message="tns:IStarbucks_GetAllParentReasons_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IStarbucks/GetAllParentReasonsResponse" message="tns:IStarbucks_GetAllParentReasons_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAllParentReasonsWithChildren">
+      <wsdl:input wsaw:Action="http://tempuri.org/IStarbucks/GetAllParentReasonsWithChildren" message="tns:IStarbucks_GetAllParentReasonsWithChildren_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IStarbucks/GetAllParentReasonsWithChildrenResponse" message="tns:IStarbucks_GetAllParentReasonsWithChildren_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetChildrenOfParentReason">
+      <wsdl:input wsaw:Action="http://tempuri.org/IStarbucks/GetChildrenOfParentReason" message="tns:IStarbucks_GetChildrenOfParentReason_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IStarbucks/GetChildrenOfParentReasonResponse" message="tns:IStarbucks_GetChildrenOfParentReason_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="CreateReason">
+      <wsdl:input wsaw:Action="http://tempuri.org/IStarbucks/CreateReason" message="tns:IStarbucks_CreateReason_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IStarbucks/CreateReasonResponse" message="tns:IStarbucks_CreateReason_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateReason">
+      <wsdl:input wsaw:Action="http://tempuri.org/IStarbucks/UpdateReason" message="tns:IStarbucks_UpdateReason_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IStarbucks/UpdateReasonResponse" message="tns:IStarbucks_UpdateReason_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="CreateReasonChild">
+      <wsdl:input wsaw:Action="http://tempuri.org/IStarbucks/CreateReasonChild" message="tns:IStarbucks_CreateReasonChild_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IStarbucks/CreateReasonChildResponse" message="tns:IStarbucks_CreateReasonChild_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateReasonChild">
+      <wsdl:input wsaw:Action="http://tempuri.org/IStarbucks/UpdateReasonChild" message="tns:IStarbucks_UpdateReasonChild_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IStarbucks/UpdateReasonChildResponse" message="tns:IStarbucks_UpdateReasonChild_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAllCDCs">
+      <wsdl:input wsaw:Action="http://tempuri.org/IStarbucks/GetAllCDCs" message="tns:IStarbucks_GetAllCDCs_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IStarbucks/GetAllCDCsResponse" message="tns:IStarbucks_GetAllCDCs_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAllCDCsForProvider">
+      <wsdl:input wsaw:Action="http://tempuri.org/IStarbucks/GetAllCDCsForProvider" message="tns:IStarbucks_GetAllCDCsForProvider_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IStarbucks/GetAllCDCsForProviderResponse" message="tns:IStarbucks_GetAllCDCsForProvider_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="CreateCDC">
+      <wsdl:input wsaw:Action="http://tempuri.org/IStarbucks/CreateCDC" message="tns:IStarbucks_CreateCDC_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IStarbucks/CreateCDCResponse" message="tns:IStarbucks_CreateCDC_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateCDC">
+      <wsdl:input wsaw:Action="http://tempuri.org/IStarbucks/UpdateCDC" message="tns:IStarbucks_UpdateCDC_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IStarbucks/UpdateCDCResponse" message="tns:IStarbucks_UpdateCDC_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAllOpenTrips">
+      <wsdl:input wsaw:Action="http://tempuri.org/IStarbucks/GetAllOpenTrips" message="tns:IStarbucks_GetAllOpenTrips_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IStarbucks/GetAllOpenTripsResponse" message="tns:IStarbucks_GetAllOpenTrips_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAllOpenTripsForProvider">
+      <wsdl:input wsaw:Action="http://tempuri.org/IStarbucks/GetAllOpenTripsForProvider" message="tns:IStarbucks_GetAllOpenTripsForProvider_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IStarbucks/GetAllOpenTripsForProviderResponse" message="tns:IStarbucks_GetAllOpenTripsForProvider_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAllOpenTripsForCDC">
+      <wsdl:input wsaw:Action="http://tempuri.org/IStarbucks/GetAllOpenTripsForCDC" message="tns:IStarbucks_GetAllOpenTripsForCDC_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IStarbucks/GetAllOpenTripsForCDCResponse" message="tns:IStarbucks_GetAllOpenTripsForCDC_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="CloseTrip">
+      <wsdl:input wsaw:Action="http://tempuri.org/IStarbucks/CloseTrip" message="tns:IStarbucks_CloseTrip_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IStarbucks/CloseTripResponse" message="tns:IStarbucks_CloseTrip_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetOpenTripForRouteNameAndUser">
+      <wsdl:input wsaw:Action="http://tempuri.org/IStarbucks/GetOpenTripForRouteNameAndUser" message="tns:IStarbucks_GetOpenTripForRouteNameAndUser_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IStarbucks/GetOpenTripForRouteNameAndUserResponse" message="tns:IStarbucks_GetOpenTripForRouteNameAndUser_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetOpenTripForRouteNameAndUserV7">
+      <wsdl:input wsaw:Action="http://tempuri.org/IStarbucks/GetOpenTripForRouteNameAndUserV7" message="tns:IStarbucks_GetOpenTripForRouteNameAndUserV7_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IStarbucks/GetOpenTripForRouteNameAndUserV7Response" message="tns:IStarbucks_GetOpenTripForRouteNameAndUserV7_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="AddCommentToStop">
+      <wsdl:input wsaw:Action="http://tempuri.org/IStarbucks/AddCommentToStop" message="tns:IStarbucks_AddCommentToStop_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IStarbucks/AddCommentToStopResponse" message="tns:IStarbucks_AddCommentToStop_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetPhotosForStop">
+      <wsdl:input wsaw:Action="http://tempuri.org/IStarbucks/GetPhotosForStop" message="tns:IStarbucks_GetPhotosForStop_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IStarbucks/GetPhotosForStopResponse" message="tns:IStarbucks_GetPhotosForStop_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="AddPhotoToStop">
+      <wsdl:input wsaw:Action="http://tempuri.org/IStarbucks/AddPhotoToStop" message="tns:IStarbucks_AddPhotoToStop_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IStarbucks/AddPhotoToStopResponse" message="tns:IStarbucks_AddPhotoToStop_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="AddDeliveryTransaction">
+      <wsdl:input wsaw:Action="http://tempuri.org/IStarbucks/AddDeliveryTransaction" message="tns:IStarbucks_AddDeliveryTransaction_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IStarbucks/AddDeliveryTransactionResponse" message="tns:IStarbucks_AddDeliveryTransaction_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="AddFailure">
+      <wsdl:input wsaw:Action="http://tempuri.org/IStarbucks/AddFailure" message="tns:IStarbucks_AddFailure_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IStarbucks/AddFailureResponse" message="tns:IStarbucks_AddFailure_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="CompleteStop">
+      <wsdl:input wsaw:Action="http://tempuri.org/IStarbucks/CompleteStop" message="tns:IStarbucks_CompleteStop_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IStarbucks/CompleteStopResponse" message="tns:IStarbucks_CompleteStop_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="CompleteStopV7">
+      <wsdl:input wsaw:Action="http://tempuri.org/IStarbucks/CompleteStopV7" message="tns:IStarbucks_CompleteStopV7_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IStarbucks/CompleteStopV7Response" message="tns:IStarbucks_CompleteStopV7_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="DeleteAllIssues">
+      <wsdl:input wsaw:Action="http://tempuri.org/IStarbucks/DeleteAllIssues" message="tns:IStarbucks_DeleteAllIssues_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IStarbucks/DeleteAllIssuesResponse" message="tns:IStarbucks_DeleteAllIssues_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="SetGeoPosition">
+      <wsdl:input wsaw:Action="http://tempuri.org/IStarbucks/SetGeoPosition" message="tns:IStarbucks_SetGeoPosition_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IStarbucks/SetGeoPositionResponse" message="tns:IStarbucks_SetGeoPosition_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="CommitIssues">
+      <wsdl:input wsaw:Action="http://tempuri.org/IStarbucks/CommitIssues" message="tns:IStarbucks_CommitIssues_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IStarbucks/CommitIssuesResponse" message="tns:IStarbucks_CommitIssues_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="CommitIssuesV7">
+      <wsdl:input wsaw:Action="http://tempuri.org/IStarbucks/CommitIssuesV7" message="tns:IStarbucks_CommitIssuesV7_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IStarbucks/CommitIssuesV7Response" message="tns:IStarbucks_CommitIssuesV7_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="CommitCachedDataV6">
+      <wsdl:input wsaw:Action="http://tempuri.org/IStarbucks/CommitCachedDataV6" message="tns:IStarbucks_CommitCachedDataV6_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IStarbucks/CommitCachedDataV6Response" message="tns:IStarbucks_CommitCachedDataV6_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="CommitCachedDataV7">
+      <wsdl:input wsaw:Action="http://tempuri.org/IStarbucks/CommitCachedDataV7" message="tns:IStarbucks_CommitCachedDataV7_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IStarbucks/CommitCachedDataV7Response" message="tns:IStarbucks_CommitCachedDataV7_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="AddOp">
+      <wsdl:input wsaw:Action="http://tempuri.org/IStarbucks/AddOp" message="tns:IStarbucks_AddOp_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IStarbucks/AddOpResponse" message="tns:IStarbucks_AddOp_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateOp">
+      <wsdl:input wsaw:Action="http://tempuri.org/IStarbucks/UpdateOp" message="tns:IStarbucks_UpdateOp_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IStarbucks/UpdateOpResponse" message="tns:IStarbucks_UpdateOp_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAllOps">
+      <wsdl:input wsaw:Action="http://tempuri.org/IStarbucks/GetAllOps" message="tns:IStarbucks_GetAllOps_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IStarbucks/GetAllOpsResponse" message="tns:IStarbucks_GetAllOps_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAllOpsWithRange">
+      <wsdl:input wsaw:Action="http://tempuri.org/IStarbucks/GetAllOpsWithRange" message="tns:IStarbucks_GetAllOpsWithRange_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IStarbucks/GetAllOpsWithRangeResponse" message="tns:IStarbucks_GetAllOpsWithRange_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAllProviders">
+      <wsdl:input wsaw:Action="http://tempuri.org/IStarbucks/GetAllProviders" message="tns:IStarbucks_GetAllProviders_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IStarbucks/GetAllProvidersResponse" message="tns:IStarbucks_GetAllProviders_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAllProvidersWithCDCs">
+      <wsdl:input wsaw:Action="http://tempuri.org/IStarbucks/GetAllProvidersWithCDCs" message="tns:IStarbucks_GetAllProvidersWithCDCs_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IStarbucks/GetAllProvidersWithCDCsResponse" message="tns:IStarbucks_GetAllProvidersWithCDCs_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetCDCsForProvider">
+      <wsdl:input wsaw:Action="http://tempuri.org/IStarbucks/GetCDCsForProvider" message="tns:IStarbucks_GetCDCsForProvider_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IStarbucks/GetCDCsForProviderResponse" message="tns:IStarbucks_GetCDCsForProvider_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="CreateProvider">
+      <wsdl:input wsaw:Action="http://tempuri.org/IStarbucks/CreateProvider" message="tns:IStarbucks_CreateProvider_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IStarbucks/CreateProviderResponse" message="tns:IStarbucks_CreateProvider_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateProvider">
+      <wsdl:input wsaw:Action="http://tempuri.org/IStarbucks/UpdateProvider" message="tns:IStarbucks_UpdateProvider_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IStarbucks/UpdateProviderResponse" message="tns:IStarbucks_UpdateProvider_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetPhotosForStore">
+      <wsdl:input wsaw:Action="http://tempuri.org/IStarbucks/GetPhotosForStore" message="tns:IStarbucks_GetPhotosForStore_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IStarbucks/GetPhotosForStoreResponse" message="tns:IStarbucks_GetPhotosForStore_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ViewPhotos">
+      <wsdl:input wsaw:Action="http://tempuri.org/IStarbucks/ViewPhotos" message="tns:IStarbucks_ViewPhotos_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IStarbucks/ViewPhotosResponse" message="tns:IStarbucks_ViewPhotos_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ReportStoreReadinessForSSC">
+      <wsdl:input wsaw:Action="http://tempuri.org/IStarbucks/ReportStoreReadinessForSSC" message="tns:IStarbucks_ReportStoreReadinessForSSC_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IStarbucks/ReportStoreReadinessForSSCResponse" message="tns:IStarbucks_ReportStoreReadinessForSSC_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ReportStoreReadinessForSSCWithInterval">
+      <wsdl:input wsaw:Action="http://tempuri.org/IStarbucks/ReportStoreReadinessForSSCWithInterval" message="tns:IStarbucks_ReportStoreReadinessForSSCWithInterval_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IStarbucks/ReportStoreReadinessForSSCWithIntervalResponse" message="tns:IStarbucks_ReportStoreReadinessForSSCWithInterval_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ReportStoreReadinessForSSCWithIntervalHours">
+      <wsdl:input wsaw:Action="http://tempuri.org/IStarbucks/ReportStoreReadinessForSSCWithIntervalHours" message="tns:IStarbucks_ReportStoreReadinessForSSCWithIntervalHours_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IStarbucks/ReportStoreReadinessForSSCWithIntervalHoursResponse" message="tns:IStarbucks_ReportStoreReadinessForSSCWithIntervalHours_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ReportStoreReadinessForCDC">
+      <wsdl:input wsaw:Action="http://tempuri.org/IStarbucks/ReportStoreReadinessForCDC" message="tns:IStarbucks_ReportStoreReadinessForCDC_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IStarbucks/ReportStoreReadinessForCDCResponse" message="tns:IStarbucks_ReportStoreReadinessForCDC_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ReportStoreReadinessForCDCWithInterval">
+      <wsdl:input wsaw:Action="http://tempuri.org/IStarbucks/ReportStoreReadinessForCDCWithInterval" message="tns:IStarbucks_ReportStoreReadinessForCDCWithInterval_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IStarbucks/ReportStoreReadinessForCDCWithIntervalResponse" message="tns:IStarbucks_ReportStoreReadinessForCDCWithInterval_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ReportStoreReadinessForCDCWithIntervalHours">
+      <wsdl:input wsaw:Action="http://tempuri.org/IStarbucks/ReportStoreReadinessForCDCWithIntervalHours" message="tns:IStarbucks_ReportStoreReadinessForCDCWithIntervalHours_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IStarbucks/ReportStoreReadinessForCDCWithIntervalHoursResponse" message="tns:IStarbucks_ReportStoreReadinessForCDCWithIntervalHours_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ReportStoreReadinessForCDCForProvider">
+      <wsdl:input wsaw:Action="http://tempuri.org/IStarbucks/ReportStoreReadinessForCDCForProvider" message="tns:IStarbucks_ReportStoreReadinessForCDCForProvider_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IStarbucks/ReportStoreReadinessForCDCForProviderResponse" message="tns:IStarbucks_ReportStoreReadinessForCDCForProvider_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ReportStoreReadinessForCDCForProviderWithInterval">
+      <wsdl:input wsaw:Action="http://tempuri.org/IStarbucks/ReportStoreReadinessForCDCForProviderWithInterval" message="tns:IStarbucks_ReportStoreReadinessForCDCForProviderWithInterval_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IStarbucks/ReportStoreReadinessForCDCForProviderWithIntervalResponse" message="tns:IStarbucks_ReportStoreReadinessForCDCForProviderWithInterval_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ReportStoreReadinessForCDCForProviderWithIntervalHours">
+      <wsdl:input wsaw:Action="http://tempuri.org/IStarbucks/ReportStoreReadinessForCDCForProviderWithIntervalHours" message="tns:IStarbucks_ReportStoreReadinessForCDCForProviderWithIntervalHours_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IStarbucks/ReportStoreReadinessForCDCForProviderWithIntervalHoursResponse" message="tns:IStarbucks_ReportStoreReadinessForCDCForProviderWithIntervalHours_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ReportFieldReadiness">
+      <wsdl:input wsaw:Action="http://tempuri.org/IStarbucks/ReportFieldReadiness" message="tns:IStarbucks_ReportFieldReadiness_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IStarbucks/ReportFieldReadinessResponse" message="tns:IStarbucks_ReportFieldReadiness_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ReportFieldReadinessWithInterval">
+      <wsdl:input wsaw:Action="http://tempuri.org/IStarbucks/ReportFieldReadinessWithInterval" message="tns:IStarbucks_ReportFieldReadinessWithInterval_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IStarbucks/ReportFieldReadinessWithIntervalResponse" message="tns:IStarbucks_ReportFieldReadinessWithInterval_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ReportFieldReadinessWithIntervalHours">
+      <wsdl:input wsaw:Action="http://tempuri.org/IStarbucks/ReportFieldReadinessWithIntervalHours" message="tns:IStarbucks_ReportFieldReadinessWithIntervalHours_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IStarbucks/ReportFieldReadinessWithIntervalHoursResponse" message="tns:IStarbucks_ReportFieldReadinessWithIntervalHours_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ConsolidateEmails">
+      <wsdl:input wsaw:Action="http://tempuri.org/IStarbucks/ConsolidateEmails" message="tns:IStarbucks_ConsolidateEmails_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IStarbucks/ConsolidateEmailsResponse" message="tns:IStarbucks_ConsolidateEmails_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="SendTestEmail">
+      <wsdl:input wsaw:Action="http://tempuri.org/IStarbucks/SendTestEmail" message="tns:IStarbucks_SendTestEmail_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IStarbucks/SendTestEmailResponse" message="tns:IStarbucks_SendTestEmail_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetPhotos">
+      <wsdl:input wsaw:Action="http://tempuri.org/IStarbucks/GetPhotos" message="tns:IStarbucks_GetPhotos_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IStarbucks/GetPhotosResponse" message="tns:IStarbucks_GetPhotos_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ExportPhotoSearch">
+      <wsdl:input wsaw:Action="http://tempuri.org/IStarbucks/ExportPhotoSearch" message="tns:IStarbucks_ExportPhotoSearch_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IStarbucks/ExportPhotoSearchResponse" message="tns:IStarbucks_ExportPhotoSearch_OutputMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="Default" type="tns:IStarbucks">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="DotNetGetAllRouteMappings">
+      <soap:operation soapAction="http://tempuri.org/IStarbucks/DotNetGetAllRouteMappings" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DotNetGetAllFilteredRouteMappings">
+      <soap:operation soapAction="http://tempuri.org/IStarbucks/DotNetGetAllFilteredRouteMappings" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ExportRoutes">
+      <soap:operation soapAction="http://tempuri.org/IStarbucks/ExportRoutes" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UploadRoutesDotNet">
+      <soap:operation soapAction="http://tempuri.org/IStarbucks/UploadRoutesDotNet" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="LoginForAdminPanel">
+      <soap:operation soapAction="http://tempuri.org/IStarbucks/LoginForAdminPanel" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="LoginForDevice">
+      <soap:operation soapAction="http://tempuri.org/IStarbucks/LoginForDevice" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Logout">
+      <soap:operation soapAction="http://tempuri.org/IStarbucks/Logout" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetUserDetail">
+      <soap:operation soapAction="http://tempuri.org/IStarbucks/GetUserDetail" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAllUsers">
+      <soap:operation soapAction="http://tempuri.org/IStarbucks/GetAllUsers" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAllUsersByType">
+      <soap:operation soapAction="http://tempuri.org/IStarbucks/GetAllUsersByType" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAllUsersByTypeAndProvider">
+      <soap:operation soapAction="http://tempuri.org/IStarbucks/GetAllUsersByTypeAndProvider" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreateUser">
+      <soap:operation soapAction="http://tempuri.org/IStarbucks/CreateUser" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateUser">
+      <soap:operation soapAction="http://tempuri.org/IStarbucks/UpdateUser" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateUserPassword">
+      <soap:operation soapAction="http://tempuri.org/IStarbucks/UpdateUserPassword" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ActivateUser">
+      <soap:operation soapAction="http://tempuri.org/IStarbucks/ActivateUser" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeactivateUser">
+      <soap:operation soapAction="http://tempuri.org/IStarbucks/DeactivateUser" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteUser">
+      <soap:operation soapAction="http://tempuri.org/IStarbucks/DeleteUser" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetStoresForCDC">
+      <soap:operation soapAction="http://tempuri.org/IStarbucks/GetStoresForCDC" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetStoreDetail">
+      <soap:operation soapAction="http://tempuri.org/IStarbucks/GetStoreDetail" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAllStores">
+      <soap:operation soapAction="http://tempuri.org/IStarbucks/GetAllStores" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAllStoresWithRange">
+      <soap:operation soapAction="http://tempuri.org/IStarbucks/GetAllStoresWithRange" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreateStore">
+      <soap:operation soapAction="http://tempuri.org/IStarbucks/CreateStore" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateStore">
+      <soap:operation soapAction="http://tempuri.org/IStarbucks/UpdateStore" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAllRouteMappings">
+      <soap:operation soapAction="http://tempuri.org/IStarbucks/GetAllRouteMappings" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAllRouteMappingsWithRange">
+      <soap:operation soapAction="http://tempuri.org/IStarbucks/GetAllRouteMappingsWithRange" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAllRouteMappingsForProvider">
+      <soap:operation soapAction="http://tempuri.org/IStarbucks/GetAllRouteMappingsForProvider" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAllRouteMappingsForProviderWithRange">
+      <soap:operation soapAction="http://tempuri.org/IStarbucks/GetAllRouteMappingsForProviderWithRange" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetRouteDetail">
+      <soap:operation soapAction="http://tempuri.org/IStarbucks/GetRouteDetail" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreateRoute">
+      <soap:operation soapAction="http://tempuri.org/IStarbucks/CreateRoute" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddStoreToRoute">
+      <soap:operation soapAction="http://tempuri.org/IStarbucks/AddStoreToRoute" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateRouteStatusToActive">
+      <soap:operation soapAction="http://tempuri.org/IStarbucks/UpdateRouteStatusToActive" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateRouteStatusToDeactive">
+      <soap:operation soapAction="http://tempuri.org/IStarbucks/UpdateRouteStatusToDeactive" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAllParentReasons">
+      <soap:operation soapAction="http://tempuri.org/IStarbucks/GetAllParentReasons" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAllParentReasonsWithChildren">
+      <soap:operation soapAction="http://tempuri.org/IStarbucks/GetAllParentReasonsWithChildren" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetChildrenOfParentReason">
+      <soap:operation soapAction="http://tempuri.org/IStarbucks/GetChildrenOfParentReason" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreateReason">
+      <soap:operation soapAction="http://tempuri.org/IStarbucks/CreateReason" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateReason">
+      <soap:operation soapAction="http://tempuri.org/IStarbucks/UpdateReason" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreateReasonChild">
+      <soap:operation soapAction="http://tempuri.org/IStarbucks/CreateReasonChild" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateReasonChild">
+      <soap:operation soapAction="http://tempuri.org/IStarbucks/UpdateReasonChild" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAllCDCs">
+      <soap:operation soapAction="http://tempuri.org/IStarbucks/GetAllCDCs" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAllCDCsForProvider">
+      <soap:operation soapAction="http://tempuri.org/IStarbucks/GetAllCDCsForProvider" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreateCDC">
+      <soap:operation soapAction="http://tempuri.org/IStarbucks/CreateCDC" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateCDC">
+      <soap:operation soapAction="http://tempuri.org/IStarbucks/UpdateCDC" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAllOpenTrips">
+      <soap:operation soapAction="http://tempuri.org/IStarbucks/GetAllOpenTrips" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAllOpenTripsForProvider">
+      <soap:operation soapAction="http://tempuri.org/IStarbucks/GetAllOpenTripsForProvider" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAllOpenTripsForCDC">
+      <soap:operation soapAction="http://tempuri.org/IStarbucks/GetAllOpenTripsForCDC" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CloseTrip">
+      <soap:operation soapAction="http://tempuri.org/IStarbucks/CloseTrip" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetOpenTripForRouteNameAndUser">
+      <soap:operation soapAction="http://tempuri.org/IStarbucks/GetOpenTripForRouteNameAndUser" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetOpenTripForRouteNameAndUserV7">
+      <soap:operation soapAction="http://tempuri.org/IStarbucks/GetOpenTripForRouteNameAndUserV7" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddCommentToStop">
+      <soap:operation soapAction="http://tempuri.org/IStarbucks/AddCommentToStop" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPhotosForStop">
+      <soap:operation soapAction="http://tempuri.org/IStarbucks/GetPhotosForStop" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddPhotoToStop">
+      <soap:operation soapAction="http://tempuri.org/IStarbucks/AddPhotoToStop" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddDeliveryTransaction">
+      <soap:operation soapAction="http://tempuri.org/IStarbucks/AddDeliveryTransaction" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddFailure">
+      <soap:operation soapAction="http://tempuri.org/IStarbucks/AddFailure" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CompleteStop">
+      <soap:operation soapAction="http://tempuri.org/IStarbucks/CompleteStop" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CompleteStopV7">
+      <soap:operation soapAction="http://tempuri.org/IStarbucks/CompleteStopV7" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteAllIssues">
+      <soap:operation soapAction="http://tempuri.org/IStarbucks/DeleteAllIssues" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SetGeoPosition">
+      <soap:operation soapAction="http://tempuri.org/IStarbucks/SetGeoPosition" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CommitIssues">
+      <soap:operation soapAction="http://tempuri.org/IStarbucks/CommitIssues" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CommitIssuesV7">
+      <soap:operation soapAction="http://tempuri.org/IStarbucks/CommitIssuesV7" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CommitCachedDataV6">
+      <soap:operation soapAction="http://tempuri.org/IStarbucks/CommitCachedDataV6" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CommitCachedDataV7">
+      <soap:operation soapAction="http://tempuri.org/IStarbucks/CommitCachedDataV7" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddOp">
+      <soap:operation soapAction="http://tempuri.org/IStarbucks/AddOp" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateOp">
+      <soap:operation soapAction="http://tempuri.org/IStarbucks/UpdateOp" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAllOps">
+      <soap:operation soapAction="http://tempuri.org/IStarbucks/GetAllOps" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAllOpsWithRange">
+      <soap:operation soapAction="http://tempuri.org/IStarbucks/GetAllOpsWithRange" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAllProviders">
+      <soap:operation soapAction="http://tempuri.org/IStarbucks/GetAllProviders" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAllProvidersWithCDCs">
+      <soap:operation soapAction="http://tempuri.org/IStarbucks/GetAllProvidersWithCDCs" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCDCsForProvider">
+      <soap:operation soapAction="http://tempuri.org/IStarbucks/GetCDCsForProvider" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreateProvider">
+      <soap:operation soapAction="http://tempuri.org/IStarbucks/CreateProvider" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateProvider">
+      <soap:operation soapAction="http://tempuri.org/IStarbucks/UpdateProvider" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPhotosForStore">
+      <soap:operation soapAction="http://tempuri.org/IStarbucks/GetPhotosForStore" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ViewPhotos">
+      <soap:operation soapAction="http://tempuri.org/IStarbucks/ViewPhotos" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ReportStoreReadinessForSSC">
+      <soap:operation soapAction="http://tempuri.org/IStarbucks/ReportStoreReadinessForSSC" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ReportStoreReadinessForSSCWithInterval">
+      <soap:operation soapAction="http://tempuri.org/IStarbucks/ReportStoreReadinessForSSCWithInterval" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ReportStoreReadinessForSSCWithIntervalHours">
+      <soap:operation soapAction="http://tempuri.org/IStarbucks/ReportStoreReadinessForSSCWithIntervalHours" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ReportStoreReadinessForCDC">
+      <soap:operation soapAction="http://tempuri.org/IStarbucks/ReportStoreReadinessForCDC" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ReportStoreReadinessForCDCWithInterval">
+      <soap:operation soapAction="http://tempuri.org/IStarbucks/ReportStoreReadinessForCDCWithInterval" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ReportStoreReadinessForCDCWithIntervalHours">
+      <soap:operation soapAction="http://tempuri.org/IStarbucks/ReportStoreReadinessForCDCWithIntervalHours" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ReportStoreReadinessForCDCForProvider">
+      <soap:operation soapAction="http://tempuri.org/IStarbucks/ReportStoreReadinessForCDCForProvider" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ReportStoreReadinessForCDCForProviderWithInterval">
+      <soap:operation soapAction="http://tempuri.org/IStarbucks/ReportStoreReadinessForCDCForProviderWithInterval" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ReportStoreReadinessForCDCForProviderWithIntervalHours">
+      <soap:operation soapAction="http://tempuri.org/IStarbucks/ReportStoreReadinessForCDCForProviderWithIntervalHours" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ReportFieldReadiness">
+      <soap:operation soapAction="http://tempuri.org/IStarbucks/ReportFieldReadiness" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ReportFieldReadinessWithInterval">
+      <soap:operation soapAction="http://tempuri.org/IStarbucks/ReportFieldReadinessWithInterval" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ReportFieldReadinessWithIntervalHours">
+      <soap:operation soapAction="http://tempuri.org/IStarbucks/ReportFieldReadinessWithIntervalHours" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ConsolidateEmails">
+      <soap:operation soapAction="http://tempuri.org/IStarbucks/ConsolidateEmails" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendTestEmail">
+      <soap:operation soapAction="http://tempuri.org/IStarbucks/SendTestEmail" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPhotos">
+      <soap:operation soapAction="http://tempuri.org/IStarbucks/GetPhotos" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ExportPhotoSearch">
+      <soap:operation soapAction="http://tempuri.org/IStarbucks/ExportPhotoSearch" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="StarbucksServices">
+    <wsdl:port name="Default" binding="tns:Default">
+      <soap:address location="http://localhost:39739/StarbucksServices.svc" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

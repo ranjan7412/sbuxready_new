@@ -1,0 +1,391 @@
+﻿Imports System.Data
+Imports System.IO
+
+Partial Class SB_Users
+    Inherits System.Web.UI.Page
+
+    Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
+        lblStatus.Text = ""
+        If Session("UserType") = 1 Then ' Logged in as SSC User
+            lblHeader.Text = "User Management SSC"
+        ElseIf Session("UserType") = 2 Then ' Logged in as CDC User
+            lblHeader.Text = "User Management CDC"
+        End If
+        If (Not IsPostBack) Then
+
+            hdnTotalRows.Value = 0
+            hdnPageIndex.Value = 0
+            PopulateProviders()
+            PopulateCDC()
+            PopulateGrid(0, 50)
+
+        End If
+
+    End Sub
+
+    Public Sub PopulateProviders()
+        ' Populate dropdown with providers
+        Dim objService As Starbucks.StarbucksClient = New Starbucks.StarbucksClient()
+        Dim objProviders As Starbucks.ResponseProviderList
+        objProviders = objService.GetAllProviders()
+
+        dpdnProviders.DataSource = objProviders.providers
+        dpdnProviders.DataValueField = "ProviderID"
+        dpdnProviders.DataTextField = "ProviderName"
+        dpdnProviders.DataBind()
+
+    End Sub
+
+    Public Sub PopulateCDC()
+        ' Populate dropdown with CDCs
+        Dim objService As New Starbucks.StarbucksClient
+        Dim objCDC As Starbucks.ResponseCDCList
+        If Session("UserType") = 2 Then
+            objCDC = objService.GetAllCDCsForProvider(Session("ProviderID"))
+        Else
+            objCDC = objService.GetAllCDCs()
+        End If
+        dpdnCDC.DataSource = objCDC.cdcs
+        dpdnCDC.DataValueField = "id"
+        dpdnCDC.DataTextField = "name"
+        dpdnCDC.DataBind()
+
+    End Sub
+
+    'Protected Sub txtFirstName_TextChanged(ByVal sender As Object, ByVal e As EventArgs) Handles txtFirstName.TextChanged
+    '   ModalPopupExtender1.Show()
+    '   txtUserName.Text = txtFirstName.Text.Trim.Substring(0, 1) + txtLastName.Text       
+    'End Sub
+
+    'Protected Sub txtLastName_TextChanged(ByVal sender As Object, ByVal e As EventArgs) Handles txtLastName.TextChanged
+    '    ModalPopupExtender1.Show()
+    '    txtUserName.Text = txtFirstName.Text.Trim.Substring(0, 1) + txtLastName.Text        
+    'End Sub
+
+
+    Protected Sub dpdnUserType_SelectedIndexChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles dpdnUserType.SelectedIndexChanged
+        If dpdnUserType.SelectedValue = 1 Then  ' SSC User type is selected
+            divProvider.Visible = False
+            divCDC.Visible = False
+        ElseIf dpdnUserType.SelectedValue = 2 Then  ' CDC User type is selected
+            divProvider.Visible = True
+            divCDC.Visible = False
+        ElseIf dpdnUserType.SelectedValue = 3 Then ' Driver User type is selected
+            divCDC.Visible = True
+            divProvider.Visible = False
+        End If
+        ModalPopupExtender1.Show()
+    End Sub
+
+    Public Sub PopulateGrid(ByVal startIndex As Int32, ByVal maxRows As Int32)
+
+        Dim objService As New Starbucks.StarbucksClient
+        Dim dtUsers As New DataTable
+        Dim condition As String = String.Empty
+
+        If Session("UserType") = 1 Then
+            ' Check if filter is applied or not
+            If String.IsNullOrEmpty(hdnFilterText.Value.Trim) Then
+                dtUsers = objService.GetUsers(startIndex, maxRows, condition)
+            Else
+                dtUsers = objService.GetUsersFilter(hdnFilterText.Value.Trim, startIndex, maxRows, condition)
+            End If
+        End If
+        If Session("UserType") = 2 Then
+
+            ' Check if filter is applied or not
+            If String.IsNullOrEmpty(hdnFilterText.Value.Trim) Then
+                condition = " WHERE UserTypeID = 3 and CDC.ProviderID = " + Session("ProviderID")
+                dtUsers = objService.GetUsers(startIndex, maxRows, condition)
+            Else
+                condition = " UserTypeID = 3 and CDC.ProviderID = " + Session("ProviderID") + " AND "
+                dtUsers = objService.GetUsersFilter(hdnFilterText.Value.Trim, startIndex, maxRows, condition)
+            End If
+        End If
+
+        If Not dtUsers Is Nothing Then
+            If (dtUsers.Rows.Count > 0) Then
+                hdnTotalRows.Value = Convert.ToInt32(dtUsers.Rows(0)("Cnt").ToString())
+            End If
+            gvUsers.DataSource = dtUsers
+            gvUsers.DataBind()
+        End If
+
+        ' Enable/Disable navigation buttons
+        If hdnPageIndex.Value = 0 Then
+            btnPrevious.Enabled = False
+            btnFirst.Enabled = False
+        Else
+            btnPrevious.Enabled = True
+            btnFirst.Enabled = True
+        End If
+        If (hdnPageIndex.Value = Math.Truncate(hdnTotalRows.Value / 50) Or (hdnPageIndex.Value + 1 = Math.Truncate(hdnTotalRows.Value / 50) And hdnTotalRows.Value Mod 50 = 0)) Then
+            btnNext.Enabled = False
+            btnLast.Enabled = False
+        Else
+            btnNext.Enabled = True
+            btnLast.Enabled = True
+        End If
+
+        ' Display Page Count and Row Count
+        If (hdnTotalRows.Value Mod 50 = 0) Then
+            lblPageNumber.Text = Math.Truncate(hdnTotalRows.Value / 50)
+        Else
+            lblPageNumber.Text = Math.Truncate(hdnTotalRows.Value / 50) + 1
+        End If
+
+        txtPageNumber.Text = hdnPageIndex.Value + 1
+        lblFirstRecord.Text = startIndex + 1
+        If startIndex + maxRows > hdnTotalRows.Value Then
+            lblLastRecord.Text = hdnTotalRows.Value
+        Else
+            lblLastRecord.Text = startIndex + maxRows
+        End If
+
+        lblTotalRecords.Text = hdnTotalRows.Value
+
+        ' If no rows to be displayed
+        If dtUsers.Rows.Count = 0 Then
+            btnPrevious.Enabled = False
+            btnFirst.Enabled = False
+            btnNext.Enabled = False
+            btnLast.Enabled = False
+            txtPageNumber.Text = 0
+            lblPageNumber.Text = 0
+            lblFirstRecord.Text = 0
+            lblLastRecord.Text = 0
+            lblTotalRecords.Text = 0
+        End If
+    End Sub
+
+    Protected Sub OnRowDataBound(ByVal sender As Object, ByVal e As GridViewRowEventArgs)
+        If e.Row.RowType = DataControlRowType.DataRow Then
+            e.Row.Attributes("onclick") = Page.ClientScript.GetPostBackClientHyperlink(gvUsers, "Select$" & e.Row.RowIndex)
+            e.Row.ToolTip = "Click to select this row."
+            e.Row.Attributes.Add("onmouseover", "this.style.backgroundColor='lightgray'")
+            e.Row.Attributes.Add("onmouseout", "this.style.backgroundColor='white'")
+            e.Row.Attributes.Add("style", "cursor: default")
+        End If
+    End Sub
+
+    Protected Sub OnSelectedIndexChanged(ByVal sender As Object, ByVal e As EventArgs)
+
+        ' Display User details on row click of GridView
+
+        If Session("UserType") = 1 Then
+            btnActivate.Visible = True
+            btnResetPassword.Visible = True
+            If (gvUsers.DataKeys(gvUsers.SelectedIndex).Values("State") = "True") Then
+                btnActivate.Text = "Deactivate"
+            ElseIf (gvUsers.DataKeys(gvUsers.SelectedIndex).Values("State") = "False") Then
+                btnActivate.Text = "Activate"
+            End If
+        End If
+
+        If gvUsers.SelectedRow.Cells(4).Text.Trim() = "SSC" Then 'SSC User
+            txtUserDetails.Text = vbCrLf & vbCrLf & "Username: " & Server.HtmlDecode(gvUsers.SelectedRow.Cells(1).Text) _
+                               & vbCrLf & vbCrLf & "FirstName: " & Server.HtmlDecode(gvUsers.SelectedRow.Cells(2).Text) _
+                               & vbCrLf & vbCrLf & "LastName: " & Server.HtmlDecode(gvUsers.SelectedRow.Cells(3).Text) _
+                               & vbCrLf & vbCrLf & "UserType: " & Server.HtmlDecode(gvUsers.SelectedRow.Cells(4).Text) _
+                               & vbCrLf & vbCrLf & "Email: " & Server.HtmlDecode(gvUsers.SelectedRow.Cells(5).Text) _
+                               & vbCrLf & vbCrLf & "Phone No: " & Server.HtmlDecode(gvUsers.SelectedRow.Cells(6).Text) _
+                               & vbCrLf & vbCrLf & "Status: " & IIf(gvUsers.DataKeys(gvUsers.SelectedIndex).Values("State") = "True", "Active", "Deactivated")
+        ElseIf gvUsers.SelectedRow.Cells(4).Text.Trim() = "CDC" Then 'CDC User
+            txtUserDetails.Text = vbCrLf & vbCrLf & "Username: " & Server.HtmlDecode(gvUsers.SelectedRow.Cells(1).Text) _
+                               & vbCrLf & vbCrLf & "FirstName: " & Server.HtmlDecode(gvUsers.SelectedRow.Cells(2).Text) _
+                               & vbCrLf & vbCrLf & "LastName: " & Server.HtmlDecode(gvUsers.SelectedRow.Cells(3).Text) _
+                               & vbCrLf & vbCrLf & "UserType: " & Server.HtmlDecode(gvUsers.SelectedRow.Cells(4).Text) _
+                               & vbCrLf & vbCrLf & "Email: " & Server.HtmlDecode(gvUsers.SelectedRow.Cells(5).Text) _
+                               & vbCrLf & vbCrLf & "Phone No: " & Server.HtmlDecode(gvUsers.SelectedRow.Cells(6).Text) _
+                               & vbCrLf & vbCrLf & "Provider: " & gvUsers.DataKeys(gvUsers.SelectedIndex).Values("ProviderName") _
+                               & vbCrLf & vbCrLf & "Status: " & IIf(gvUsers.DataKeys(gvUsers.SelectedIndex).Values("State") = "True", "Active", "Deactivated")
+        ElseIf gvUsers.SelectedRow.Cells(4).Text.Trim() = "Driver" Then 'Driver
+            txtUserDetails.Text = vbCrLf & vbCrLf & "Username: " & Server.HtmlDecode(gvUsers.SelectedRow.Cells(1).Text) _
+                               & vbCrLf & vbCrLf & "FirstName: " & Server.HtmlDecode(gvUsers.SelectedRow.Cells(2).Text) _
+                               & vbCrLf & vbCrLf & "LastName: " & Server.HtmlDecode(gvUsers.SelectedRow.Cells(3).Text) _
+                               & vbCrLf & vbCrLf & "UserType: " & Server.HtmlDecode(gvUsers.SelectedRow.Cells(4).Text) _
+                               & vbCrLf & vbCrLf & "Email: " & Server.HtmlDecode(gvUsers.SelectedRow.Cells(5).Text) _
+                               & vbCrLf & vbCrLf & "Phone No: " & Server.HtmlDecode(gvUsers.SelectedRow.Cells(6).Text) _
+                               & vbCrLf & vbCrLf & "CDC: " & gvUsers.DataKeys(gvUsers.SelectedIndex).Values("CDCName") _
+                               & vbCrLf & vbCrLf & "Status: " & IIf(gvUsers.DataKeys(gvUsers.SelectedIndex).Values("State") = "True", "Active", "Deactivated")
+        End If
+
+        hdnUsername.Value = Server.HtmlDecode(gvUsers.SelectedRow.Cells(1).Text)
+
+    End Sub
+
+    Protected Sub btnFilter_Click(ByVal sender As Object, ByVal e As System.EventArgs)
+
+        hdnPageIndex.Value = 0
+        hdnFilterText.Value = "'%" + txtFilter.Text.Trim + "%'"
+        PopulateGrid(0, 50)
+
+    End Sub
+    Protected Sub btnClear_Click(ByVal sender As Object, ByVal e As System.EventArgs)
+
+        lblStatus.Text = ""
+        txtFilter.Text = ""
+        hdnFilterText.Value = String.Empty
+        txtUserDetails.Text = String.Empty
+        hdnPageIndex.Value = 0
+        btnActivate.Visible = False
+        btnResetPassword.Visible = False
+
+        PopulateGrid(0, 50)
+
+    End Sub
+
+    Protected Sub btnRefresh_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles btnRefresh.Click
+
+        ' Page Load
+        lblStatus.Text = ""
+        hdnTotalRows.Value = 0
+        hdnPageIndex.Value = 0
+        hdnFilterText.Value = String.Empty
+        txtFilter.Text = ""
+        txtUserDetails.Text = ""
+        btnActivate.Visible = False
+        btnResetPassword.Visible = False
+
+        PopulateGrid(0, 50)
+    End Sub
+
+    Protected Sub btnActivate_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles btnActivate.Click
+        ' Activate/Deactivate User
+        Dim objSvc As New Starbucks.StarbucksClient
+        If (btnActivate.Text = "Activate") Then
+            objSvc.ActivateUser(hdnUsername.Value)
+            btnActivate.Text = "Deactivate"
+        Else
+            objSvc.DeactivateUser(hdnUsername.Value)
+            btnActivate.Text = "Activate"
+        End If
+
+        PopulateGrid(hdnPageIndex.Value, 50)
+    End Sub
+
+    Protected Sub btnSavePassword_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles btnSavePassword.Click
+        ' Reset password
+        Dim objService As New Starbucks.StarbucksClient
+        Dim objUser As New Starbucks.StarbucksUser
+        Dim objResponse As New Starbucks.Response
+
+        If txtNewPassword.Text.Trim <> txtConfirmPassword.Text.Trim Then
+            lblStatus.Text = "Password does not match, Please try again"
+        Else
+            objUser.username = hdnUsername.Value
+            objUser.password = txtNewPassword.Text.Trim
+            objResponse = objService.UpdateUserPassword(objUser)
+            If (objResponse.statusCode <> 0) Then
+                lblStatus.Text = objResponse.statusDescription
+            Else
+                lblStatus.Text = "Password Updated Successfully"
+            End If
+        End If
+
+    End Sub
+
+    Protected Sub btnAdd_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles btnAdd.Click
+        ' Load Popup
+        If Session("UserType") = 1 Then  ' Logged in as SSC
+            divUserType.Visible = True
+            divProvider.Visible = False
+            divCDC.Visible = False
+        ElseIf Session("UserType") = 2 Then ' Logged in as CDC
+            divUserType.Visible = False
+            divProvider.Visible = False
+            divCDC.Visible = True
+        End If
+        lblPopupHeader.Text = "Create User"
+        Clear()
+        ModalPopupExtender1.Show()
+    End Sub
+
+    Protected Sub btnCreate_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles btnCreate.Click
+        ' Create user
+        Dim objSvc As New Starbucks.StarbucksClient
+        Dim objResp As New Starbucks.Response
+        Dim objUser As New Starbucks.StarbucksUser
+
+        objUser.firstName = txtFirstName.Text.Trim
+        objUser.lastName = txtLastName.Text.Trim
+        objUser.username = txtUserName.Text.Trim
+        objUser.phoneNumber = txtPhone.Text.Trim
+        objUser.emailAddress = txtEmail.Text.Trim
+        objUser.password = txtPassword.Text.Trim
+        If Session("UserType") = 2 Then ' Logged in as CDC User
+            objUser.userType = 3
+            objUser.associatedID = dpdnCDC.SelectedValue
+        ElseIf dpdnUserType.SelectedValue = 1 Then  ' SSC User type is selected
+            objUser.userType = dpdnUserType.SelectedValue
+        ElseIf dpdnUserType.SelectedValue = 2 Then  ' CDC User type is selected
+            objUser.userType = dpdnUserType.SelectedValue
+            objUser.associatedID = dpdnProviders.SelectedValue
+        ElseIf dpdnUserType.SelectedValue = 3 Then ' Driver User type is selected
+            objUser.userType = dpdnUserType.SelectedValue
+            objUser.associatedID = dpdnCDC.SelectedValue
+        End If
+
+        ' Create new User
+        objResp = objSvc.CreateUser(objUser)
+        If (objResp.statusCode <> 0) Then
+            lblStatus.Text = objResp.statusDescription
+        Else
+            lblStatus.Text = "User Created Successfully"
+        End If
+
+        PopulateGrid(hdnPageIndex.Value * 50, 50)
+    End Sub
+
+    Protected Sub Clear()
+        txtFirstName.Text = String.Empty
+        txtLastName.Text = String.Empty
+        txtUserName.Text = String.Empty
+        txtPhone.Text = String.Empty
+        txtEmail.Text = String.Empty
+        txtPassword.Text = String.Empty
+        dpdnUserType.SelectedIndex = 0
+        dpdnProviders.SelectedIndex = 0
+        dpdnCDC.SelectedIndex = 0
+    End Sub
+
+    Protected Sub btnPageNumber_Click(ByVal sender As Object, ByVal e As System.EventArgs)
+        If (IsNumeric(txtPageNumber.Text.Trim) And Not txtPageNumber.Text.Trim.Contains(".") And Convert.ToDouble(txtPageNumber.Text.Trim) > 0) Then
+            If Convert.ToInt32(txtPageNumber.Text.Trim) > Math.Truncate(hdnTotalRows.Value / 50) And hdnTotalRows.Value Mod 50 = 0 Then
+                txtPageNumber.Text = Math.Truncate(hdnTotalRows.Value / 50)
+                hdnPageIndex.Value = Math.Truncate(hdnTotalRows.Value / 50) - 1
+            ElseIf Convert.ToInt32(txtPageNumber.Text.Trim) > Math.Truncate(hdnTotalRows.Value / 50) And hdnTotalRows.Value Mod 50 > 0 Then
+                txtPageNumber.Text = Math.Truncate(hdnTotalRows.Value / 50) + 1
+                hdnPageIndex.Value = Math.Truncate(hdnTotalRows.Value / 50)
+            Else
+                hdnPageIndex.Value = Convert.ToInt32(txtPageNumber.Text.Trim) - 1
+            End If
+            PopulateGrid(hdnPageIndex.Value * 50, 50)
+        End If
+    End Sub
+
+    Protected Sub btnFirst_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles btnFirst.Click
+        hdnPageIndex.Value = 0
+        PopulateGrid(hdnPageIndex.Value, 50)
+    End Sub
+
+    Protected Sub btnLast_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles btnLast.Click
+        If (hdnTotalRows.Value Mod 50 = 0) Then
+            hdnPageIndex.Value = Math.Truncate(hdnTotalRows.Value / 50) - 1
+        Else
+            hdnPageIndex.Value = Math.Truncate(hdnTotalRows.Value / 50)
+        End If
+        PopulateGrid(hdnPageIndex.Value * 50, hdnTotalRows.Value Mod 50)
+    End Sub
+
+    Protected Sub btnPrevious_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles btnPrevious.Click
+        hdnPageIndex.Value = hdnPageIndex.Value - 1
+        PopulateGrid(hdnPageIndex.Value * 50, 50)
+    End Sub
+
+    Protected Sub btnNext_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles btnNext.Click
+        hdnPageIndex.Value = hdnPageIndex.Value + 1
+        PopulateGrid(hdnPageIndex.Value * 50, 50)
+    End Sub
+
+End Class

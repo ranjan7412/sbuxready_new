@@ -1,0 +1,164 @@
+﻿<%@ Page Language="VB" MasterPageFile="~/SB/MasterPage.master" AutoEventWireup="false"
+    CodeFile="Providers.aspx.vb" Inherits="SB_Providers" Title="SB" EnableEventValidation="false" %>
+
+<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
+<asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
+</asp:Content>
+<asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder_Menu" runat="server">
+    <span id="tabid" style="display: none">tabProviders</span>
+</asp:Content>
+<asp:Content ID="Content3" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
+    <asp:UpdateProgress ID="UpdateProgress1" runat="server" AssociatedUpdatePanelID="updatePanel1">
+        <ProgressTemplate>
+            <div class="divWaiting">
+                <asp:Label ID="lblWait" runat="server" Text=" Please wait... " ForeColor="Blue" />
+                <asp:Image ID="imgWait" runat="server" ImageAlign="Middle" ImageUrl="~/Common/Images/loader.gif"
+                    Height="10%" /></div>
+        </ProgressTemplate>
+    </asp:UpdateProgress>
+    <asp:UpdatePanel ID="updatePanel1" runat="server">
+        <ContentTemplate>
+            <div>
+                <div style="padding-bottom: 30px">
+                    <h1 style="font-size: 20px; line-height: 14px; font-family: Arial; margin-top: 7px;">
+                        Provider Management</h1>
+                    <span style="color: #CFCFCF;">This will show Provider Management category</span>
+                </div>
+                <asp:Label ID="lblStatus" runat="server" ForeColor="Green"></asp:Label><br />
+                Select Provider :
+                <asp:DropDownList ID="dpdnProviders" runat="server" AutoPostBack="true" OnSelectedIndexChanged="dpdnProviders_SelectedIndexChanged">
+                </asp:DropDownList>
+                <div style="text-align: right; padding-right: 8px">
+                    <asp:Label ID="lblCreateProvider" runat="server" Text="Create Provider :"></asp:Label>
+                    <asp:TextBox ID="txtCreateProvider" runat="server"></asp:TextBox>
+                    <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ControlToValidate="txtCreateProvider"
+                        ErrorMessage="*" Style="color: Red" ValidationGroup="vgCreateProvider">                    
+                    </asp:RequiredFieldValidator>
+                    <asp:Button ID="btnCreateProvider" runat="server" Text="Create" ValidationGroup="vgCreateProvider" />
+                    <asp:Button ID="btnRefresh" runat="server" Text="Refresh" />
+                </div>
+            </div>
+            <div style="width: 760px; height: 30px; background-color: #007042; float: left">
+                <asp:Button ID="btnAdd" runat="server" Text="Add" BorderColor="Transparent" CssClass="GridTop" />
+            </div>
+            <asp:Button ID="modalPopup" runat="server" Style="display: none" />
+            <asp:ModalPopupExtender ID="ModalPopupExtender1" runat="server" TargetControlID="modalPopup"
+                CancelControlID="btnClose" PopupControlID="Panel2" BackgroundCssClass="modalBackground">
+            </asp:ModalPopupExtender>
+            <asp:Panel ID="Panel2" runat="server" CssClass="modalPopup" Style="display: none">
+                <div style="height: 30px; background-color: #007042; padding-left: 180px;">
+                    <asp:Label ID="lblPopupHeader" runat="server" ForeColor="White"></asp:Label>
+                </div>
+                <div style="padding-top: 10px">
+                    <asp:Label ID="Label2" runat="server" Text="Select Provider:  " Style="padding-left: 100px"></asp:Label>
+                    <asp:DropDownList ID="dpdnAddProviders" runat="server" Width="150px">
+                    </asp:DropDownList>
+                </div>
+                <div style="padding-top: 10px">
+                    <asp:Label ID="Label3" runat="server" Text="CDC Name:  " Style="padding-left: 100px;
+                        padding-right: 30px;"></asp:Label>
+                    <asp:TextBox ID="txtCDCName" runat="server"></asp:TextBox>
+                    <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate="txtCDCName"
+                        ErrorMessage="*" Style="color: Red" ValidationGroup="vgCreateCDC">                    
+                    </asp:RequiredFieldValidator>
+                </div>
+                <div style="padding-top: 10px;">
+                    <asp:Label ID="Label4" runat="server" Text="Phone: " Style="padding-left: 100px;
+                        padding-right: 60px;"></asp:Label>
+                    <asp:TextBox ID="txtPhone" runat="server"></asp:TextBox>
+                    <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ControlToValidate="txtPhone"
+                        ErrorMessage="*" Style="color: Red" ValidationGroup="vgCreateCDC">                    
+                    </asp:RequiredFieldValidator>
+                    <asp:RegularExpressionValidator ID="RegularExpressionValidator2" ControlToValidate="txtPhone"
+                        runat="server" ErrorMessage="Invalid Phone No." Style="color: Red" ValidationExpression="^[0-9-]*$"
+                        ValidationGroup="vgCreateCDC"></asp:RegularExpressionValidator>
+                </div>
+                <div style="padding-top: 10px">
+                    <asp:Label ID="Label5" runat="server" Text="Email:  " Style="padding-left: 100px;
+                        padding-right: 68px;"></asp:Label>
+                    <asp:TextBox ID="txtEmail" runat="server"></asp:TextBox>
+                    <asp:RequiredFieldValidator ID="RequiredFieldValidator5" runat="server" ControlToValidate="txtEmail"
+                        ErrorMessage="*" Style="color: Red" ValidationGroup="vgCreateCDC">                    
+                    </asp:RequiredFieldValidator>
+                    <asp:RegularExpressionValidator ID="RegularExpressionValidator1" ControlToValidate="txtEmail"
+                        runat="server" ErrorMessage="Invalid Email" Style="color: Red" ValidationExpression="\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*"
+                        ValidationGroup="vgCreateCDC"></asp:RegularExpressionValidator>
+                </div>
+                <div style="padding-top: 10px">
+                    <asp:Label ID="Label6" runat="server" Text="Address:  " Style="padding-left: 100px;
+                        padding-right: 50px;"></asp:Label>
+                    <asp:TextBox ID="txtAddress" runat="server"></asp:TextBox>
+                    <asp:RequiredFieldValidator ID="RequiredFieldValidator6" runat="server" ControlToValidate="txtAddress"
+                        ErrorMessage="*" Style="color: Red" ValidationGroup="vgCreateCDC">  
+                    </asp:RequiredFieldValidator>
+                </div>
+                <div style="padding-top: 10px">
+                    <asp:Label ID="Label7" runat="server" Text="State:  " Style="padding-left: 100px;
+                        padding-right: 64px;"></asp:Label>
+                    <asp:TextBox ID="txtState" runat="server"></asp:TextBox>
+                    <asp:RequiredFieldValidator ID="RequiredFieldValidator7" runat="server" ControlToValidate="txtState"
+                        ErrorMessage="*" Style="color: Red" ValidationGroup="vgCreateCDC">  
+                    </asp:RequiredFieldValidator>
+                </div>
+                <div style="padding-top: 10px; padding-bottom: 10px;">
+                    <asp:Label ID="Label1" runat="server" Text="Zip Code:  " Style="padding-left: 100px;
+                        padding-right: 46px;"></asp:Label>
+                    <asp:TextBox ID="txtZipCode" runat="server"></asp:TextBox>
+                    <asp:RequiredFieldValidator ID="RequiredFieldValidator8" runat="server" ControlToValidate="txtZipCode"
+                        ErrorMessage="*" Style="color: Red" ValidationGroup="vgCreateCDC">  
+                    </asp:RequiredFieldValidator>
+                </div>
+                <div style="height: 30px; background-color: #007042; padding-top: 10px; text-align: center">
+                    <asp:Button ID="btnCreateCDC" runat="server" Text="Create" ValidationGroup="vgCreateCDC" />
+                    <asp:Button ID="btnClose" runat="server" Text="Close" />
+                </div>
+            </asp:Panel>
+            <div style="width: 306px; height: 30px; background-color: #007042; float: left">
+                <asp:Label ID="Label11" runat="server" Text="Details" CssClass="GridTop"></asp:Label>
+            </div>
+            <div style="width: 758px; height: 600px; overflow: auto; float: left">
+                <asp:GridView ID="gvCDC" runat="server" BorderColor="Gray" Font-Size="Small" AutoGenerateColumns="false"
+                    OnSelectedIndexChanged="OnSelectedIndexChanged" OnRowDataBound="OnRowDataBound"
+                    DataKeyNames="Id">
+                    <HeaderStyle BackColor="LightGray"></HeaderStyle>
+                    <Columns>
+                        <asp:TemplateField>
+                            <ItemTemplate>
+                                <asp:LinkButton ID="lnkEdit" Text="Edit" OnClick="lnkEdit_Click" runat="server"></asp:LinkButton>
+                            </ItemTemplate>
+                        </asp:TemplateField>
+                        <asp:BoundField DataField="Id" Visible="false" />
+                        <asp:BoundField DataField="Name" HeaderText="CDC Name" HeaderStyle-Font-Bold="false">
+                        </asp:BoundField>
+                        <asp:BoundField DataField="Email" HeaderText="Email" HeaderStyle-Font-Bold="false">
+                        </asp:BoundField>
+                        <asp:BoundField DataField="Phone" HeaderText="Phone" HeaderStyle-Font-Bold="false">
+                        </asp:BoundField>
+                        <asp:BoundField DataField="Address" HeaderText="Address" HeaderStyle-Font-Bold="false">
+                        </asp:BoundField>
+                        <asp:BoundField DataField="State" HeaderText="State" HeaderStyle-Font-Bold="false">
+                        </asp:BoundField>
+                        <asp:BoundField DataField="Zip" HeaderText="Zip" HeaderStyle-Font-Bold="false"></asp:BoundField>
+                    </Columns>
+                </asp:GridView>
+            </div>
+            <div style="height: 598px; float: left; border: 1px solid Gray">
+                <asp:Panel ID="Panel1" runat="server">
+                    <div>
+                        <asp:TextBox ID="txtCDCDetails" runat="server" Width="300px" Height="592px" BorderColor="Transparent"
+                            TextMode="MultiLine" ReadOnly="true"></asp:TextBox></div>
+                </asp:Panel>
+            </div>
+            <div id="dvButtons" runat="server" style="background-color: #007042; clear: both;
+                width: 1066px;">
+                <asp:Button ID="btnFirst" runat="server" Text="|<" />
+                <asp:Button ID="btnPrevious" runat="server" Text="<" />
+                <asp:Button ID="btnNext" runat="server" Text=">" />
+                <asp:Button ID="btnLast" runat="server" Text=">|" />
+            </div>
+            <asp:HiddenField ID="hdnCDCId" runat="server" Visible="false" />
+            <asp:HiddenField ID="hdnTotalRows" runat="server" Visible="false" />
+            <asp:HiddenField ID="hdnPageIndex" runat="server" Visible="false" />
+        </ContentTemplate>
+    </asp:UpdatePanel>
+</asp:Content>

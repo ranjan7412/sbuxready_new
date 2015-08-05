@@ -1,0 +1,313 @@
+﻿Imports System.Data
+Imports System.IO
+
+Partial Class SB_Stores
+    Inherits System.Web.UI.Page
+    Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
+
+        lblStatus.Text = ""
+        If (Not IsPostBack) Then
+
+            hdnTotalRows.Value = 0
+            hdnPageIndex.Value = 0
+
+            PopulateGrid(0, 50)
+
+        End If
+
+    End Sub
+
+    Public Sub PopulateGrid(ByVal startIndex As Int32, ByVal maxRows As Int32)
+
+        Dim objService As New Starbucks.StarbucksClient
+        Dim dtStores As New DataTable
+
+        ' Check if filter is applied or not
+        If String.IsNullOrEmpty(hdnFilterText.Value.Trim) Then
+            dtStores = objService.GetStores(startIndex, maxRows)
+        Else
+            dtStores = objService.GetStoresFilter(hdnFilterText.Value.Trim, startIndex, maxRows)
+        End If
+
+        If Not dtStores Is Nothing Then
+            If (dtStores.Rows.Count > 0) Then
+                hdnTotalRows.Value = Convert.ToInt32(dtStores.Rows(0)("Cnt").ToString())
+            End If
+            gvStores.DataSource = dtStores
+            gvStores.DataBind()
+        End If
+
+        ' Enable/Disable navigation buttons
+        If hdnPageIndex.Value = 0 Then
+            btnPrevious.Enabled = False
+            btnFirst.Enabled = False
+        Else
+            btnPrevious.Enabled = True
+            btnFirst.Enabled = True
+        End If
+        If (hdnPageIndex.Value = Math.Truncate(hdnTotalRows.Value / 50) Or (hdnPageIndex.Value + 1 = Math.Truncate(hdnTotalRows.Value / 50) And hdnTotalRows.Value Mod 50 = 0)) Then
+            btnNext.Enabled = False
+            btnLast.Enabled = False
+        Else
+            btnNext.Enabled = True
+            btnLast.Enabled = True
+        End If
+
+        ' Display Page Count and Row Count
+        If (hdnTotalRows.Value Mod 50 = 0) Then
+            lblPageNumber.Text = Math.Truncate(hdnTotalRows.Value / 50)
+        Else
+            lblPageNumber.Text = Math.Truncate(hdnTotalRows.Value / 50) + 1
+        End If
+
+        txtPageNumber.Text = hdnPageIndex.Value + 1
+        lblFirstRecord.Text = startIndex + 1
+        If startIndex + maxRows > hdnTotalRows.Value Then
+            lblLastRecord.Text = hdnTotalRows.Value
+        Else
+            lblLastRecord.Text = startIndex + maxRows
+        End If
+
+        lblTotalRecords.Text = hdnTotalRows.Value
+
+        ' If no rows to be displayed
+        If dtStores.Rows.Count = 0 Then
+            btnPrevious.Enabled = False
+            btnFirst.Enabled = False
+            btnNext.Enabled = False
+            btnLast.Enabled = False
+            txtPageNumber.Text = 0
+            lblPageNumber.Text = 0
+            lblFirstRecord.Text = 0
+            lblLastRecord.Text = 0
+            lblTotalRecords.Text = 0
+        End If
+    End Sub
+
+    Protected Sub OnRowDataBound(ByVal sender As Object, ByVal e As GridViewRowEventArgs)
+        If e.Row.RowType = DataControlRowType.DataRow Then
+            e.Row.Attributes("onclick") = Page.ClientScript.GetPostBackClientHyperlink(gvStores, "Select$" & e.Row.RowIndex)
+            e.Row.ToolTip = "Click to select this row."
+            e.Row.Attributes.Add("onmouseover", "this.style.backgroundColor='lightgray'")
+            e.Row.Attributes.Add("onmouseout", "this.style.backgroundColor='white'")
+            e.Row.Attributes.Add("style", "cursor: default")
+        End If
+    End Sub
+
+    Protected Sub OnSelectedIndexChanged(ByVal sender As Object, ByVal e As EventArgs)
+
+        ' Display Store details on row click of GridView
+        txtStoreDetails.Text = vbCrLf & vbCrLf & "Store#: " & Server.HtmlDecode(gvStores.SelectedRow.Cells(2).Text) _
+                                & vbCrLf & vbCrLf & "Name: " & vbTab & Server.HtmlDecode(gvStores.SelectedRow.Cells(3).Text) _
+                                & vbCrLf & vbCrLf & "Manager: " & Server.HtmlDecode(gvStores.SelectedRow.Cells(10).Text) _
+                                & vbCrLf & vbCrLf & "Address: " & Server.HtmlDecode(gvStores.SelectedRow.Cells(7).Text) _
+                                & vbCrLf & vbCrLf & "City: " & vbTab & Server.HtmlDecode(gvStores.SelectedRow.Cells(8).Text) _
+                                & vbCrLf & vbCrLf & "Phone: " & vbTab & Server.HtmlDecode(gvStores.SelectedRow.Cells(4).Text) _
+                                & vbCrLf & vbCrLf & "Email: " & vbTab & Server.HtmlDecode(gvStores.SelectedRow.Cells(9).Text) _
+                                & vbCrLf & vbCrLf & "State: " & vbTab & Server.HtmlDecode(gvStores.SelectedRow.Cells(5).Text) _
+                                & vbCrLf & vbCrLf & "Zip: " & vbTab & Server.HtmlDecode(gvStores.SelectedRow.Cells(6).Text) _
+                                & vbCrLf & vbCrLf & "POD: " & vbTab & Server.HtmlDecode(gvStores.SelectedRow.Cells(12).Text)
+
+
+    End Sub
+
+   
+
+    Protected Sub btnFilter_Click(ByVal sender As Object, ByVal e As System.EventArgs)
+        ' Filter Store 
+        hdnPageIndex.Value = 0
+        hdnFilterText.Value = "%" + txtFilter.Text.Trim + "%"
+        PopulateGrid(0, 50)
+
+    End Sub
+    Protected Sub btnClear_Click(ByVal sender As Object, ByVal e As System.EventArgs)
+
+        txtFilter.Text = ""
+        hdnFilterText.Value = String.Empty
+        hdnPageIndex.Value = 0
+        PopulateGrid(0, 50)
+
+    End Sub
+
+    Protected Sub btnExport_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles btnExport.Click
+
+        Dim objService As New Starbucks.StarbucksClient
+        Dim dtExport As New DataTable
+
+        ' Check if filtered data needs to be exported
+        If String.IsNullOrEmpty(hdnFilterText.Value.Trim) Then
+            dtExport = objService.GetStores(0, hdnTotalRows.Value)
+        Else
+            dtExport = objService.GetStoresFilter(hdnFilterText.Value.Trim, 0, hdnTotalRows.Value)
+        End If
+
+        Dim filename As String = objService.ExportStores(dtExport)
+
+        If Not String.IsNullOrEmpty(filename) Then
+            ScriptManager.RegisterClientScriptBlock(Me, Me.GetType(), "Download", "window.location='" + ConfigurationManager.AppSettings("baseWebURL") + "/downloads/" + filename + "';", True)
+        End If
+
+    End Sub
+
+    Protected Sub btnUpload_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles btnUpload.Click
+        ' upload bulk stores data
+        lblStatus.Text = ""
+        If (FileUpload1.HasFile) Then
+
+            Dim currentPath As String = HttpContext.Current.Server.MapPath("~")
+            Dim currentTime As Long = DateTime.Now.ToFileTimeUtc()
+            Dim fileName As String = Path.GetFileName(FileUpload1.FileName)
+            fileName = "stores_" & currentTime & "_" & fileName
+            Dim finalPath As String = currentPath & "\\uploads\\" & fileName
+            FileUpload1.SaveAs(finalPath)
+
+            Dim obj As Starbucks.StarbucksClient = New Starbucks.StarbucksClient()
+            Dim objResp As Starbucks.Response = New Starbucks.Response()
+            objResp = obj.UploadStoresDotNet(fileName, "")
+            lblStatus.Text = objResp.statusDescription
+
+            PopulateGrid(0, 50)
+
+        End If
+
+    End Sub
+
+    Protected Sub btnRefresh_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles btnRefresh.Click
+
+        ' Page Load
+        lblStatus.Text = ""
+        hdnTotalRows.Value = 0
+        hdnPageIndex.Value = 0
+        hdnFilterText.Value = String.Empty
+        txtFilter.Text = ""
+        txtStoreDetails.Text = ""
+       
+        PopulateGrid(0, 50)
+    End Sub
+
+    Protected Sub btnAdd_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles btnAdd.Click
+        ' Load Popup
+        lblPopupHeader.Text = "Create Store"
+        btnCreate.Text = "Create"
+        txtStoreNumber.ReadOnly = False
+        Clear()
+        ModalPopupExtender1.Show()
+    End Sub
+
+    Protected Sub lnkEdit_Click(ByVal sender As Object, ByVal e As EventArgs)
+        'Edit Grid Row
+        lblPopupHeader.Text = "Update Store"
+        btnCreate.Text = "Update"
+        Dim btnsubmit As LinkButton = TryCast(sender, LinkButton)
+        Dim gRow As GridViewRow = DirectCast(btnsubmit.NamingContainer, GridViewRow)
+        hdnStoreId.Value = gvStores.DataKeys(gRow.RowIndex).Value.ToString()
+        txtStoreNumber.ReadOnly = True
+
+        txtStoreNumber.Text = Server.HtmlDecode(gRow.Cells(2).Text.Trim)
+        txtStoreName.Text = Server.HtmlDecode(gRow.Cells(3).Text.Trim)
+        txtStorePhone.Text = Server.HtmlDecode(gRow.Cells(4).Text.Trim)
+        txtStoreState.Text = Server.HtmlDecode(gRow.Cells(5).Text.Trim)
+        txtStoreZip.Text = Server.HtmlDecode(gRow.Cells(6).Text.Trim)
+        txtStoreAddress.Text = Server.HtmlDecode(gRow.Cells(7).Text.Trim)
+        txtStoreCity.Text = Server.HtmlDecode(gRow.Cells(8).Text.Trim)
+        txtStoreEmail.Text = Server.HtmlDecode(gRow.Cells(9).Text.Trim)
+        txtManagerName.Text = Server.HtmlDecode(gRow.Cells(10).Text.Trim)
+        txtOwnershipType.Text = Server.HtmlDecode(gRow.Cells(11).Text.Trim)
+        chkPODRequired.Checked = Server.HtmlDecode(gRow.Cells(12).Text.Trim)
+
+        Me.ModalPopupExtender1.Show()
+
+    End Sub
+    Protected Sub btnCreate_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles btnCreate.Click
+
+        Dim objSvc As New Starbucks.StarbucksClient
+        Dim objResp As New Starbucks.Response
+        Dim objStore As New Starbucks.Store
+
+        objStore.storeNumber = txtStoreNumber.Text.Trim
+        objStore.storeName = txtStoreName.Text.Trim
+        objStore.storePhone = txtStorePhone.Text.Trim
+        objStore.storeState = txtStoreState.Text.Trim
+        objStore.storeZip = txtStoreZip.Text.Trim
+        objStore.storeAddress = txtStoreAddress.Text.Trim
+        objStore.storeCity = txtStoreCity.Text.Trim
+        objStore.storeEmailAddress = txtStoreEmail.Text.Trim
+        objStore.storeManagerName = txtManagerName.Text.Trim
+        objStore.storeOwnershipType = txtOwnershipType.Text.Trim
+        objStore.PODRequired = chkPODRequired.Checked
+
+        If btnCreate.Text = "Create" Then
+            ' Create new Store
+            objResp = objSvc.CreateStore(objStore)
+        ElseIf btnCreate.Text = "Update" Then
+            ' Update existing Store
+            objStore.storeID = Convert.ToInt32(hdnStoreId.Value)
+            objResp = objSvc.UpdateStore(objStore)
+        End If
+
+        If (objResp.statusCode <> 0) Then
+            lblStatus.Text = objResp.statusDescription
+        Else
+            If btnCreate.Text = "Create" Then
+                lblStatus.Text = "Store Created Successfully"
+            Else
+                lblStatus.Text = "Store Updated Successfully"
+            End If
+        End If
+
+        PopulateGrid(hdnPageIndex.Value * 50, 50)
+    End Sub
+
+    Protected Sub Clear()
+        txtStoreNumber.Text = String.Empty
+        txtStoreName.Text = String.Empty
+        txtStorePhone.Text = String.Empty
+        txtStoreState.Text = String.Empty
+        txtStoreZip.Text = String.Empty
+        txtStoreAddress.Text = String.Empty
+        txtStoreCity.Text = String.Empty
+        txtStoreEmail.Text = String.Empty
+        txtManagerName.Text = String.Empty
+        txtOwnershipType.Text = String.Empty
+        chkPODRequired.Checked = False
+    End Sub
+
+    Protected Sub btnPageNumber_Click(ByVal sender As Object, ByVal e As System.EventArgs)
+        If (IsNumeric(txtPageNumber.Text.Trim) And Not txtPageNumber.Text.Trim.Contains(".") And Convert.ToDouble(txtPageNumber.Text.Trim) > 0) Then
+            If Convert.ToInt32(txtPageNumber.Text.Trim) > Math.Truncate(hdnTotalRows.Value / 50) And hdnTotalRows.Value Mod 50 = 0 Then
+                txtPageNumber.Text = Math.Truncate(hdnTotalRows.Value / 50)
+                hdnPageIndex.Value = Math.Truncate(hdnTotalRows.Value / 50) - 1
+            ElseIf Convert.ToInt32(txtPageNumber.Text.Trim) > Math.Truncate(hdnTotalRows.Value / 50) And hdnTotalRows.Value Mod 50 > 0 Then
+                txtPageNumber.Text = Math.Truncate(hdnTotalRows.Value / 50) + 1
+                hdnPageIndex.Value = Math.Truncate(hdnTotalRows.Value / 50)
+            Else
+                hdnPageIndex.Value = Convert.ToInt32(txtPageNumber.Text.Trim) - 1
+            End If
+            PopulateGrid(hdnPageIndex.Value * 50, 50)
+        End If
+    End Sub
+
+    Protected Sub btnFirst_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles btnFirst.Click
+        hdnPageIndex.Value = 0
+        PopulateGrid(hdnPageIndex.Value, 50)
+    End Sub
+
+    Protected Sub btnLast_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles btnLast.Click
+        If (hdnTotalRows.Value Mod 50 = 0) Then
+            hdnPageIndex.Value = Math.Truncate(hdnTotalRows.Value / 50) - 1
+        Else
+            hdnPageIndex.Value = Math.Truncate(hdnTotalRows.Value / 50)
+        End If
+        PopulateGrid(hdnPageIndex.Value * 50, hdnTotalRows.Value Mod 50)
+    End Sub
+
+    Protected Sub btnPrevious_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles btnPrevious.Click
+        hdnPageIndex.Value = hdnPageIndex.Value - 1
+        PopulateGrid(hdnPageIndex.Value * 50, 50)
+    End Sub
+
+    Protected Sub btnNext_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles btnNext.Click
+        hdnPageIndex.Value = hdnPageIndex.Value + 1
+        PopulateGrid(hdnPageIndex.Value * 50, 50)
+    End Sub
+End Class
