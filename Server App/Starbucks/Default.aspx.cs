@@ -11,7 +11,7 @@ public partial class _Default : System.Web.UI.Page
     protected void Page_Load(object sender, EventArgs e)
     {
         Starbucks.StarbucksServices objService = new Starbucks.StarbucksServices();
-        //obj.DotNetGetAllRouteMappings(0,20,"1");
+        obj.DotNetGetAllRouteMappings(0,20,"1");
 
         
         //DataTable dtPhotoSearch ;
