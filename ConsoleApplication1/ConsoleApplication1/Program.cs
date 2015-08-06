@@ -9,7 +9,7 @@ namespace ConsoleApplication1
     {
         static void Main(string[] args)
         {
-            string test = "testing";
+           // string test = "testing";
         }
     }
 }
