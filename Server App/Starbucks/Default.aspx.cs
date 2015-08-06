@@ -11,16 +11,16 @@ public partial class _Default : System.Web.UI.Page
     protected void Page_Load(object sender, EventArgs e)
     {
         Starbucks.StarbucksServices objService = new Starbucks.StarbucksServices();
-        obj.DotNetGetAllRouteMappings(0,20,"1");
-
-        
-        //DataTable dtPhotoSearch ;
-        //dtPhotoSearch = objService.GetPhotos("", 0, 10);
-        
-        Starbucks.LoginResponse objLogin ;
+         obj.DotNetGetAllRouteMappings(0,20,"1");
 
 
-        //objLogin = objService.LoginForAdminPanel("ttestm", "1234");
+        DataTable dtPhotoSearch;
+        dtPhotoSearch = objService.GetPhotos("", 0, 10);
+
+        Starbucks.LoginResponse objLogin;
+
+
+        objLogin = objService.LoginForAdminPanel("ttestm", "1234");
 
     }
 }

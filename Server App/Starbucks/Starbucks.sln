@@ -24,27 +24,6 @@ Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "Starbucks(3)", "http://loca
 		SlnRelativePath = "..\Starbucks\"
 	EndProjectSection
 EndProject
-Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "StarbucksUI(3)", "http://localhost:31561", "{F9000AC7-A31D-45D7-B8DA-527B9D918E6F}"
-	ProjectSection(WebsiteProperties) = preProject
-		UseIISExpress = "true"
-		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.0"
-		Debug.AspNetCompiler.VirtualPath = "/localhost_31561"
-		Debug.AspNetCompiler.PhysicalPath = "..\StarbucksUI\"
-		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_31561\"
-		Debug.AspNetCompiler.Updateable = "true"
-		Debug.AspNetCompiler.ForceOverwrite = "true"
-		Debug.AspNetCompiler.FixedNames = "false"
-		Debug.AspNetCompiler.Debug = "True"
-		Release.AspNetCompiler.VirtualPath = "/localhost_31561"
-		Release.AspNetCompiler.PhysicalPath = "..\StarbucksUI\"
-		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_31561\"
-		Release.AspNetCompiler.Updateable = "true"
-		Release.AspNetCompiler.ForceOverwrite = "true"
-		Release.AspNetCompiler.FixedNames = "false"
-		Release.AspNetCompiler.Debug = "False"
-		SlnRelativePath = "..\StarbucksUI\"
-	EndProjectSection
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -52,8 +31,6 @@ Global
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{F2ABF7F9-B447-402C-9BB2-64B89F0BA9A2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{F2ABF7F9-B447-402C-9BB2-64B89F0BA9A2}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F9000AC7-A31D-45D7-B8DA-527B9D918E6F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F9000AC7-A31D-45D7-B8DA-527B9D918E6F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
